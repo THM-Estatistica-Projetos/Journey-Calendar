@@ -65,8 +65,6 @@ function ApolloCalendar({ args }) {
                 </div>
             )}
 
-            <h1>TESTE DE ATUALIZAÇÃO DO COMPONENTE</h1>
-
             <div className="flex gap-4 w-full">
                 <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Consulta</button>
                 <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 border-slate-200">Remover Consulta</button>
