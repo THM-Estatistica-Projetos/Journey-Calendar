@@ -4,6 +4,7 @@ import {
 } from "streamlit-component-lib"
 import React, { useEffect, useMemo, useState } from "react"
 import ModalAdicionar from "./modal/ModalAdicionar"
+import ModalExcluir from "./modal/ModalExcluir"
 
 function ApolloCalendar({ args }) {
     const {
@@ -49,7 +50,7 @@ function ApolloCalendar({ args }) {
 
     const [isAdicionarModalOpen, setIsAdicionarModalOpen] = useState(false)
     const [isEditarModalOpen, setIsEditarModalOpen] = useState(false)
-    const [isRemoverModalOpen, setIsRemoverModalOpen] = useState(false)
+    const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false)
 
     return (
         <div className="font-sans text-slate-900">
@@ -67,8 +68,8 @@ function ApolloCalendar({ args }) {
 
             <div className="flex gap-4 w-full">
                 <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Consulta</button>
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200">Remover Consulta</button>
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200">Editar Consulta</button>
+                {/*<button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsEditarModalOpen(true)}>Editar Consulta</button>*/}
+                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsExcluirModalOpen(true)}>Remover Consulta</button>
             </div>
 
             <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
@@ -119,6 +120,10 @@ function ApolloCalendar({ args }) {
             <ModalAdicionar
                 setIsAdicionarModalOpen={setIsAdicionarModalOpen}
                 isAdicionarModalOpen={isAdicionarModalOpen}
+            />
+            <ModalExcluir
+                setIsExcluirModalOpen={setIsExcluirModalOpen}
+                isExcluirModalOpen={isExcluirModalOpen}
             />
         </div>
     )

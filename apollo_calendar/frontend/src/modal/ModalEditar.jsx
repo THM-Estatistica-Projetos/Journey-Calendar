@@ -91,7 +91,7 @@ function ModalEditar({
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <button className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#afd3b3] transition-all">Adicionar</button>
+                                        <button className="w-full border bg-[#dfa70d] rounded-md text-md text-slate-700 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#e9b31e] transition-all">Editar</button>
                                     </form>
                                 </div>
                             </div>
@@ -103,4 +103,4 @@ function ModalEditar({
     )
 }
 
-export default ModalAdicionar;
+export default ModalEditar;

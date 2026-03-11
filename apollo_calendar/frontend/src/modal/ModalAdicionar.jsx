@@ -7,6 +7,8 @@ function ModalAdicionar({
     setIsAdicionarModalOpen,
     isAdicionarModalOpen
 }) {
+    const hoje = Date.now()
+
     return (
         <>
             <Transition appear show={isAdicionarModalOpen} as={Fragment}>
@@ -46,6 +48,7 @@ function ModalAdicionar({
                                                 <option>Consultório 4</option>
                                                 <option>Consultório 5</option>
                                             </select>
+                                            {/*<button className="text-xl text-gray-600 font-medium">+</button>*/}
                                         </div>
                                         <div className="flex gap-3">
                                             <div className="flex gap-1 flex-col w-50">
@@ -59,9 +62,9 @@ function ModalAdicionar({
                                         </div>
                                         <div className="flex gap-1 flex-col w-fix">
                                             <span className="text-xl text-gray-600 font-medium">Data</span>
-                                            <input type="date" className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"></input>
+                                            <input type="date" defaultValue={hoje} className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"></input>
                                         </div>
-                                        <div className="flex gap-1 flex-col w-fix">
+                                        {/*<div className="flex gap-1 flex-col w-fix">
                                             <span className="text-xl text-gray-600 font-medium">É recorrente?</span>
                                             <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
                                                 <div className="flex gap-1 w-fix">
@@ -73,7 +76,7 @@ function ModalAdicionar({
                                                     <span className="text-md text-gray-600 font-medium">Não</span>
                                                 </div>
                                             </fieldset>
-                                        </div>
+                                        </div>*/}
                                         <div className="flex gap-1 flex-col w-fix">
                                             <span className="text-xl text-gray-600 font-medium">Status</span>
                                             <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
@@ -83,7 +86,7 @@ function ModalAdicionar({
                                                 </div>
                                                 <div className="flex gap-1 w-fix">
                                                     <input type="radio"></input>
-                                                    <span className="text-md text-gray-600 font-medium">Pendente</span>
+                                                    <span className="text-md text-gray-600 font-medium">Presente</span>
                                                 </div>
                                                 <div className="flex gap-1 w-fix">
                                                     <input type="radio"></input>
@@ -91,7 +94,7 @@ function ModalAdicionar({
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <button className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#afd3b3] transition-all">Adicionar</button>
+                                        <button className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">Adicionar</button>
                                     </form>
                                 </div>
                             </div>
