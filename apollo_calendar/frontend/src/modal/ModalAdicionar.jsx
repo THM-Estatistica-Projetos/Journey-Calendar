@@ -13,12 +13,26 @@ function ModalAdicionar({
                 <Dialog as="div" className="relative z-50" onClose={() => setIsAdicionarModalOpen(false)}>
                     <div className="fixed inset-0" aria-hidden="true" />
                     <div className="fixed inset-0 flex items-center justify-center p-4">
-                        <Dialog.Panel className="w-full max-w-[700px] h-full overflow-y-hidden transform rounded-2xl bg-white py-10 px-6 shadow-2xl transition-all scroll-m-0">
+                        <Dialog.Panel className="w-full max-w-[700px] overflow-y-hidden transform rounded-2xl bg-white py-10 px-6 shadow-2xl transition-all scroll-m-0">
                             <div className="w-full px-5">
                                 <h1 className="text-2xl font-semibold text-gray-700">
                                     Adicionar novo agendamento ou aluguel
                                 </h1>
 
+                                <div>
+                                    <form className="flex flex-col">
+
+                                        <div className="flex gap-1 flex-col">
+                                            <span>Título</span>
+                                            <input type="text" placeholder="Paciente"></input>
+                                        </div>
+                                        <div className="flex gap-1 flex-col">
+                                            <span>Profissional</span>
+                                            <input type="text" placeholder="Profissional"></input>
+                                        </div>
+                                        <button>Adicionar</button>
+                                    </form>
+                                </div>
                             </div>
                         </Dialog.Panel>
                     </div>
