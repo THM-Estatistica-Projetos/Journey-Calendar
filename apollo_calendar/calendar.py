@@ -6,10 +6,12 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from numpy import random
-
-import pandas as pd
+from pathlib import Path
+import streamlit.components.v1 as components
 
 _RELEASE = True
+
+import pandas as pd
 
 # Main component
 if _RELEASE == False:
@@ -18,12 +20,11 @@ if _RELEASE == False:
         url="http://localhost:3001"
     )
 else: 
-    parent_dir = os.path.dirname(__file__)
-    build_dir = os.path.join(parent_dir, "frontend/build")
-    
+    _component_path = Path(__file__).parent / "frontend" / "build"
+
     _apollo_calendar = components.declare_component(
         "apollo_calendar",
-        path=build_dir
+        path=str(_component_path)
     )
 
 def apollo_calendar(items, columns, time_slots=None, config=None, key=None):
