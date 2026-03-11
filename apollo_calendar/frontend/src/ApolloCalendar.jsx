@@ -25,7 +25,7 @@ function ApolloCalendar({ args }) {
 
     useEffect(() => {
         Streamlit.setFrameHeight()
-    }, [items, isMinimalist])
+    })
 
     const getHourSlot = (dateStr) => {
         const d = new Date(dateStr)
