@@ -1,11 +1,11 @@
 # streamlit-custom-component
 
-Streamlit component that allows you to do X
+Streamlit component for a calendar using react and pure HTML
 
 ## Installation instructions
 
 ```sh
-pip install streamlit-custom-component
+pip install git+https://https://github.com/THM-Estatistica-Projetos/Apollo-Calendar.git
 ```
 
 ## Usage instructions
@@ -15,9 +15,10 @@ import streamlit as st
 
 from apollo_calendar import apollo_calendar
 
-value = apollo_calendar()
-
-st.write(value)
+apollo_calendar(
+    items=items,
+    columns=headers
+)
 ```
 
 ## Local development
@@ -25,14 +26,14 @@ st.write(value)
 1. Start Streamlit from the project root:
 
    ```sh
-   streamlit run apollo_calendar/example.py
+   streamlit run apollo_calendar/calendar.py
    ```
 
 2. In another terminal, run the Vite dev server from `apollo_calendar/frontend`:
 
    ```sh
    npm install
-   npm run start
+   npm start
    ```
 
 ### Important dev server notes
