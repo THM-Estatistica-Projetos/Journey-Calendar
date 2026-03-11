@@ -6,7 +6,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
-    name="streamlit-custom-component",
+    name="apollo_calendar",
     version="0.0.1",
     author="THM Estatística",
     author_email="eduardocoutinho30089@gmail.com",
