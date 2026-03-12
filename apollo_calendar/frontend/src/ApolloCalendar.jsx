@@ -54,6 +54,13 @@ function ApolloCalendar({ args }) {
     const [isEditarModalOpen, setIsEditarModalOpen] = useState(false)
     const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false)
 
+    const [selectedEvent, setSelectedEvent] = useState({})
+
+    const handleEventClick = (item) => {
+        setSelectedEvent(item)
+        setIsExcluirModalOpen(true)
+    }
+
     return (
         <div className="font-sans text-slate-900">
             {config.showToggle && (
@@ -70,8 +77,8 @@ function ApolloCalendar({ args }) {
 
             <div className="flex gap-4 w-full">
                 <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Consulta</button>
-                {/*<button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsEditarModalOpen(true)}>Editar Consulta</button>*/}
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsExcluirModalOpen(true)}>Remover Consulta</button>
+                {/*<button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsEditarModalOpen(true)}>Editar Consulta</button>
+                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsExcluirModalOpen(true)}>Remover Consulta</button>*/}
             </div>
 
             <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
@@ -107,6 +114,7 @@ function ApolloCalendar({ args }) {
                                                         item={item}
                                                         isMinimalist={isMinimalist}
                                                         config={config}
+                                                        onClickEvent={handleEventClick}
                                                     />
                                                 ))}
                                             </div>
@@ -129,12 +137,13 @@ function ApolloCalendar({ args }) {
             <ModalExcluir
                 setIsExcluirModalOpen={setIsExcluirModalOpen}
                 isExcluirModalOpen={isExcluirModalOpen}
+                item={selectedEvent}
             />
         </div>
     )
 }
 
-const EventCard = ({ item, isMinimalist, config }) => {
+const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
     const color = item[config.colorKey] || "#3788d8"
     const slotHeight = config.slotHeight || 70
 
@@ -168,7 +177,7 @@ const EventCard = ({ item, isMinimalist, config }) => {
     };
 
     return (
-        <div
+        <div onClick={() => onClickEvent(item)}
             style={style}
             className="w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center"
         >
