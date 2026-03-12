@@ -42,3 +42,5 @@ def apollo_calendar(items, patients, professionals, columns, time_slots=None, co
         key=key,
         acesso=acesso
     )
+    
+st.write("Teste")
