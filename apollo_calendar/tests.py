@@ -87,7 +87,8 @@ def format_data_for_calendar(raw_data):
             "startTime": item.get("inicio"), # ISO String
             "endTime": item.get("fim"),      # ISO String
             "columnId": str(item.get("slot", {}).get("id_slot")),
-            "color": paciente.get("cor", "#3788d8")
+            "color": paciente.get("cor", "#3788d8"),
+            "status": "Agendado"
         })
     return formatted
 
@@ -132,7 +133,7 @@ db_fake_raw = [
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T11:00:00.000Z",
         "slot": {"id_slot": 1},
         "paciente": {"nome": "João Silva", "cor": "#2196F3"},
-        "profissional": {"usuario": {"nome": "Sei la"}}
+        "profissional": {"usuario": {"nome": "Sei la"}},
     },
     {
         "id": 2,

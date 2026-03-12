@@ -64,7 +64,7 @@ function ModalAtualizar({
                 data: start.toISOString().slice(0, 10),
                 inicio: item.startTime.slice(11, 16),
                 fim: item.endTime.slice(11, 16),
-                status: "Agendado"
+                status: item.status || ""
             })
         }
     }, [item, isAtualizarModalOpen])
