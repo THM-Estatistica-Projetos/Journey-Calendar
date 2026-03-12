@@ -4,7 +4,7 @@ import {
 } from "streamlit-component-lib"
 import React, { useEffect, useMemo, useState } from "react"
 import ModalAdicionar from "./modal/ModalAdicionar"
-import ModalExcluir from "./modal/ModalExcluir"
+import ModalAtualizar from "./modal/ModalAtualizar"
 
 function ApolloCalendar({ args }) {
     const {
@@ -52,13 +52,13 @@ function ApolloCalendar({ args }) {
 
     const [isAdicionarModalOpen, setIsAdicionarModalOpen] = useState(false)
     const [isEditarModalOpen, setIsEditarModalOpen] = useState(false)
-    const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false)
+    const [isAtualizarModalOpen, setIsAtualizarModalOpen] = useState(false)
 
     const [selectedEvent, setSelectedEvent] = useState({})
 
     const handleEventClick = (item) => {
         setSelectedEvent(item)
-        setIsExcluirModalOpen(true)
+        setIsAtualizarModalOpen(true)
     }
 
     return (
@@ -78,7 +78,7 @@ function ApolloCalendar({ args }) {
             <div className="flex gap-4 w-full">
                 <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Consulta</button>
                 {/*<button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsEditarModalOpen(true)}>Editar Consulta</button>
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsExcluirModalOpen(true)}>Remover Consulta</button>*/}
+                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAtualizarModalOpen(true)}>Remover Consulta</button>*/}
             </div>
 
             <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
@@ -134,10 +134,13 @@ function ApolloCalendar({ args }) {
                 professionals={professionals}
                 columns={columns}
             />
-            <ModalExcluir
-                setIsExcluirModalOpen={setIsExcluirModalOpen}
-                isExcluirModalOpen={isExcluirModalOpen}
+            <ModalAtualizar
+                setIsAtualizarModalOpen={setIsAtualizarModalOpen}
+                isAtualizarModalOpen={isAtualizarModalOpen}
                 item={selectedEvent}
+                patients={patients}
+                professionals={professionals}
+                columns={columns}
             />
         </div>
     )
