@@ -1,13 +1,43 @@
 import { Checkbox, Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 
-import { useMemo } from "react";
+import { Streamlit } from "streamlit-component-lib";
 
 function ModalAdicionar({
     setIsAdicionarModalOpen,
-    isAdicionarModalOpen
+    isAdicionarModalOpen,
+    patients,
+    professionals
 }) {
-    const hoje = Date.now()
+
+    const hoje = new Date().toISOString().split("T")[0]
+
+    const [formData, setFormData] = useState({
+        operacao: "Add",
+        paciente: "",
+        profissional: "",
+        slot: "Consultório 1",
+        inicio: "",
+        fim: "",
+        data: hoje,
+        status: "Agendado"
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setIsAdicionarModalOpen(false)
+
+        Streamlit.setComponentValue(formData)
+    }
 
     return (
         <>
@@ -22,79 +52,122 @@ function ModalAdicionar({
                                 </h1>
 
                                 <div className="w-full border border-b-slate-800 my-4" />
-
                                 <div>
-                                    <form className="flex flex-col gap-5">
+                                    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                         <div className="flex gap-1 flex-col">
                                             <span className="text-xl text-gray-600 font-medium">Paciente</span>
-                                            <select defaultChecked="Selecione um paciente" className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                <option>Selecione um paciente</option>
-                                                <option>Paciente 1</option>
+                                            <select
+                                                name="paciente"
+                                                value={formData.paciente}
+                                                onChange={handleChange}
+                                                className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
+                                            >
+                                                <option value="">Selecione um paciente</option>
+                                                {patients.map((patient) => (
+                                                    <option key={patient.id} value={patient.id}>{patient.nome}</option>
+                                                ))}
                                             </select>
                                         </div>
                                         <div className="flex gap-1 flex-col">
                                             <span className="text-xl text-gray-600 font-medium">Profissional</span>
-                                            <select defaultChecked="Selecione um profissional" className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                <option>Selecione um profissional</option>
-                                                <option>Profissional 1</option>
+                                            <select
+                                                name="profissional"
+                                                value={formData.profissional}
+                                                onChange={handleChange}
+                                                className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
+                                            >
+                                                <option value="">Selecione um profissional</option>
+                                                {professionals.map((professionals) => (
+                                                    <option key={professionals.id} value={professionals.id}>{professionals.nome}</option>
+                                                ))}
                                             </select>
                                         </div>
                                         <div className="flex gap-1 flex-col">
                                             <span className="text-xl text-gray-600 font-medium">Slot</span>
-                                            <select defaultChecked="Consultório 1" className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                <option>Consultório 1</option>
-                                                <option>Consultório 2</option>
-                                                <option>Consultório 3</option>
-                                                <option>Consultório 4</option>
-                                                <option>Consultório 5</option>
+                                            <select
+                                                name="slot"
+                                                value={formData.slot}
+                                                onChange={handleChange}
+                                                className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
+                                            >
+                                                <option value="Consultório 1">Consultório 1</option>
+                                                <option value="Consultório 2">Consultório 2</option>
+                                                <option value="Consultório 3">Consultório 3</option>
+                                                <option value="Consultório 4">Consultório 4</option>
+                                                <option value="Consultório 5">Consultório 5</option>
                                             </select>
-                                            {/*<button className="text-xl text-gray-600 font-medium">+</button>*/}
                                         </div>
                                         <div className="flex gap-3">
                                             <div className="flex gap-1 flex-col w-50">
                                                 <span className="text-xl text-gray-600 font-medium">Inicio</span>
-                                                <input type="time" className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"></input>
+                                                <input
+                                                    type="time"
+                                                    name="inicio"
+                                                    value={formData.inicio}
+                                                    onChange={handleChange}
+                                                    className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
+                                                />
                                             </div>
                                             <div className="flex gap-1 flex-col w-50">
                                                 <span className="text-xl text-gray-600 font-medium">Fim</span>
-                                                <input type="time" className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"></input>
+                                                <input
+                                                    type="time"
+                                                    name="fim"
+                                                    value={formData.fim}
+                                                    onChange={handleChange}
+                                                    className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
+                                                />
                                             </div>
                                         </div>
                                         <div className="flex gap-1 flex-col w-fix">
                                             <span className="text-xl text-gray-600 font-medium">Data</span>
-                                            <input type="date" defaultValue={hoje} className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"></input>
+                                            <input
+                                                type="date"
+                                                name="data"
+                                                value={formData.data}
+                                                onChange={handleChange}
+                                                className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
+                                            />
                                         </div>
-                                        {/*<div className="flex gap-1 flex-col w-fix">
-                                            <span className="text-xl text-gray-600 font-medium">É recorrente?</span>
-                                            <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                <div className="flex gap-1 w-fix">
-                                                    <input type="radio"></input>
-                                                    <span className="text-md text-gray-600 font-medium">Sim</span>
-                                                </div>
-                                                <div className="flex gap-1 w-fix">
-                                                    <input type="radio"></input>
-                                                    <span className="text-md text-gray-600 font-medium">Não</span>
-                                                </div>
-                                            </fieldset>
-                                        </div>*/}
                                         <div className="flex gap-1 flex-col w-fix">
                                             <span className="text-xl text-gray-600 font-medium">Status</span>
                                             <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
                                                 <div className="flex gap-1 w-fix">
-                                                    <input type="radio"></input>
+                                                    <input
+                                                        type="radio"
+                                                        name="status"
+                                                        value="Agendado"
+                                                        checked={formData.status === "Agendado"}
+                                                        onChange={handleChange}
+                                                    />
                                                     <span className="text-md text-gray-600 font-medium">Agendado</span>
                                                 </div>
                                                 <div className="flex gap-1 w-fix">
-                                                    <input type="radio"></input>
+                                                    <input
+                                                        type="radio"
+                                                        name="status"
+                                                        value="Presente"
+                                                        checked={formData.status === "Presente"}
+                                                        onChange={handleChange}
+                                                    />
                                                     <span className="text-md text-gray-600 font-medium">Presente</span>
                                                 </div>
                                                 <div className="flex gap-1 w-fix">
-                                                    <input type="radio"></input>
+                                                    <input
+                                                        type="radio"
+                                                        name="status"
+                                                        value="Cancelado"
+                                                        checked={formData.status === "Cancelado"}
+                                                        onChange={handleChange}
+                                                    />
                                                     <span className="text-md text-gray-600 font-medium">Cancelado</span>
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <button className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">Adicionar</button>
+
+                                        <button type="submit" className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">
+                                            Adicionar
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -106,4 +179,4 @@ function ModalAdicionar({
     )
 }
 
-export default ModalAdicionar;
+export default ModalAdicionar

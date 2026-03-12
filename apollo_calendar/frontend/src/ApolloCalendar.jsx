@@ -9,6 +9,8 @@ import ModalExcluir from "./modal/ModalExcluir"
 function ApolloCalendar({ args }) {
     const {
         items = [], // Eventos a serem mostrados
+        patients = [],
+        professionals = [],
         columns = [], // Slots
         timeSlots = [], // Horários
         config = {
@@ -19,7 +21,7 @@ function ApolloCalendar({ args }) {
             colorKey: 'color',
             showToggle: true,
             slotHeight: 70
-        }
+        },
     } = args
 
     const [isMinimalist, setIsMinimalist] = useState(false)
@@ -120,6 +122,8 @@ function ApolloCalendar({ args }) {
             <ModalAdicionar
                 setIsAdicionarModalOpen={setIsAdicionarModalOpen}
                 isAdicionarModalOpen={isAdicionarModalOpen}
+                patients={patients}
+                professionals={professionals}
             />
             <ModalExcluir
                 setIsExcluirModalOpen={setIsExcluirModalOpen}

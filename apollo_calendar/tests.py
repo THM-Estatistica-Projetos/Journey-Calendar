@@ -52,7 +52,7 @@ data_str = st.session_state.data.strftime("%Y-%m-%d")
 
 st.set_page_config(layout="wide")
 
-def apollo_calendar(items, columns, time_slots=None, config=None, key=None):
+def apollo_calendar(items, patients, professionals, columns, time_slots=None, config=None, key=None):
     """
     items: Lista de dicionários formatados
     columns: Lista de strings ou dicts [{"id": "C1", "title": "Consultório 1"}]
@@ -64,6 +64,8 @@ def apollo_calendar(items, columns, time_slots=None, config=None, key=None):
         
     return _apollo_calendar(
         items=items,
+        patients=patients,
+        professionals=professionals,
         columns=columns,
         timeSlots=time_slots,
         config=config,
@@ -88,6 +90,40 @@ def format_data_for_calendar(raw_data):
             "color": paciente.get("cor", "#3788d8")
         })
     return formatted
+
+professionals = [
+    {
+        "id" : 1,
+        "nome": "Tiago",
+        "papel":"medico_parceiro"
+    },
+    {
+        "id" : 2,
+        "nome": "Ronney",
+        "papel":"medico_parceiro"
+    },
+    {
+        "id" : 3,
+        "nome": "Eduardo",
+        "papel":"apollo_especial"
+    },
+    {
+        "id" : 4,
+        "nome": "Alice",
+        "papel":"apollo_especial"
+    },
+]
+
+patients = [
+    {
+        "id" : 1,
+        "nome": "André"
+    },
+    {
+        "id" : 2,
+        "nome": "Eduardo"
+    }
+]
 
 db_fake_raw = [
     {
@@ -143,8 +179,10 @@ db_fake_raw = [
 items = format_data_for_calendar(db_fake_raw)
 headers = [{"id": f"C{i}", "title": f"Consultório {i}"} for i in range(1, 6)]
 
-apollo_calendar(
+resultado = apollo_calendar(
     items=items, 
+    patients=patients,
+    professionals=professionals,
     columns=headers,
     config={
         "primaryKey": "id",
@@ -155,3 +193,5 @@ apollo_calendar(
         "showToggle": True
     }
 )
+
+st.write(resultado)
