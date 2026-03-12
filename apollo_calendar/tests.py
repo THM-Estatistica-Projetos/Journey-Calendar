@@ -52,7 +52,7 @@ data_str = st.session_state.data.strftime("%Y-%m-%d")
 
 st.set_page_config(layout="wide")
 
-def apollo_calendar(items, patients, professionals, columns, time_slots=None, config=None, key=None):
+def apollo_calendar(items, patients, professionals, columns, time_slots=None, config=None, key=None, acesso=""):
     """
     items: Lista de dicionários formatados
     columns: Lista de strings ou dicts [{"id": "C1", "title": "Consultório 1"}]
@@ -69,7 +69,8 @@ def apollo_calendar(items, patients, professionals, columns, time_slots=None, co
         columns=columns,
         timeSlots=time_slots,
         config=config,
-        key=key
+        key=key,
+        acesso=acesso
     )
     
 def format_data_for_calendar(raw_data):
@@ -88,7 +89,7 @@ def format_data_for_calendar(raw_data):
             "endTime": item.get("fim"),      # ISO String
             "columnId": str(item.get("slot", {}).get("id_slot")),
             "color": paciente.get("cor", "#3788d8"),
-            "status": "Agendado"
+            "status": "Presente"
         })
     return formatted
 
@@ -180,6 +181,39 @@ db_fake_raw = [
 items = format_data_for_calendar(db_fake_raw)
 headers = [{"id_slot": f"{i}", "nome": f"Consultório {i}", "sigla": f"C{i}"} for i in range(1, 6)]
 
+today = st.session_state.data
+start_week = today - timedelta(days=(today.weekday() + 1) % 7)
+
+headers_medico = []
+
+dias = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"]
+
+for i in range(7):
+    d = start_week + timedelta(days=i)
+
+    headers_medico.append({
+        "date": d.strftime("%Y-%m-%d"),
+        "label": f"{dias[i]} {d.day}"
+    })
+    
+st.write(headers_medico)
+resultado = apollo_calendar(
+    items=items, 
+    patients=patients,
+    professionals=professionals,
+    columns=headers_medico,
+    config={
+        "primaryKey": "id",
+        "columnKey": "columnId",
+        "timeKey": "startTime",
+        "endTime": "endTime",
+        "colorKey": "color",
+        "showToggle": True
+    },
+    key="1",
+    acesso="Medico"
+)
+
 resultado = apollo_calendar(
     items=items, 
     patients=patients,
@@ -192,7 +226,10 @@ resultado = apollo_calendar(
         "endTime": "endTime",
         "colorKey": "color",
         "showToggle": True
-    }
+    },
+    key="2",
+    acesso="Admin"
 )
+
 
 st.write(resultado)

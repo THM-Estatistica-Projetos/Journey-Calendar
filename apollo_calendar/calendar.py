@@ -22,7 +22,7 @@ else:
         path=str(build_dir),
     )
 
-def apollo_calendar(items, patients, professionals, columns, time_slots=None, config=None, key=None):
+def apollo_calendar(items, patients, professionals, columns, time_slots=None, config=None, key=None, acesso="Medico"):
     """
     items: Lista de dicionários formatados
     columns: Lista de strings ou dicts [{"id": "C1", "title": "Consultório 1"}]
@@ -39,5 +39,6 @@ def apollo_calendar(items, patients, professionals, columns, time_slots=None, co
         columns=columns,
         timeSlots=time_slots,
         config=config,
-        key=key
+        key=key,
+        acesso=acesso
     )
