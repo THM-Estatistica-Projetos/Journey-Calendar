@@ -93,22 +93,22 @@ def format_data_for_calendar(raw_data):
 
 professionals = [
     {
-        "id" : 1,
+        "id_usuario" : 1,
         "nome": "Tiago",
         "papel":"medico_parceiro"
     },
     {
-        "id" : 2,
+        "id_usuario" : 2,
         "nome": "Ronney",
         "papel":"medico_parceiro"
     },
     {
-        "id" : 3,
+        "id_usuario" : 3,
         "nome": "Eduardo",
         "papel":"apollo_especial"
     },
     {
-        "id" : 4,
+        "id_usuario" : 4,
         "nome": "Alice",
         "papel":"apollo_especial"
     },
@@ -116,11 +116,11 @@ professionals = [
 
 patients = [
     {
-        "id" : 1,
+        "id_paciente" : 1,
         "nome": "André"
     },
     {
-        "id" : 2,
+        "id_paciente" : 2,
         "nome": "Eduardo"
     }
 ]

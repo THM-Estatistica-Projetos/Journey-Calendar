@@ -65,7 +65,7 @@ function ModalAdicionar({
                                             >
                                                 <option value="">Selecione um paciente</option>
                                                 {patients.map((patient) => (
-                                                    <option key={patient.id} value={patient.id}>{patient.nome}</option>
+                                                    <option key={patient.id_paciente} value={patient.id_paciente}>{patient.nome}</option>
                                                 ))}
                                             </select>
                                         </div>
@@ -78,8 +78,8 @@ function ModalAdicionar({
                                                 className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
                                             >
                                                 <option value="">Selecione um profissional</option>
-                                                {professionals.map((professionals) => (
-                                                    <option key={professionals.id} value={professionals.id}>{professionals.nome}</option>
+                                                {professionals.map((professional) => (
+                                                    <option key={professional.id_usuario} value={professional.id_usuario}>{professional.nome}</option>
                                                 ))}
                                             </select>
                                         </div>
@@ -93,7 +93,7 @@ function ModalAdicionar({
                                             >
                                                 <option value="Selecione um slot">Selecione um slot</option>
                                                 {columns.map((column) => (
-                                                    <option key={column.id} value={column.id}>{column.nome}</option>
+                                                    <option key={column.id_slot} value={column.id_slot}>{column.nome}</option>
                                                 ))}
                                             </select>
                                         </div>
