@@ -7,7 +7,8 @@ function ModalAdicionar({
     setIsAdicionarModalOpen,
     isAdicionarModalOpen,
     patients,
-    professionals
+    professionals,
+    columns
 }) {
 
     const hoje = new Date().toISOString().split("T")[0]
@@ -90,11 +91,10 @@ function ModalAdicionar({
                                                 onChange={handleChange}
                                                 className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
                                             >
-                                                <option value="Consultório 1">Consultório 1</option>
-                                                <option value="Consultório 2">Consultório 2</option>
-                                                <option value="Consultório 3">Consultório 3</option>
-                                                <option value="Consultório 4">Consultório 4</option>
-                                                <option value="Consultório 5">Consultório 5</option>
+                                                <option value="Selecione um slot">Selecione um slot</option>
+                                                {columns.map((column) => (
+                                                    <option key={column.id} value={column.id}>{column.nome}</option>
+                                                ))}
                                             </select>
                                         </div>
                                         <div className="flex gap-3">

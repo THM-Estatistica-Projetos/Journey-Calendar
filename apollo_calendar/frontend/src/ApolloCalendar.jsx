@@ -124,6 +124,7 @@ function ApolloCalendar({ args }) {
                 isAdicionarModalOpen={isAdicionarModalOpen}
                 patients={patients}
                 professionals={professionals}
+                columns={columns}
             />
             <ModalExcluir
                 setIsExcluirModalOpen={setIsExcluirModalOpen}
