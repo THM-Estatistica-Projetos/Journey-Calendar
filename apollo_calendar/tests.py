@@ -86,7 +86,7 @@ def format_data_for_calendar(raw_data):
             "subtitle": item.get("profissional", {}).get("usuario", {}).get("nome", ""),
             "startTime": item.get("inicio"), # ISO String
             "endTime": item.get("fim"),      # ISO String
-            "columnId": item.get("slot", {}).get("nome"),
+            "columnId": str(item.get("slot", {}).get("id_slot")),
             "color": paciente.get("cor", "#3788d8")
         })
     return formatted
@@ -130,7 +130,7 @@ db_fake_raw = [
         "id": 1,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T11:00:00.000Z",
-        "slot": {"nome": "C1"},
+        "slot": {"id_slot": 1},
         "paciente": {"nome": "João Silva", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Sei la"}}
     },
@@ -138,7 +138,7 @@ db_fake_raw = [
         "id": 2,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T08:30:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:30:00.000Z",
-        "slot": {"nome": "C2"},
+        "slot": {"id_slot": 2},
         "paciente": {"nome": "Maria Oliveira", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Dr. Carlos"}}
     },
@@ -146,7 +146,7 @@ db_fake_raw = [
         "id": 3,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T12:30:00.000Z",
-        "slot": {"nome": "C1"},
+        "slot": {"id_slot": 1},
         "paciente": {"nome": "Pedro Santos", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Dra. Ana"}}
     },
@@ -154,7 +154,7 @@ db_fake_raw = [
         "id": 4,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
-        "slot": {"nome": "C2"},
+        "slot": {"id_slot": 2},
         "paciente": {"nome": "Fernanda Costa", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Paulo"}}
     },
@@ -162,7 +162,7 @@ db_fake_raw = [
         "id": 5,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:30:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T18:00:00.000Z",
-        "slot": {"nome": "C2"},
+        "slot": {"id_slot": 3},
         "paciente": {"nome": "Eduardo Paiva", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Paulo"}}
     },
@@ -170,14 +170,14 @@ db_fake_raw = [
         "id": 6,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T18:00:00.000Z",
-        "slot": {"nome": "C1"},
+        "slot": {"id_slot": 4},
         "paciente": {"nome": "Juliana Rocha", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Marcos"}}
     }
 ]
 
 items = format_data_for_calendar(db_fake_raw)
-headers = [{"id": f"C{i}", "title": f"Consultório {i}"} for i in range(1, 6)]
+headers = [{"id_slot": f"{i}", "nome": f"Consultório {i}", "sigla": f"C{i}"} for i in range(1, 6)]
 
 resultado = apollo_calendar(
     items=items, 

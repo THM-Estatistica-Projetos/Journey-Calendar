@@ -82,8 +82,8 @@ function ApolloCalendar({ args }) {
                                 Horário
                             </th>
                             {columns.map((col) => (
-                                <th key={col.id} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
-                                    {col.title}
+                                <th key={col.id_slot} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
+                                    {col.nome}
                                 </th>
                             ))}
                         </tr>
@@ -97,9 +97,9 @@ function ApolloCalendar({ args }) {
                                 </td>
 
                                 {columns.map((col) => {
-                                    const cellItems = gridData[`${col.id}-${time}`] || []
+                                    const cellItems = gridData[`${col.id_slot}-${time}`] || []
                                     return (
-                                        <td key={`${time}-${col.id}`} className="p-0 border-r border-slate-200 align-top relative">
+                                        <td key={`${time}-${col.id_slot}`} className="p-0 border-r border-slate-200 align-top relative">
                                             <div className="absolute inset-x-0 top-0 z-10 p-1 flex gap-1">
                                                 {cellItems.map((item) => (
                                                     <EventCard
