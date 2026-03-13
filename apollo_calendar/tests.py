@@ -121,11 +121,13 @@ professionals = [
 patients = [
     {
         "id_paciente" : 1,
-        "nome": "André"
+        "nome": "André",
+        "paciente_apollo": True
     },
     {
         "id_paciente" : 2,
-        "nome": "Eduardo"
+        "nome": "Eduardo",
+        "paciente_apollo": False
     }
 ]
 
@@ -161,7 +163,7 @@ db_fake_raw = [
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
         "slot": {"id_slot": 2},
-        "paciente": {"nome": "Fernanda Costa", "cor": "#172531"},
+        "paciente": {"nome": "Fernanda Costa", "cor": "#172531", "paciente_apollo": True},
         "profissional": {"usuario": {"nome": "Dr. Paulo"}}
     },
     {
@@ -217,8 +219,7 @@ resultado = apollo_calendar(
         "showToggle": True
     },
     key="1",
-    acesso="Medico",
-    paciente_apollo=paciente_apollo_default
+    acesso="Medico"
 )
 
 resultado = apollo_calendar(
@@ -235,8 +236,7 @@ resultado = apollo_calendar(
         "showToggle": True
     },
     key="2",
-    acesso="Admin",
-    paciente_apollo=paciente_apollo_default
+    acesso="Admin"
 )
 
 
