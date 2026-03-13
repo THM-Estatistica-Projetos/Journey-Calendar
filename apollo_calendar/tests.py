@@ -118,19 +118,6 @@ professionals = [
     },
 ]
 
-patients = [
-    {
-        "id_paciente" : 1,
-        "nome": "André",
-        "paciente_apollo": True
-    },
-    {
-        "id_paciente" : 2,
-        "nome": "Eduardo",
-        "paciente_apollo": False
-    }
-]
-
 db_fake_raw = [
     {
         "id": 1,
@@ -138,7 +125,7 @@ db_fake_raw = [
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T11:00:00.000Z",
         "slot": {"id_slot": 1},
         "paciente_apollo": True,
-        "paciente": {"nome": "João Silva", "cor": "#2196F3"},
+        "paciente": {"id_paciente": 101, "nome": "João Silva", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Sei la"}},
     },
     {
@@ -147,7 +134,7 @@ db_fake_raw = [
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:30:00.000Z",
         "slot": {"id_slot": 2},
         "paciente_apollo": False,
-        "paciente": {"nome": "Maria Oliveira", "cor": "#2196F3"},
+        "paciente": {"id_paciente": 102, "nome": "Maria Oliveira", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Dr. Carlos"}}
     },
     {
@@ -155,7 +142,8 @@ db_fake_raw = [
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T12:30:00.000Z",
         "slot": {"id_slot": 1},
-        "paciente": {"nome": "Pedro Santos", "cor": "#2196F3"},
+        "paciente_apollo": False,
+        "paciente": {"id_paciente": 103, "nome": "Pedro Santos", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Dra. Ana"}}
     },
     {
@@ -163,7 +151,8 @@ db_fake_raw = [
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
         "slot": {"id_slot": 2},
-        "paciente": {"nome": "Fernanda Costa", "cor": "#172531", "paciente_apollo": True},
+        "paciente_apollo": True,
+        "paciente": {"id_paciente": 104, "nome": "Fernanda Costa", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Paulo"}}
     },
     {
@@ -171,7 +160,8 @@ db_fake_raw = [
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:30:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T18:00:00.000Z",
         "slot": {"id_slot": 3},
-        "paciente": {"nome": "Eduardo Paiva", "cor": "#172531"},
+        "paciente_apollo": False,
+        "paciente": {"id_paciente": 105, "nome": "Eduardo Paiva", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Paulo"}}
     },
     {
@@ -179,9 +169,19 @@ db_fake_raw = [
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T18:00:00.000Z",
         "slot": {"id_slot": 4},
-        "paciente": {"nome": "Juliana Rocha", "cor": "#172531"},
+        "paciente_apollo": False,
+        "paciente": {"id_paciente": 106, "nome": "Juliana Rocha", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Marcos"}}
     }
+]
+
+patients = [
+    {
+        "id_paciente": item["paciente"].get("id_paciente"),
+        "nome": item["paciente"].get("nome"),
+        "paciente_apollo": item.get("paciente_apollo", item["paciente"].get("paciente_apollo", False))
+    }
+    for item in db_fake_raw
 ]
 
 items = format_data_for_calendar(db_fake_raw)
