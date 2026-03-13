@@ -14,6 +14,7 @@ function ApolloCalendar({ args }) {
         professionals = [],
         columns = [], // Slots
         timeSlots = [], // Horários
+        paciente_apollo = false,
         config = {
             primaryKey: 'id',
             columnKey: 'columnId',

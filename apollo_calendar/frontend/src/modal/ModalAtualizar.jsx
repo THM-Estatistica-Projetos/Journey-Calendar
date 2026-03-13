@@ -13,7 +13,8 @@ function ModalAtualizar({
     item,
     patients,
     professionals,
-    columns
+    columns,
+    paciente_apollo_default = false
 }) {
 
     const handleSubmit = () => {
@@ -46,7 +47,8 @@ function ModalAtualizar({
         data: "",
         inicio: "",
         fim: "",
-        status: ""
+        status: "",
+        paciente_apollo: paciente_apollo_default
     })
 
     useEffect(() => {
@@ -64,17 +66,20 @@ function ModalAtualizar({
                 data: start.toISOString().slice(0, 10),
                 inicio: item.startTime.slice(11, 16),
                 fim: item.endTime.slice(11, 16),
-                status: item.status || ""
+                status: item.status || "",
+                paciente_apollo: item.paciente_apollo ?? paciente_apollo_default
             })
         }
-    }, [item, isAtualizarModalOpen])
+    }, [item, isAtualizarModalOpen, paciente_apollo_default, patients, professionals])
 
     const handleChange = (e) => {
         const { name, value } = e.target
 
+        const parsedValue = name === "paciente_apollo" ? value === "true" : value
+
         setFormData(prev => ({
             ...prev,
-            [name]: value
+            [name]: parsedValue
         }))
     }
 
@@ -89,7 +94,8 @@ function ModalAtualizar({
             data_agendamento: formData.data,
             inicio_hora: formData.inicio,
             fim_hora: formData.fim,
-            status: formData.status
+            status: formData.status,
+            paciente_apollo: formData.paciente_apollo
         })
 
         setIsAtualizarModalOpen(false)
@@ -220,6 +226,31 @@ function ModalAtualizar({
                                                 </div>
                                             </fieldset>
                                         </div>
+                                    <div className="flex gap-1 flex-col w-fix">
+                                        <span className="text-xl text-gray-600 font-medium">Paciente Apollo?</span>
+                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="paciente_apollo"
+                                                    value="true"
+                                                    checked={formData.paciente_apollo === true}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Sim</span>
+                                            </div>
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="paciente_apollo"
+                                                    value="false"
+                                                    checked={formData.paciente_apollo === false}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Não</span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
 
                                 <div className="w-full flex gap-3">

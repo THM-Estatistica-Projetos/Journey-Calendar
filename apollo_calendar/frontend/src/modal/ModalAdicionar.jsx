@@ -8,7 +8,8 @@ function ModalAdicionar({
     isAdicionarModalOpen,
     patients,
     professionals,
-    columns
+    columns,
+    paciente_apollo_default = false
 }) {
 
     const hoje = new Date().toLocaleDateString("sv-SE")
@@ -21,7 +22,8 @@ function ModalAdicionar({
         inicio: "",
         fim: "",
         data: hoje,
-        status: "Agendado"
+        status: "Agendado",
+        paciente_apollo: paciente_apollo_default
     }
 
     const [formData, setFormData] = useState(initialFormData)
@@ -29,9 +31,11 @@ function ModalAdicionar({
     const handleChange = (e) => {
         const { name, value } = e.target
 
+        const parsedValue = name === "paciente_apollo" ? value === "true" : value
+
         setFormData((prev) => ({
             ...prev,
-            [name]: value
+            [name]: parsedValue
         }))
     }
 
@@ -169,6 +173,31 @@ function ModalAdicionar({
                                                         onChange={handleChange}
                                                     />
                                                     <span className="text-md text-gray-600 font-medium">Cancelado</span>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div className="flex gap-1 flex-col w-fix">
+                                            <span className="text-xl text-gray-600 font-medium">Paciente Apollo?</span>
+                                            <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                                <div className="flex gap-1 w-fix">
+                                                    <input
+                                                        type="radio"
+                                                        name="paciente_apollo"
+                                                        value="true"
+                                                        checked={formData.paciente_apollo === true}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <span className="text-md text-gray-600 font-medium">Sim</span>
+                                                </div>
+                                                <div className="flex gap-1 w-fix">
+                                                    <input
+                                                        type="radio"
+                                                        name="paciente_apollo"
+                                                        value="false"
+                                                        checked={formData.paciente_apollo === false}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <span className="text-md text-gray-600 font-medium">Não</span>
                                                 </div>
                                             </fieldset>
                                         </div>
