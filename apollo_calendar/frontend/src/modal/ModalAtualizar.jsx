@@ -59,11 +59,8 @@ function ModalAtualizar({
             // Encontrando o paciente selecionado com base no título do item
             const selectedPatient = patients.find(p => p.nome === item.title);
 
-            // Normalizando o valor de paciente_apollo para booleano, considerando possíveis variações de string
-            const isApollo = selectedPatient ? [true, 1, "true"].includes(selectedPatient.paciente_apollo) : false;
-
-            console.log("Paciente Selecionado:", selectedPatient);
-            console.log("É Apollo:", isApollo, "Valor Bruto:", selectedPatient?.paciente_apollo);
+            // console.log("Paciente Selecionado:", selectedPatient);
+            // console.log("É Apollo:", isApollo, "Valor Bruto:", selectedPatient?.paciente_apollo);
 
             setFormData({
                 operacao: "Update",
@@ -75,7 +72,7 @@ function ModalAtualizar({
                 inicio: item.startTime.slice(11, 16),
                 fim: item.endTime.slice(11, 16),
                 status: item.status || "",
-                paciente_apollo: isApollo
+                paciente_apollo: item.paciente_apollo || false
             })
 
             // console.log("Form data:", formData)
