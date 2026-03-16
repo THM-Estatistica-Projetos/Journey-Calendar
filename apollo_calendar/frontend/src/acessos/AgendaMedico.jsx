@@ -159,7 +159,7 @@ const EventCard = ({ item, isMinimalist, config }) => {
         zIndex: 100,
         ...(isMinimalist
             ? { borderLeft: `4px solid ${color}`, backgroundColor: '#f8fafc' }
-            : { backgroundColor: '#9fc7ed', borderLeft: `4px solid ${color}` })
+            : { backgroundColor: `${color}80`, borderLeft: `4px solid ${color}` })
     };
 
     const [isExpanded, setIsExpanded] = useState(false)
@@ -184,6 +184,26 @@ const EventCard = ({ item, isMinimalist, config }) => {
     )*/
     return (
         <>
+            {height < 62 ? (
+                <div
+                style={style}
+                className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
+            >
+                <div className="flex justify-between w-full">
+                    <div className="text-[10px] font-bold text-slate-500 mb-1">
+                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                    </div>
+                    {height < 62 ? (
+                        <>
+                            <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
+                        </>
+                    ) : (
+                        <>
+                        </>
+                    )}
+                </div>
+            </div>
+            ) : (
             <div
                 style={style}
                 className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
@@ -210,6 +230,7 @@ const EventCard = ({ item, isMinimalist, config }) => {
                     </div>
                 )}
             </div>
+            )}
             {isExpanded ? (
                 <div style={styleHover} className={`absolute rounded w-full translate-y-[${offset}px] p-2`}>
                     <div className="flex justify-between w-full">
