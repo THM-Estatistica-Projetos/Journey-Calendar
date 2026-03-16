@@ -190,7 +190,7 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
         zIndex: 100,
         ...(isMinimalist
             ? { borderLeft: `4px solid ${color}`, backgroundColor: '#f8fafc' }
-            : { backgroundColor: `${color}80`, borderLeft: `4px solid ${color}` })
+            : { backgroundColor: `${color}`, borderLeft: `4px solid ${color}` })
     };
 
     const [isExpanded, setIsExpanded] = useState(false)
