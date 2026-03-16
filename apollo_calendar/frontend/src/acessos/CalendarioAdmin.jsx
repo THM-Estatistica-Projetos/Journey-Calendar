@@ -184,7 +184,7 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
             : { backgroundColor: `${color}20`, borderLeft: `4px solid ${color}` })
     };
 
-    offset = offset - 90
+    offset = offset - 88
 
     const styleHover = {
         zIndex: 100,
