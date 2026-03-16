@@ -122,7 +122,7 @@ db_fake_raw = [
     {
         "id": 1,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:00:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T11:00:00.000Z",
+        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:00:00.000Z",
         "slot": {"id_slot": 1},
         "paciente_apollo": True,
         "paciente": {"id_paciente": 101, "nome": "João Silva", "cor": "#2196F3"},
@@ -131,7 +131,7 @@ db_fake_raw = [
     {
         "id": 2,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T08:30:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:30:00.000Z",
+        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:00:00.000Z",
         "slot": {"id_slot": 2},
         "paciente_apollo": False,
         "paciente": {"id_paciente": 102, "nome": "Maria Oliveira", "cor": "#2196F3"},
@@ -140,7 +140,7 @@ db_fake_raw = [
     {
         "id": 3,
         "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:00:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T12:30:00.000Z",
+        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:30:00.000Z",
         "slot": {"id_slot": 1},
         "paciente_apollo": False,
         "paciente": {"id_paciente": 103, "nome": "Pedro Santos", "cor": "#2196F3"},
@@ -203,8 +203,7 @@ for i in range(7):
     })
 
 paciente_apollo_default = st.toggle("Paciente Apollo padrao?", value=False)
-    
-st.write(headers_medico)
+
 resultado = apollo_calendar(
     items=items, 
     patients=patients,

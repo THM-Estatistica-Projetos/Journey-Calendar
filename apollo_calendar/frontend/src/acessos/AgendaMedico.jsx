@@ -3,6 +3,7 @@ import {
     withStreamlitConnection
 } from "streamlit-component-lib"
 import React, { useEffect, useMemo, useState } from "react"
+import { MdOutlineExpandMore } from "react-icons/md";
 
 function AgendaMedico({ args }) {
     const {
@@ -128,7 +129,7 @@ const EventCard = ({ item, isMinimalist, config }) => {
         const durationInMinutes = (end - start) / (1000 * 60)
 
         const height = (durationInMinutes / 60) * slotHeight
-        return `${height - 8}px`
+        return height - 8
     }
 
     const calculateOffset = () => {
@@ -140,16 +141,30 @@ const EventCard = ({ item, isMinimalist, config }) => {
         return (minutes / 60) * slotHeight
     }
 
+    const height = calculateHeight();
+    let offset = calculateOffset();
+
     const style = {
-        height: calculateHeight(),
-        marginTop: `${calculateOffset()}px`,
+        height: `${height}px`,
+        marginTop: `${offset}px`,
         zIndex: 10,
         ...(isMinimalist
             ? { borderLeft: `4px solid ${color}`, backgroundColor: '#f8fafc' }
             : { backgroundColor: `${color}20`, borderLeft: `4px solid ${color}` })
     };
 
-    return (
+    offset = offset - 70
+
+    const styleHover = {
+        zIndex: 100,
+        ...(isMinimalist
+            ? { borderLeft: `4px solid ${color}`, backgroundColor: '#f8fafc' }
+            : { backgroundColor: '#9fc7ed', borderLeft: `4px solid ${color}` })
+    };
+
+    const [isExpanded, setIsExpanded] = useState(false)
+
+    /*return (
         <div
             style={style}
             className="w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center"
@@ -166,6 +181,53 @@ const EventCard = ({ item, isMinimalist, config }) => {
                 </div>
             )}
         </div>
+    )*/
+    return (
+        <>
+            <div
+                style={style}
+                className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
+            >
+                <div className="flex justify-between w-full">
+                    <div className="text-[10px] font-bold text-slate-500 mb-1">
+                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                    </div>
+                    {height < 62 ? (
+                        <>
+                            <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
+                        </>
+                    ) : (
+                        <>
+                        </>
+                    )}
+                </div>
+                <div className="text-xs font-semibold text-slate-800 line-clamp-1">
+                    {item.title || "Sem título"}
+                </div>
+                {item.subtitle && (
+                    <div className="text-[10px] text-slate-500 italic truncate">
+                        {item.subtitle}
+                    </div>
+                )}
+            </div>
+            {isExpanded ? (
+                <div style={styleHover} className={`absolute rounded w-full translate-y-[${offset}px] p-2`}>
+                    <div className="flex justify-between w-full">
+                        <div className="text-[10px] font-bold text-gray-700 mb-1">
+                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                        </div>
+                    </div>
+                    <div className="text-xs font-semibold text-gray-700 line-clamp-1">
+                        {item.title || "Sem título"}
+                    </div>
+                    {item.subtitle && (
+                        <div className="text-[10px] text-gray-700 italic truncate">
+                            {item.subtitle}
+                        </div>
+                    )}
+                </div>
+            ) : (<></>)}
+        </>
     )
 }
 
