@@ -72,7 +72,8 @@ function ModalAtualizar({
                 inicio: item.startTime.slice(11, 16),
                 fim: item.endTime.slice(11, 16),
                 status: item.status || "",
-                paciente_apollo: item.paciente_apollo || false
+                paciente_apollo: item.paciente_apollo || false,
+                em_lote: item.em_lote || false
             })
 
             // console.log("Form data:", formData)
@@ -83,7 +84,7 @@ function ModalAtualizar({
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        const parsedValue = name === "paciente_apollo" ? value === "true" : value
+        const parsedValue = name === "paciente_apollo" || name === "em_lote" ? value === "true" : value;
 
         setFormData(prev => ({
             ...prev,
@@ -103,7 +104,8 @@ function ModalAtualizar({
             inicio_hora: formData.inicio,
             fim_hora: formData.fim,
             status: formData.status,
-            paciente_apollo: formData.paciente_apollo
+            paciente_apollo: formData.paciente_apollo,
+            em_lote: false
         })
 
         setIsAtualizarModalOpen(false)
@@ -259,6 +261,34 @@ function ModalAtualizar({
                                             </div>
                                         </fieldset>
                                     </div>
+                                    <div className="flex gap-1 flex-col w-fix opacity-50">
+                                            <span className="text-xl text-gray-600 font-medium">Atualizar em lote?</span>
+                                            <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                                <div className="flex gap-1 w-fix">
+                                                    <input
+                                                        type="radio"
+                                                        name="em_lote"
+                                                        value="true"
+                                                        checked={formData.em_lote === true}
+                                                        onChange={handleChange}
+                                                        disabled="true"
+                                                    />
+                                                    <span className="text-md text-gray-600 font-medium">Sim</span>
+                                                </div>
+                                                <div className="flex gap-1 w-fix">
+                                                    <input
+                                                        type="radio"
+                                                        name="em_lote"
+                                                        value="false"
+                                                        checked={formData.em_lote === false}
+                                                        onChange={handleChange}
+                                                        disabled="true"
+                                                    />
+                                                    <span className="text-md text-gray-600 font-medium">Não</span>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        {console.log(formData)}
                                 </div>
 
                                 <div className="w-full flex gap-3">

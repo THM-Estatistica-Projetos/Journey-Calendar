@@ -152,6 +152,7 @@ db_fake_raw = [
         "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
         "slot": {"id_slot": 2},
         "paciente_apollo": True,
+        "em_lote": True,
         "paciente": {"id_paciente": 104, "nome": "Fernanda Costa", "cor": "#172531"},
         "profissional": {"usuario": {"nome": "Dr. Paulo"}}
     },
