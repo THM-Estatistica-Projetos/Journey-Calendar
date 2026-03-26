@@ -335,7 +335,7 @@ function ModalAdicionar({
                                                 <span className="text-xl text-gray-600 font-medium">Data</span>
                                                 <input
                                                     type="date"
-                                                    name="data"
+                                                    name="data_locacao"
                                                     value={locacaoFormData.data}
                                                     onChange={handleChangeLocacao}
                                                     className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
