@@ -129,6 +129,7 @@ function ModalAtualizar({
     const handleUpdate = () => {
 
         Streamlit.setComponentValue({
+            tipo: "agendamento",
             operacao: "Update",
             id_agendamento: formData.id,
             id_paciente: formData.paciente,
