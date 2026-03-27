@@ -94,7 +94,8 @@ def format_data_for_calendar(raw_data):
             "columnId": str(item.get("slot", {}).get("id_slot")),
             "color": paciente.get("cor", "#3788d8"),
             "status": "Presente",
-            "paciente_apollo": item.get("paciente_apollo", False)
+            "paciente_apollo": item.get("paciente_apollo", False),
+            "em_lote": item.get("em_lote")
         })
     return formatted
 
@@ -131,6 +132,7 @@ db_fake_raw = [
         "paciente_apollo": True,
         "paciente": {"id_paciente": 101, "nome": "João Silva", "cor": "#2196F3"},
         "profissional": {"usuario": {"nome": "Sei la"}},
+        "em_lote": True
     },
     {
         "id": 2,
@@ -140,7 +142,8 @@ db_fake_raw = [
         "slot": {"id_slot": 2},
         "paciente_apollo": False,
         "paciente": {"id_paciente": 102, "nome": "Maria Oliveira", "cor": "#2196F3"},
-        "profissional": {"usuario": {"nome": "Dr. Carlos"}}
+        "profissional": {"usuario": {"nome": "Dr. Carlos"}},
+        "em_lote": True
     },
     {
         "id": 3,
@@ -181,7 +184,8 @@ db_fake_raw = [
         "slot": {"id_slot": 4},
         "paciente_apollo": False,
         "paciente": {"id_paciente": 106, "nome": "Juliana Rocha", "cor": "#172531"},
-        "profissional": {"usuario": {"nome": "Dr. Marcos"}}
+        "profissional": {"usuario": {"nome": "Dr. Marcos"}},
+        "em_lote": True
     }
 ]
 

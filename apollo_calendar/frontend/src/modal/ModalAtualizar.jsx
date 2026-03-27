@@ -1,7 +1,7 @@
 import { Checkbox, Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 
-import { FaTimes, FaTrash, FaArrowLeft, FaCheckCircle } from "react-icons/fa";
+import { FaTimes, FaTrash, FaArrowLeft, FaCheckCircle, FaDumpster, FaRecycle } from "react-icons/fa";
 import { MdBorderColor } from "react-icons/md";
 
 import { Streamlit } from "streamlit-component-lib";
@@ -22,6 +22,21 @@ function ModalAtualizar({
             tipo: "agendamento",
             operacao: "Remove",
             id: item.id
+        })
+        setIsAtualizarModalOpen(false)
+    }
+
+    const handleSubmitEmLote = () => {
+        Streamlit.setComponentValue({
+            tipo: "agendamento",
+            operacao: "RemoveLote",
+            id_agendamento: formData.id,
+            id_paciente: formData.paciente,
+            id_usuario: formData.profissional,
+            id_slot: formData.slot,
+            data_agendamento: formData.data,
+            inicio_hora: formData.inicio,
+            fim_hora: formData.fim
         })
         setIsAtualizarModalOpen(false)
     }
@@ -124,7 +139,7 @@ function ModalAtualizar({
             fim_hora: formData.fim,
             status: formData.status,
             paciente_apollo: formData.paciente_apollo,
-            em_lote: false
+            em_lote: formData.em_lote
         })
 
         setIsAtualizarModalOpen(false)
@@ -143,8 +158,9 @@ function ModalAtualizar({
                                         Atualizar ou excluir agendamento
                                     </h1>
                                     <div className="flex gap-3">
-                                        <button className="w-fit py-3 px-4 border bg-[#1159c5] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#1b6ce6] transition-all active:outline-none" onClick={handleTransformSubmit}><MdBorderColor className="size-5"/></button>
+                                        <button className="w-fit py-3 px-4 border bg-[#1159c5] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#1b6ce6] transition-all active:outline-none" onClick={handleTransformSubmit}><FaRecycle className="size-5"/></button>
                                         <button className="w-fit py-3 px-4 border bg-[#c51d11] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#db2a1e] transition-all active:outline-none" onClick={handleSubmit}><FaTrash /></button>
+                                        {formData.em_lote ? (<button className="w-fit py-3 px-4 border bg-[#690d06] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#88140c] transition-all active:outline-none" onClick={handleSubmitEmLote}><FaDumpster className="size-5"/></button>) : null}
                                     </div>
                                 </div>
 
@@ -283,7 +299,7 @@ function ModalAtualizar({
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div className="flex gap-1 flex-col w-fix opacity-50">
+                                    <div className="flex gap-1 flex-col w-fix">
                                         <span className="text-xl text-gray-600 font-medium">Atualizar em lote?</span>
                                         <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
                                             <div className="flex gap-1 w-fix">
@@ -293,7 +309,6 @@ function ModalAtualizar({
                                                     value="true"
                                                     checked={formData.em_lote === true}
                                                     onChange={handleChange}
-                                                    disabled="true"
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Sim</span>
                                             </div>
@@ -304,13 +319,11 @@ function ModalAtualizar({
                                                     value="false"
                                                     checked={formData.em_lote === false}
                                                     onChange={handleChange}
-                                                    disabled="true"
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Não</span>
                                             </div>
                                         </fieldset>
                                     </div>
-                                    {console.log(formData)}
                                 </div>
 
                                 <div className="w-full flex gap-3">
