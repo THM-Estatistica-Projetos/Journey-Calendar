@@ -1,4 +1,4 @@
-import { Checkbox, Dialog, Transition } from "@headlessui/react";
+import { Checkbox, Dialog, Select, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
 
 import { Streamlit } from "streamlit-component-lib";
@@ -84,9 +84,9 @@ function ModalAdicionar({
         e.preventDefault()
         setIsAdicionarModalOpen(false)
 
-        if(isLocacao){
+        if (isLocacao) {
             Streamlit.setComponentValue(locacaoFormData)
-        }else{
+        } else {
             Streamlit.setComponentValue(agendamentoFormData)
         }
     }
@@ -366,7 +366,7 @@ function ModalAdicionar({
                                                     </div>
                                                 </fieldset>
                                             </div>
-                                            
+
                                             <button type="submit" className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">
                                                 Adicionar
                                             </button>

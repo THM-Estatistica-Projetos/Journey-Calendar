@@ -1,7 +1,8 @@
 import { Checkbox, Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 
-import { FaTimes, FaTrash, FaArrowLeft } from "react-icons/fa";
+import { FaTimes, FaTrash, FaArrowLeft, FaCheckCircle } from "react-icons/fa";
+import { MdBorderColor } from "react-icons/md";
 
 import { Streamlit } from "streamlit-component-lib";
 
@@ -21,6 +22,21 @@ function ModalAtualizar({
             tipo: "agendamento",
             operacao: "Remove",
             id: item.id
+        })
+        setIsAtualizarModalOpen(false)
+    }
+
+    const handleTransformSubmit = () => {
+        Streamlit.setComponentValue({
+            tipo: "agendamento",
+            operacao: "Transform",
+            id_agendamento: formData.id,
+            id_paciente: formData.paciente,
+            id_usuario: formData.profissional,
+            id_slot: formData.slot,
+            data_agendamento: formData.data,
+            inicio_hora: formData.inicio,
+            fim_hora: formData.fim
         })
         setIsAtualizarModalOpen(false)
     }
@@ -123,10 +139,13 @@ function ModalAtualizar({
                         <Dialog.Panel className="w-full max-w-[800px] overflow-y-hidden transform rounded-2xl bg-white py-5 px shadow-2xl transition-all scroll-m-0 h-fit mt-7">
                             <div className="w-full px-5">
                                 <div className="flex justify-between items-center">
-                                <h1 className="text-2xl font-semibold text-gray-700">
-                                    Atualizar ou excluir agendamento ou locação
-                                </h1>
-                                <button className="w-fit py-3 px-4 border bg-[#c51d11] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#db2a1e] transition-all active:outline-none" onClick={handleSubmit}><FaTrash /></button>
+                                    <h1 className="text-2xl font-semibold text-gray-700">
+                                        Atualizar ou excluir agendamento
+                                    </h1>
+                                    <div className="flex gap-3">
+                                        <button className="w-fit py-3 px-4 border bg-[#1159c5] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#1b6ce6] transition-all active:outline-none" onClick={handleTransformSubmit}><MdBorderColor className="size-5"/></button>
+                                        <button className="w-fit py-3 px-4 border bg-[#c51d11] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#db2a1e] transition-all active:outline-none" onClick={handleSubmit}><FaTrash /></button>
+                                    </div>
                                 </div>
 
                                 <div className="w-full border border-b-slate-800 my-4" />
@@ -205,40 +224,40 @@ function ModalAtualizar({
                                         </p>
                                     </div>
                                     <div className="flex gap-1 flex-col w-fix">
-                                            <span className="text-xl text-gray-600 font-medium">Status</span>
-                                            <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                <div className="flex gap-1 w-fix">
-                                                    <input
-                                                        type="radio"
-                                                        name="status"
-                                                        value="Agendado"
-                                                        checked={formData.status === "Agendado"}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <span className="text-md text-gray-600 font-medium">Agendado</span>
-                                                </div>
-                                                <div className="flex gap-1 w-fix">
-                                                    <input
-                                                        type="radio"
-                                                        name="status"
-                                                        value="Presente"
-                                                        checked={formData.status === "Presente"}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <span className="text-md text-gray-600 font-medium">Presente</span>
-                                                </div>
-                                                <div className="flex gap-1 w-fix">
-                                                    <input
-                                                        type="radio"
-                                                        name="status"
-                                                        value="Cancelado"
-                                                        checked={formData.status === "Cancelado"}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <span className="text-md text-gray-600 font-medium">Cancelado</span>
-                                                </div>
-                                            </fieldset>
-                                        </div>
+                                        <span className="text-xl text-gray-600 font-medium">Status</span>
+                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="status"
+                                                    value="Agendado"
+                                                    checked={formData.status === "Agendado"}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Agendado</span>
+                                            </div>
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="status"
+                                                    value="Presente"
+                                                    checked={formData.status === "Presente"}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Presente</span>
+                                            </div>
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="status"
+                                                    value="Cancelado"
+                                                    checked={formData.status === "Cancelado"}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Cancelado</span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div className="flex gap-1 flex-col w-fix">
                                         <span className="text-xl text-gray-600 font-medium">Paciente Apollo?</span>
                                         <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
@@ -265,33 +284,33 @@ function ModalAtualizar({
                                         </fieldset>
                                     </div>
                                     <div className="flex gap-1 flex-col w-fix opacity-50">
-                                            <span className="text-xl text-gray-600 font-medium">Atualizar em lote?</span>
-                                            <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                <div className="flex gap-1 w-fix">
-                                                    <input
-                                                        type="radio"
-                                                        name="em_lote"
-                                                        value="true"
-                                                        checked={formData.em_lote === true}
-                                                        onChange={handleChange}
-                                                        disabled="true"
-                                                    />
-                                                    <span className="text-md text-gray-600 font-medium">Sim</span>
-                                                </div>
-                                                <div className="flex gap-1 w-fix">
-                                                    <input
-                                                        type="radio"
-                                                        name="em_lote"
-                                                        value="false"
-                                                        checked={formData.em_lote === false}
-                                                        onChange={handleChange}
-                                                        disabled="true"
-                                                    />
-                                                    <span className="text-md text-gray-600 font-medium">Não</span>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        {console.log(formData)}
+                                        <span className="text-xl text-gray-600 font-medium">Atualizar em lote?</span>
+                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="em_lote"
+                                                    value="true"
+                                                    checked={formData.em_lote === true}
+                                                    onChange={handleChange}
+                                                    disabled="true"
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Sim</span>
+                                            </div>
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="em_lote"
+                                                    value="false"
+                                                    checked={formData.em_lote === false}
+                                                    onChange={handleChange}
+                                                    disabled="true"
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Não</span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    {console.log(formData)}
                                 </div>
 
                                 <div className="w-full flex gap-3">
