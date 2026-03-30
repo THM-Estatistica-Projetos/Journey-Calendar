@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useMemo, useState } from "react"
 import ModalAdicionar from "../modal/ModalAdicionar"
 import ModalAtualizar from "../modal/ModalAtualizar"
-import ModalExcluir from "../modal/ModalExcluir"
+import ModalAtualizarLocacao from "../modal/ModalAtualizarLocacao"
 import { MdOutlineExpandMore } from "react-icons/md";
 
 function CalendarioAdmin({ args }) {
@@ -70,7 +70,7 @@ function CalendarioAdmin({ args }) {
 
     const [isAdicionarModalOpen, setIsAdicionarModalOpen] = useState(false)
     const [isAtualizarModalOpen, setIsAtualizarModalOpen] = useState(false)
-    const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false)
+    const [isAtualizarLocacaoModalOpen, setIsAtualizarLocacaoModalOpen] = useState(false)
 
     const [selectedEvent, setSelectedEvent] = useState({})
 
@@ -81,7 +81,7 @@ function CalendarioAdmin({ args }) {
 
     const handleLocacaoEventClick = (container) => {
         setSelectedEvent(container)
-        setIsExcluirModalOpen(true)
+        setIsAtualizarLocacaoModalOpen(true)
     }
 
     return (
@@ -180,9 +180,9 @@ function CalendarioAdmin({ args }) {
                 tipo_aluguel={tipo_aluguel}
                 columns={columns}
             />
-            <ModalExcluir
-                setIsExcluirModalOpen={setIsExcluirModalOpen}
-                isExcluirModalOpen={isExcluirModalOpen}
+            <ModalAtualizarLocacao
+                setIsAtualizarLocacaoModalOpen={setIsAtualizarLocacaoModalOpen}
+                isAtualizarLocacaoModalOpen={isAtualizarLocacaoModalOpen}
                 item={selectedEvent}
                 patients={patients}
                 professionals={professionals}

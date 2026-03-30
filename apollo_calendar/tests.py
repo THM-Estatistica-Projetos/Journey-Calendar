@@ -196,6 +196,7 @@ containers = [
         "fim": f"{data_str}T12:00:00.000Z",
         "slot": "1",
         "tipo_aluguel": "Sala cheia",
+        "data_locacao": data_str,
         "profissional": "Tiago",
         "em_lote": False,
         "color": "#ff9100"
@@ -207,6 +208,7 @@ containers = [
         "slot": "2",
         "tipo_aluguel": "Período manhã",
         "profissional": "Ronney",
+        "data_locacao": data_str,
         "em_lote": False,
         "color": "#cbd5f5"
     },
@@ -217,6 +219,7 @@ containers = [
         "slot": "3",
         "tipo_aluguel": "Período tarde",
         "profissional": "Eduardo",
+        "data_locacao": data_str,
         "em_lote": True,
         "color": "#bbf7d0"
     },
@@ -226,6 +229,7 @@ containers = [
         "fim": f"{data_str}T19:00:00.000Z",
         "slot": "4",
         "tipo_aluguel": "Dia inteiro",
+        "data_locacao": data_str,
         "profissional": "Alice",
         "em_lote": False,
         "color": "#fde68a"
@@ -273,7 +277,7 @@ for i in range(7):
         "label": f"{dias[i]} {d.day}"
     })
 
-paciente_apollo_default = st.toggle("Paciente Apollo padrao?", value=False)
+#paciente_apollo_default = st.toggle("Paciente Apollo padrao?", value=False)
 
 #resultado = apollo_calendar(
 #    items=items, 

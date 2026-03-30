@@ -97,7 +97,7 @@ function ModalAdicionar({
                 <Dialog as="div" className="relative z-50" onClose={() => setIsAdicionarModalOpen(false)}>
                     <div className="fixed inset-0" aria-hidden="true" />
                     <div className="fixed inset-0 flex justify-center mt-20 p-4 bg-gradient-to-t from-slate-500 to-transparent rounded-xl">
-                        <Dialog.Panel className="w-full max-w-[800px] overflow-y-hidden transform rounded-2xl bg-white py-5 px shadow-2xl transition-all scroll-m-0 h-fit mt-7">
+                        <Dialog.Panel className="w-full max-w-[800px] transform rounded-2xl bg-white py-5 px shadow-2xl transition-all h-fit max-h-[80vh] overflow-y-auto mt-7">
                             <div className="w-full px-5">
                                 <h1 className="text-2xl font-semibold text-gray-700">
                                     {isLocacao == null ? "Adicionar novo agendamento ou locação" : isLocacao == true ? "Adicionar nova locação" : "Adicionar novo agendamento"}
@@ -113,6 +113,31 @@ function ModalAdicionar({
                                 {isLocacao == null ? null : isLocacao == false ? (
                                     <div>
                                         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                                            <div className="flex gap-1 flex-col w-fix">
+                                                <span className="text-xl text-gray-600 font-medium">Criar em lote?</span>
+                                                <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                                    <div className="flex gap-1 w-fix">
+                                                        <input
+                                                            type="radio"
+                                                            name="em_lote"
+                                                            value="true"
+                                                            checked={agendamentoFormData.em_lote === true}
+                                                            onChange={handleChangeAgendamento}
+                                                        />
+                                                        <span className="text-md text-gray-600 font-medium">Sim</span>
+                                                    </div>
+                                                    <div className="flex gap-1 w-fix">
+                                                        <input
+                                                            type="radio"
+                                                            name="em_lote"
+                                                            value="false"
+                                                            checked={agendamentoFormData.em_lote === false}
+                                                            onChange={handleChangeAgendamento}
+                                                        />
+                                                        <span className="text-md text-gray-600 font-medium">Não</span>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
                                             <div className="flex gap-1 flex-col">
                                                 <span className="text-xl text-gray-600 font-medium">Paciente</span>
                                                 <select
@@ -247,32 +272,6 @@ function ModalAdicionar({
                                                     </div>
                                                 </fieldset>
                                             </div>
-                                            <div className="flex gap-1 flex-col w-fix">
-                                                <span className="text-xl text-gray-600 font-medium">Criar em lote?</span>
-                                                <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                    <div className="flex gap-1 w-fix">
-                                                        <input
-                                                            type="radio"
-                                                            name="em_lote"
-                                                            value="true"
-                                                            checked={agendamentoFormData.em_lote === true}
-                                                            onChange={handleChangeAgendamento}
-                                                        />
-                                                        <span className="text-md text-gray-600 font-medium">Sim</span>
-                                                    </div>
-                                                    <div className="flex gap-1 w-fix">
-                                                        <input
-                                                            type="radio"
-                                                            name="em_lote"
-                                                            value="false"
-                                                            checked={agendamentoFormData.em_lote === false}
-                                                            onChange={handleChangeAgendamento}
-                                                        />
-                                                        <span className="text-md text-gray-600 font-medium">Não</span>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-
                                             <button type="submit" className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">
                                                 Adicionar
                                             </button>
@@ -281,6 +280,31 @@ function ModalAdicionar({
                                 ) : (
                                     <div>
                                         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                                            <div className="flex gap-1 flex-col w-fix">
+                                                <span className="text-xl text-gray-600 font-medium">Criar em lote?</span>
+                                                <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                                    <div className="flex gap-1 w-fix">
+                                                        <input
+                                                            type="radio"
+                                                            name="em_lote"
+                                                            value="true"
+                                                            checked={locacaoFormData.em_lote === true}
+                                                            onChange={handleChangeLocacao}
+                                                        />
+                                                        <span className="text-md text-gray-600 font-medium">Sim</span>
+                                                    </div>
+                                                    <div className="flex gap-1 w-fix">
+                                                        <input
+                                                            type="radio"
+                                                            name="em_lote"
+                                                            value="false"
+                                                            checked={locacaoFormData.em_lote === false}
+                                                            onChange={handleChangeLocacao}
+                                                        />
+                                                        <span className="text-md text-gray-600 font-medium">Não</span>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
                                             <div className="flex gap-1 flex-col">
                                                 <span className="text-xl text-gray-600 font-medium">Profissional</span>
                                                 <select
@@ -336,37 +360,11 @@ function ModalAdicionar({
                                                 <input
                                                     type="date"
                                                     name="data_locacao"
-                                                    value={locacaoFormData.data}
+                                                    value={locacaoFormData.data_locacao}
                                                     onChange={handleChangeLocacao}
                                                     className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
                                                 />
                                             </div>
-                                            <div className="flex gap-1 flex-col w-fix">
-                                                <span className="text-xl text-gray-600 font-medium">Criar em lote?</span>
-                                                <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                                    <div className="flex gap-1 w-fix">
-                                                        <input
-                                                            type="radio"
-                                                            name="em_lote"
-                                                            value="true"
-                                                            checked={locacaoFormData.em_lote === true}
-                                                            onChange={handleChangeLocacao}
-                                                        />
-                                                        <span className="text-md text-gray-600 font-medium">Sim</span>
-                                                    </div>
-                                                    <div className="flex gap-1 w-fix">
-                                                        <input
-                                                            type="radio"
-                                                            name="em_lote"
-                                                            value="false"
-                                                            checked={locacaoFormData.em_lote === false}
-                                                            onChange={handleChangeLocacao}
-                                                        />
-                                                        <span className="text-md text-gray-600 font-medium">Não</span>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-
                                             <button type="submit" className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">
                                                 Adicionar
                                             </button>

@@ -168,6 +168,31 @@ function ModalAtualizar({
                                 <div className="w-full border border-b-slate-800 my-4" />
 
                                 <div className="flex gap-3 flex-col mb-4 w-full">
+                                    <div className="flex gap-1 flex-col w-fix">
+                                        <span className="text-xl text-gray-600 font-medium">Atualizar em lote?</span>
+                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="em_lote"
+                                                    value="true"
+                                                    checked={formData.em_lote === true}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Sim</span>
+                                            </div>
+                                            <div className="flex gap-1 w-fix">
+                                                <input
+                                                    type="radio"
+                                                    name="em_lote"
+                                                    value="false"
+                                                    checked={formData.em_lote === false}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Não</span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div className="flex gap-1 flex-col">
                                         <span className="text-xl text-gray-600 font-medium">Paciente</span>
                                         <select
@@ -294,31 +319,6 @@ function ModalAtualizar({
                                                     name="paciente_apollo"
                                                     value="false"
                                                     checked={formData.paciente_apollo === false}
-                                                    onChange={handleChange}
-                                                />
-                                                <span className="text-md text-gray-600 font-medium">Não</span>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div className="flex gap-1 flex-col w-fix">
-                                        <span className="text-xl text-gray-600 font-medium">Atualizar em lote?</span>
-                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                            <div className="flex gap-1 w-fix">
-                                                <input
-                                                    type="radio"
-                                                    name="em_lote"
-                                                    value="true"
-                                                    checked={formData.em_lote === true}
-                                                    onChange={handleChange}
-                                                />
-                                                <span className="text-md text-gray-600 font-medium">Sim</span>
-                                            </div>
-                                            <div className="flex gap-1 w-fix">
-                                                <input
-                                                    type="radio"
-                                                    name="em_lote"
-                                                    value="false"
-                                                    checked={formData.em_lote === false}
                                                     onChange={handleChange}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Não</span>
