@@ -255,7 +255,7 @@ function ModalAdicionar({
                                                         />
                                                         <span className="text-md text-gray-600 font-medium">Presente</span>
                                                     </div>
-                                                    <div className="flex gap-1 w-fix">
+                                                    {/*<div className="flex gap-1 w-fix">
                                                         <input
                                                             type="radio"
                                                             name="status"
@@ -264,7 +264,7 @@ function ModalAdicionar({
                                                             onChange={handleChangeAgendamento}
                                                         />
                                                         <span className="text-md text-gray-600 font-medium">Cancelado</span>
-                                                    </div>
+                                                    </div>*/}
                                                 </fieldset>
                                             </div>
                                             <div className="flex gap-1 flex-col w-fix">
