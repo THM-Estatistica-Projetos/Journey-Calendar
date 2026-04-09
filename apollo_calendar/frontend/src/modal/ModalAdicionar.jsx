@@ -8,6 +8,7 @@ function ModalAdicionar({
     isAdicionarModalOpen,
     patients,
     professionals,
+    tipo_aluguel,
     columns
 }) {
 
@@ -348,6 +349,20 @@ function ModalAdicionar({
                                                     <option value="">Selecione um profissional</option>
                                                     {sortAlfabetical(professionals).map((professional) => (
                                                         <option key={professional.id_usuario} value={professional.id_usuario}>{professional.nome}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div className="flex gap-1 flex-col">
+                                                <span className="text-xl text-gray-600 font-medium">Tipo de Aluguel</span>
+                                                <select
+                                                    name="tipo_aluguel"
+                                                    value={locacaoFormData.tipo_aluguel}
+                                                    onChange={handleChangeLocacao}
+                                                    className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
+                                                >
+                                                    <option value="">Selecione um tipo de aluguel</option>
+                                                    {tipo_aluguel.map((tipo_aluguel) => (
+                                                        <option key={tipo_aluguel.id_tipo_aluguel} value={tipo_aluguel.id_tipo_aluguel}>{tipo_aluguel.nome_tipo}</option>
                                                     ))}
                                                 </select>
                                             </div>

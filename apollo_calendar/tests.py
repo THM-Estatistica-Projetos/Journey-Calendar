@@ -247,7 +247,14 @@ containers = [
 ]
 
 tipo_aluguel = [
-    
+	{
+		"id_tipo_aluguel": 1,
+		"nome_tipo": "Aluguel Fixo"
+	},
+	{
+		"id_tipo_aluguel": 2,
+		"nome_tipo": "Horas Avulsas"
+	}
 ]
 
 patients = [
