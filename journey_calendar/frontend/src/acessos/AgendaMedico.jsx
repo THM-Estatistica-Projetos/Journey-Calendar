@@ -21,7 +21,8 @@ function AgendaMedico({ args }) {
             endKey: 'endTime',
             colorKey: 'color',
             showToggle: true,
-            slotHeight: 70
+            slotHeight: 70,
+            pageSize: 10
         },
     } = args
 
@@ -188,50 +189,50 @@ const EventCard = ({ item, isMinimalist, config }) => {
         <>
             {height < 62 ? (
                 <div
-                style={style}
-                className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
-            >
-                <div className="flex justify-between w-full">
-                    <div className="text-[10px] font-bold text-slate-500 mb-1">
-                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                    style={style}
+                    className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
+                >
+                    <div className="flex justify-between w-full">
+                        <div className="text-[10px] font-bold text-slate-500 mb-1">
+                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                        </div>
+                        {height < 62 ? (
+                            <>
+                                <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
+                            </>
+                        ) : (
+                            <>
+                            </>
+                        )}
                     </div>
-                    {height < 62 ? (
-                        <>
-                            <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
-                        </>
-                    ) : (
-                        <>
-                        </>
-                    )}
                 </div>
-            </div>
             ) : (
-            <div
-                style={style}
-                className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
-            >
-                <div className="flex justify-between w-full">
-                    <div className="text-[10px] font-bold text-slate-500 mb-1">
-                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                <div
+                    style={style}
+                    className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
+                >
+                    <div className="flex justify-between w-full">
+                        <div className="text-[10px] font-bold text-slate-500 mb-1">
+                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                        </div>
+                        {height < 62 ? (
+                            <>
+                                <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
+                            </>
+                        ) : (
+                            <>
+                            </>
+                        )}
                     </div>
-                    {height < 62 ? (
-                        <>
-                            <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
-                        </>
-                    ) : (
-                        <>
-                        </>
+                    <div className="text-xs font-semibold text-slate-800 line-clamp-1">
+                        {item.title || "Sem título"}
+                    </div>
+                    {item.subtitle && (
+                        <div className="text-[10px] text-slate-500 italic truncate">
+                            {item.subtitle}
+                        </div>
                     )}
                 </div>
-                <div className="text-xs font-semibold text-slate-800 line-clamp-1">
-                    {item.title || "Sem título"}
-                </div>
-                {item.subtitle && (
-                    <div className="text-[10px] text-slate-500 italic truncate">
-                        {item.subtitle}
-                    </div>
-                )}
-            </div>
             )}
             {isExpanded ? (
                 <div style={styleHover} className={`absolute rounded w-full translate-y-[${offset}px] p-2`}>

@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useMemo, useState } from "react"
 import ModalAdicionar from "../modal/ModalAdicionar"
 import ModalAtualizar from "../modal/ModalAtualizar"
-import ModalAtualizarLocacao from "../modal/ModalAtualizarLocacao"
+import ModalFiltros from "../modal/ModalFiltros";
 import { MdOutlineExpandMore } from "react-icons/md";
 
 import Logo from "../assets/img/logo.png";
@@ -26,11 +26,38 @@ function CalendarioAdmin({ args }) {
             endKey: 'endTime',
             colorKey: 'color',
             showToggle: true,
-            slotHeight: 70
+            slotHeight: 70,
+            pageSize: 10,
         },
     } = args
 
     const [isMinimalist, setIsMinimalist] = useState(false)
+    const [currentPage, setCurrentPage] = useState(0)
+
+    const [isFiltrosModalOpen, setIsFiltrosModalOpen] = useState(false)
+    const [isAdicionarModalOpen, setIsAdicionarModalOpen] = useState(false)
+    const [isAtualizarModalOpen, setIsAtualizarModalOpen] = useState(false)
+
+    const [isPaginationEnabled, setIsPaginationEnabled] = useState(false)
+    const [pageSize, setPageSize] = useState(config.pageSize)
+
+    const [selectedEvent, setSelectedEvent] = useState({})
+
+    const effectivePageSize = isPaginationEnabled
+        ? pageSize
+        : columns.length
+
+    const paginatedColumns = useMemo(() => {
+        const start = currentPage * effectivePageSize
+        const end = start + effectivePageSize
+        return columns.slice(start, end)
+    }, [columns, currentPage, effectivePageSize])
+
+    useEffect(() => {
+        if (!isPaginationEnabled) {
+            setCurrentPage(0)
+        }
+    }, [isPaginationEnabled])
 
     useEffect(() => {
         Streamlit.setFrameHeight()
@@ -70,26 +97,13 @@ function CalendarioAdmin({ args }) {
         return map
     }, [containers])
 
-    const [isAdicionarModalOpen, setIsAdicionarModalOpen] = useState(false)
-    const [isAtualizarModalOpen, setIsAtualizarModalOpen] = useState(false)
-    const [isAtualizarLocacaoModalOpen, setIsAtualizarLocacaoModalOpen] = useState(false)
-
-    const [selectedEvent, setSelectedEvent] = useState({})
-
     const handleEventClick = (item) => {
         console.log(item)
         setSelectedEvent(item)
         setIsAtualizarModalOpen(true)
     }
 
-    const handleLocacaoEventClick = (container) => {
-        console.log(container)
-        setSelectedEvent(container)
-        setIsAtualizarLocacaoModalOpen(true)
-    }
-
     const [showAgendamentos, setShowAgendamentos] = useState(true)
-    const [showLocacoes, setShowLocacoes] = useState(true)
 
     return (
         <div className="font-sans text-slate-900">
@@ -105,27 +119,38 @@ function CalendarioAdmin({ args }) {
                 </div>
             )}
 
-            <div className="flex gap-4 w-full">
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Agendamento {/*ou Locação*/}</button>
-                {/*<button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsEditarModalOpen(true)}>Editar Consulta</button>
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAtualizarModalOpen(true)}>Remover Consulta</button>*/}
+            <div className="grid grid-cols-10 gap-4 w-full">
+                <button className="col-span-1 bg-slate-100 w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsFiltrosModalOpen(true)}>Filtros</button>
+                <button className="col-span-9 w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Agendamento</button>
             </div>
 
-            {/*<div className="flex w-full gap-2 mb-3">
-                <div className="flex w-20 items-center justify-between px-3 py-3 gap-2 bg-slate-200 rounded-l-xl border border-slate-300">
-                    <h3>Filtros</h3>
-                </div>
-                <div className="flex w-full justify-end px-3 py-3 gap-2 bg-slate-50 rounded-r-xl border border-slate-100">
-                    <div className="flex gap-3">
-                        <div className="gap-1 flex">
-                            <input type="checkbox" checked={showLocacoes} onChange={(e) => setShowLocacoes(e.target.checked)}/><p>Locações</p>
-                        </div>
-                        <div className="gap-1 flex">
-                            <input type="checkbox" checked={showAgendamentos} onChange={(e) => setShowAgendamentos(e.target.checked)}/><p>Agendamentos</p>
-                        </div>
-                    </div>
-                </div>
-            </div>*/}
+            {isPaginationEnabled ? (<div className="flex justify-between items-center my-2">
+                <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 0))}
+                    disabled={currentPage === 0}
+                    className="px-4 py-2 border rounded disabled:opacity-50"
+                >
+                    Anterior
+                </button>
+
+                <span className="text-sm text-slate-600">
+                    Página {currentPage + 1} de {Math.ceil(columns.length / config.pageSize)}
+                </span>
+
+                <button
+                    onClick={() =>
+                        setCurrentPage(prev =>
+                            prev < Math.ceil(columns.length / config.pageSize) - 1
+                                ? prev + 1
+                                : prev
+                        )
+                    }
+                    disabled={currentPage >= Math.ceil(columns.length / config.pageSize) - 1}
+                    className="px-4 py-2 border rounded disabled:opacity-50"
+                >
+                    Próxima
+                </button>
+            </div>) : null}
 
             <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
                 <table className="table-auto min-w-full border-collapse">
@@ -134,8 +159,8 @@ function CalendarioAdmin({ args }) {
                             <th className="p-3 border-r border-slate-200 text-xs font-semibold text-slate-500 sticky left-0 bg-slate-50 z-10 w-20">
                                 Horário
                             </th>
-                            {columns.map((col) => (
-                                <th key={col.id} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
+                            {paginatedColumns.map((col) => (
+                                <th key={col.id_slot} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
                                     {col.sigla}
                                 </th>
                             ))}
@@ -149,21 +174,10 @@ function CalendarioAdmin({ args }) {
                                     {time}
                                 </td>
 
-                                {columns.map((col) => {
-                                    const cellItems = gridData[`${col.id}-${time}`] || []
+                                {paginatedColumns.map((col) => {
+                                    const cellItems = gridData[`${col.id_slot}-${time}`] || []
                                     return (
-                                        <td key={`${time}-${col.id}`} className="p-0 border-r border-slate-200 align-top relative">
-                                            <div className="absolute inset-0 z-0 p-1">
-                                                {showLocacoes ? (containerGrid[`${col.id}-${time}`] || []).map((container) => (
-                                                    <ContainerBlock
-                                                        key={container.id}
-                                                        container={container}
-                                                        isMinimalist={isMinimalist}
-                                                        config={config}
-                                                        onClickEvent={handleLocacaoEventClick}
-                                                    />
-                                                )) : null}
-                                            </div>
+                                        <td key={`${time}-${col.id_slot}`} className="p-0 border-r border-slate-200 align-top relative">
                                             <div className="absolute inset-x-0 top-0 z-10 p-1 flex gap-1">
                                                 {showAgendamentos ? (cellItems.map((item) => (
                                                     <EventCard
@@ -203,15 +217,14 @@ function CalendarioAdmin({ args }) {
                 tipo_aluguel={tipo_aluguel}
                 columns={columns}
             />
-            <ModalAtualizarLocacao
-                setIsAtualizarLocacaoModalOpen={setIsAtualizarLocacaoModalOpen}
-                isAtualizarLocacaoModalOpen={isAtualizarLocacaoModalOpen}
-                item={selectedEvent}
-                patients={patients}
-                professionals={professionals}
-                containers={containers}
-                tipo_aluguel={tipo_aluguel}
+            <ModalFiltros
                 columns={columns}
+                isPaginationEnabled={isPaginationEnabled}
+                isFiltrosModalOpen={isFiltrosModalOpen}
+                pageSize={pageSize}
+                setIsFiltrosModalOpen={setIsFiltrosModalOpen}
+                setIsPaginationEnabled={setIsPaginationEnabled}
+                setPageSize={setPageSize}
             />
         </div>
     )
@@ -268,9 +281,9 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
     return (
         <>
             {item.paciente_apollo === true ? (
-            <div className={`w-7 px-1 flex items-center bg-[${color}] rounded mt-[${calculateOffset()}px]`}>
-                <img src={Logo} alt="Logo" className="bg-white rounded-full"/>
-            </div>
+                <div className={`w-7 px-1 flex items-center bg-[${color}] rounded mt-[${calculateOffset()}px]`}>
+                    <img src={Logo} alt="Logo" className="bg-white rounded-full" />
+                </div>
             ) : null}
             {height < 62 ? (
                 <div onClick={() => onClickEvent(item)}
@@ -343,65 +356,6 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
                 </div>
             ) : (<></>)}
         </>
-    )
-}
-
-const ContainerBlock = ({ container, isMinimalist, config, onClickEvent }) => {
-
-    /*const randomColor = () => {
-        const r = Math.floor(Math.random() * 256)
-        const g = Math.floor(Math.random() * 256)
-        const b = Math.floor(Math.random() * 256)
-        const a = 0.1 // transparência (0 = invisível, 1 = sólido)
-
-        return `rgba(${r}, ${g}, ${b}, ${a})`
-    }
-
-    const bg_color = randomColor()*/
-
-    const slotHeight = config.slotHeight || 70
-
-    const calculateHeight = () => {
-        if (!container.inicio || !container.fim) return slotHeight
-
-        const start = new Date(container.inicio)
-        const end = new Date(container.fim)
-        const duration = (end - start) / (1000 * 60)
-
-        return ((duration / 60) * slotHeight) - 8
-    }
-
-    const calculateOffset = () => {
-        if (!container.inicio) return 0
-
-        const start = new Date(container.inicio)
-        const minutes = start.getUTCMinutes()
-
-        return (minutes / 60) * slotHeight
-    }
-
-    const height = calculateHeight()
-    const offset = calculateOffset()
-
-    return (
-
-        <div
-
-            style={{
-                height: `${height}px`,
-                marginTop: `${offset}px`,
-                backgroundColor: /*bg_color*/isMinimalist ? "#ffffff" : "#f5f5f5",
-                border: "2px dashed #c1c1c1",
-                zIndex: 1
-            }}
-            className="w-full rounded-md"
-            onClick={() => onClickEvent(container)}
-        >
-            <div className="text-[11px] text-slate-500 p-1 flex justify-between px-2">
-                <p>Locação | {formatTime(container.inicio)} - {formatTime(container.fim)}</p>
-                <p>{container.profissional}</p>
-            </div>
-        </div>
     )
 }
 

@@ -267,7 +267,7 @@ patients = [
 ]
 
 items = format_data_for_calendar(db_fake_raw)
-headers = [{"id_slot": f"{i}", "nome": f"Consultório {i}", "sigla": f"C{i}"} for i in range(1, 6)]
+headers = [{"id_slot": f"{i}", "nome": f"Consultório {i}", "sigla": f"C{i}"} for i in range(1, 30)]
 
 today = st.session_state.data
 start_week = today - timedelta(days=(today.weekday() + 1) % 7)
@@ -316,7 +316,8 @@ resultado = journey_calendar(
         "timeKey": "startTime",
         "endTime": "endTime",
         "colorKey": "color",
-        "showToggle": True
+        "showToggle": True,
+        "pageSize": 5
     },
     key="2",
     acesso="Admin"

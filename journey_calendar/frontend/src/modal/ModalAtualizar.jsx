@@ -167,7 +167,7 @@ function ModalAtualizar({
                                     <div className="flex gap-3">
                                         {/*<button className="w-fit py-3 px-4 border bg-[#1159c5] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#1b6ce6] transition-all active:outline-none" onClick={handleTransformSubmit}><FaRecycle className="size-5"/></button>*/}
                                         <button className="w-fit py-3 px-4 border bg-[#c51d11] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#db2a1e] transition-all active:outline-none" onClick={handleSubmit}><FaTrash /></button>
-                                        {formData.em_lote ? (<button className="w-fit py-3 px-4 border bg-[#690d06] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#88140c] transition-all active:outline-none" onClick={handleSubmitEmLote}><FaDumpster className="size-5"/></button>) : null}
+                                        {formData.em_lote ? (<button className="w-fit py-3 px-4 border bg-[#690d06] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#88140c] transition-all active:outline-none" onClick={handleSubmitEmLote}><FaDumpster className="size-5" /></button>) : null}
                                     </div>
                                 </div>
 
