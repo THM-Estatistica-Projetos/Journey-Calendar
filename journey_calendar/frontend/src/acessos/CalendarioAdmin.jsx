@@ -135,8 +135,8 @@ function CalendarioAdmin({ args }) {
                                 Horário
                             </th>
                             {columns.map((col) => (
-                                <th key={col.id_slot} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
-                                    {col.nome}
+                                <th key={col.id} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
+                                    {col.sigla}
                                 </th>
                             ))}
                         </tr>
@@ -150,11 +150,11 @@ function CalendarioAdmin({ args }) {
                                 </td>
 
                                 {columns.map((col) => {
-                                    const cellItems = gridData[`${col.id_slot}-${time}`] || []
+                                    const cellItems = gridData[`${col.id}-${time}`] || []
                                     return (
-                                        <td key={`${time}-${col.id_slot}`} className="p-0 border-r border-slate-200 align-top relative">
+                                        <td key={`${time}-${col.id}`} className="p-0 border-r border-slate-200 align-top relative">
                                             <div className="absolute inset-0 z-0 p-1">
-                                                {showLocacoes ? (containerGrid[`${col.id_slot}-${time}`] || []).map((container) => (
+                                                {showLocacoes ? (containerGrid[`${col.id}-${time}`] || []).map((container) => (
                                                     <ContainerBlock
                                                         key={container.id}
                                                         container={container}

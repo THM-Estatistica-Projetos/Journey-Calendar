@@ -46,5 +46,5 @@ journey_calendar(
 
 ```sh
 pip uninstall journey_calendar -y
-pip install --no-cache-dit git+https://github.com/THM-Estatistica-Projetos/Journey-Calendar.git
+pip install --no-cache-dir git+https://github.com/THM-Estatistica-Projetos/Journey-Calendar.git
 ```
