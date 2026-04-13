@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import AgendaMedico from "./acessos/AgendaMedico"
 import CalendarioAdmin from "./acessos/CalendarioAdmin"
 
-function ApolloCalendar({ args }) {
+function JourneyCalendar({ args }) {
 
     const {
         items = [], // Eventos a serem mostrados
@@ -39,4 +39,4 @@ function ApolloCalendar({ args }) {
     )
 }
 
-export default withStreamlitConnection(ApolloCalendar)
+export default withStreamlitConnection(JourneyCalendar)

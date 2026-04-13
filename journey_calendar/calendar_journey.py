@@ -7,8 +7,8 @@ from datetime import timedelta, datetime
 _RELEASE = True
 
 if _RELEASE == False:
-    _apollo_calendar = components.declare_component(
-        "apollo_calendar",
+    _journey_calendar = components.declare_component(
+        "journey_calendar",
         url="http://localhost:3001",
     )
 else:
@@ -17,12 +17,12 @@ else:
     if not build_dir.exists():
         raise RuntimeError(f"Build directory not found: {build_dir}")
 
-    _apollo_calendar = components.declare_component(
-        "apollo_calendar",
+    _journey_calendar = components.declare_component(
+        "journey_calendar",
         path=str(build_dir),
     )
 
-def apollo_calendar(
+def journey_calendar(
     items=[],
     containers=[],
     tipo_aluguel=[],
@@ -43,7 +43,7 @@ def apollo_calendar(
     if time_slots is None:
         time_slots = [f"{h:02d}:00" for h in range(6, 22)]
         
-    return _apollo_calendar(
+    return _journey_calendar(
         items=items,
         containers=containers,
         tipo_aluguel=tipo_aluguel,

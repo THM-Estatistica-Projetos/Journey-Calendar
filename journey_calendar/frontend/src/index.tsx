@@ -1,6 +1,6 @@
 import React, { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import ApolloCalendar from "./ApolloCalendar"
+import JourneyCalendar from "./JourneyCalendar"
 
 const rootElement = document.getElementById("root")
 
@@ -12,6 +12,6 @@ const root = createRoot(rootElement)
 
 root.render(
   <StrictMode>
-    <ApolloCalendar />
+    <JourneyCalendar />
   </StrictMode>
 )

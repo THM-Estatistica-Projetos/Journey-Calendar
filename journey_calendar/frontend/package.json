@@ -1,12 +1,12 @@
 {
-  "name": "apollo_calendar",
+  "name": "journey_calendar",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@fullapollo_calendar/core": "^6.1.20",
-    "@fullapollo_calendar/daygrid": "^6.1.20",
-    "@fullapollo_calendar/react": "^6.1.20",
+    "@fulljourney_calendar/core": "^6.1.20",
+    "@fulljourney_calendar/daygrid": "^6.1.20",
+    "@fulljourney_calendar/react": "^6.1.20",
     "@fullcalendar/react": "^6.1.20",
     "@fullcalendar/resource-timegrid": "^6.1.20",
     "@fullcalendar/timegrid": "^6.1.20",

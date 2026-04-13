@@ -6,7 +6,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
-    name="apollo_calendar",
+    name="journey_calendar",
     version="0.0.1",
     author="THM Estatística",
     author_email="eduardocoutinho30089@gmail.com",
@@ -18,7 +18,7 @@ setuptools.setup(
     include_package_data=True,
 
     package_data={
-        "apollo_calendar": ["frontend/build/**/*"]
+        "journey_calendar": ["frontend/build/**/*"]
     },
 
     python_requires=">=3.7",

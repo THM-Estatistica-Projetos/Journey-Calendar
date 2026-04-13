@@ -28,7 +28,7 @@ function ModalAtualizar({
 
     const handleSubmitEmLote = () => {
         Streamlit.setComponentValue({
-            tipo: "agendamento",
+            /*tipo: "agendamento",*/
             operacao: "RemoveLote",
             id_agendamento: formData.id,
             id_paciente: formData.paciente,
@@ -43,7 +43,7 @@ function ModalAtualizar({
 
     const handleTransformSubmit = () => {
         Streamlit.setComponentValue({
-            tipo: "agendamento",
+            /*tipo: "agendamento",*/
             operacao: "Transform",
             id_agendamento: formData.id,
             id_paciente: formData.paciente,
@@ -70,7 +70,7 @@ function ModalAtualizar({
     }
 
     const [formData, setFormData] = useState({
-        tipo: "agendamento",
+        /*tipo: "agendamento",*/
         operacao: "Update",
         id: "",
         paciente: "",
@@ -102,7 +102,7 @@ function ModalAtualizar({
             // console.log("É Apollo:", isApollo, "Valor Bruto:", selectedPatient?.paciente_apollo);
 
             setFormData({
-                tipo: "agendamento",
+                /*tipo: "agendamento",*/
                 operacao: "Update",
                 id: item.id,
                 paciente: selectedPatient?.id_paciente || "",
@@ -165,7 +165,7 @@ function ModalAtualizar({
                                         Atualizar ou excluir agendamento
                                     </h1>
                                     <div className="flex gap-3">
-                                        <button className="w-fit py-3 px-4 border bg-[#1159c5] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#1b6ce6] transition-all active:outline-none" onClick={handleTransformSubmit}><FaRecycle className="size-5"/></button>
+                                        {/*<button className="w-fit py-3 px-4 border bg-[#1159c5] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#1b6ce6] transition-all active:outline-none" onClick={handleTransformSubmit}><FaRecycle className="size-5"/></button>*/}
                                         <button className="w-fit py-3 px-4 border bg-[#c51d11] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#db2a1e] transition-all active:outline-none" onClick={handleSubmit}><FaTrash /></button>
                                         {formData.em_lote ? (<button className="w-fit py-3 px-4 border bg-[#690d06] rounded-md text-md text-slate-50 font-medium shadow-sm hover:translate-y-[-4px] hover:bg-[#88140c] transition-all active:outline-none" onClick={handleSubmitEmLote}><FaDumpster className="size-5"/></button>) : null}
                                     </div>

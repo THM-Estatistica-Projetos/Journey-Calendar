@@ -106,12 +106,12 @@ function CalendarioAdmin({ args }) {
             )}
 
             <div className="flex gap-4 w-full">
-                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Agendamento ou Locação</button>
+                <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAdicionarModalOpen(true)}>Adicionar Agendamento {/*ou Locação*/}</button>
                 {/*<button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsEditarModalOpen(true)}>Editar Consulta</button>
                 <button className="w-full px-10 py-2 rounded-xl my-3 content-center border text-slate-500 focus:outline-none border-slate-200" onClick={() => setIsAtualizarModalOpen(true)}>Remover Consulta</button>*/}
             </div>
 
-            <div className="flex w-full gap-2 mb-3">
+            {/*<div className="flex w-full gap-2 mb-3">
                 <div className="flex w-20 items-center justify-between px-3 py-3 gap-2 bg-slate-200 rounded-l-xl border border-slate-300">
                     <h3>Filtros</h3>
                 </div>
@@ -125,10 +125,7 @@ function CalendarioAdmin({ args }) {
                         </div>
                     </div>
                 </div>
-            </div>
-
-            {console.log("agendamentos", showAgendamentos)}
-            {console.log("locacoes", showLocacoes)}
+            </div>*/}
 
             <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
                 <table className="table-auto min-w-full border-collapse">

@@ -7,8 +7,8 @@ from datetime import timedelta, datetime
 _RELEASE = False
 
 if _RELEASE == False:
-    _apollo_calendar = components.declare_component(
-        "apollo_calendar",
+    _journey_calendar = components.declare_component(
+        "journey_calendar",
         url="http://localhost:3001",
     )
 else:
@@ -17,8 +17,8 @@ else:
     if not build_dir.exists():
         raise RuntimeError(f"Build directory not found: {build_dir}")
 
-    _apollo_calendar = components.declare_component(
-        "apollo_calendar",
+    _journey_calendar = components.declare_component(
+        "journey_calendar",
         path=str(build_dir),
     )
 
@@ -52,7 +52,7 @@ data_str = st.session_state.data.strftime("%Y-%m-%d")
 
 st.set_page_config(layout="wide")
 
-def apollo_calendar(items, containers, tipo_aluguel, patients, professionals, columns, time_slots=None, config=None, key=None, acesso="", paciente_apollo=False):
+def journey_calendar(items, containers, tipo_aluguel, patients, professionals, columns, time_slots=None, config=None, key=None, acesso="", paciente_apollo=False):
     """
     items: Lista de dicionários formatados
     columns: Lista de strings ou dicts [{"id": "C1", "title": "Consultório 1"}]
@@ -62,7 +62,7 @@ def apollo_calendar(items, containers, tipo_aluguel, patients, professionals, co
     if time_slots is None:
         time_slots = [f"{h:02d}:00" for h in range(6, 22)]
         
-    return _apollo_calendar(
+    return _journey_calendar(
         items=items,
         containers=containers,
         tipo_aluguel=tipo_aluguel,
@@ -286,7 +286,7 @@ for i in range(7):
 
 #paciente_apollo_default = st.toggle("Paciente Apollo padrao?", value=False)
 
-#resultado = apollo_calendar(
+#resultado = journey_calendar(
 #    items=items, 
 #    patients=patients,
 #    professionals=professionals,
@@ -303,7 +303,7 @@ for i in range(7):
 #    acesso="Medico"
 #)
 
-resultado = apollo_calendar(
+resultado = journey_calendar(
     items=items,
     containers=containers,
     tipo_aluguel=tipo_aluguel,

@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "types": ["vite/client"]
   },
-  "include": ["src", "../../../pages/ApolloCalendarV1.jsx"]
+  "include": ["src", "../../../pages/JourneyCalendarV1.jsx"]
 }
