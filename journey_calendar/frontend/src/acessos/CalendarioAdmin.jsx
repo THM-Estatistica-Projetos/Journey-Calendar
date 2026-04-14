@@ -58,6 +58,8 @@ function CalendarioAdmin({ args }) {
         return today.toISOString().split("T")[0];
     });
 
+    const [lastDate, setLastDate] = useState(date)
+
     useEffect(() => {
         if (!isPaginationEnabled) {
             setCurrentPage(0)
@@ -69,8 +71,16 @@ function CalendarioAdmin({ args }) {
     })
 
     useEffect(() => {
-        Streamlit.setComponentValue(date)
-    }, [date])
+        if (!date || !lastDate) return;
+
+        const currentPeriod = date.substring(0, 7);
+        const lastPeriod = lastDate.substring(0, 7);
+
+        if (currentPeriod !== lastPeriod) {
+            Streamlit.setComponentValue(date);
+            setLastDate(date);
+        }
+    }, [date]);
 
     const changeDays = (days) => {
         const current = new Date(date);
