@@ -107,6 +107,10 @@ function CalendarioAdmin({ args }) {
         return map
     }, [filteredItems, config])
 
+    console.log("filteredItems", filteredItems)
+    console.log("date", date)
+    console.log("gridData", gridData)
+
     const containerGrid = useMemo(() => {
         const map = {}
 
