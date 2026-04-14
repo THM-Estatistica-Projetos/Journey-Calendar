@@ -69,7 +69,6 @@ function CalendarioAdmin({ args }) {
     })
 
     useEffect(() => {
-        e.preventDefault()
         Streamlit.setComponentValue(date)
     }, [date])
 
