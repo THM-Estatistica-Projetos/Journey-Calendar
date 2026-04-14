@@ -80,14 +80,18 @@ function CalendarioAdmin({ args }) {
         return `${h}:00`
     }
 
+    const formatLocalDate = (dateObj) => {
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+        const day = String(dateObj.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    };
+
     const filteredItems = useMemo(() => {
         return items.filter(item => {
             if (!item[config.timeKey]) return false;
 
-            const itemDate = new Date(item[config.timeKey])
-                .toISOString()
-                .split("T")[0];
-
+            const itemDate = formatLocalDate(new Date(item[config.timeKey]));
             return itemDate === date;
         });
     }, [items, date, config]);
