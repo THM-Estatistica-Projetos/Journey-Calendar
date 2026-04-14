@@ -134,18 +134,18 @@ function CalendarioAdmin({ args }) {
                 </button>
 
                 <span className="text-sm text-slate-600">
-                    Página {currentPage + 1} de {Math.ceil(columns.length / config.pageSize)}
+                    Página {currentPage + 1} de {Math.ceil(columns.length / effectivePageSize)}
                 </span>
 
                 <button
                     onClick={() =>
                         setCurrentPage(prev =>
-                            prev < Math.ceil(columns.length / config.pageSize) - 1
+                            prev < Math.ceil(columns.length / effectivePageSize) - 1
                                 ? prev + 1
                                 : prev
                         )
                     }
-                    disabled={currentPage >= Math.ceil(columns.length / config.pageSize) - 1}
+                    disabled={currentPage >= Math.ceil(columns.length / effectivePageSize) - 1}
                     className="px-4 py-2 border rounded disabled:opacity-50"
                 >
                     Próxima
@@ -160,7 +160,8 @@ function CalendarioAdmin({ args }) {
                                 Horário
                             </th>
                             {paginatedColumns.map((col) => (
-                                <th key={col.id_slot} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
+                                
+                                <th key={`${col.id_slot}-${currentPage}`} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
                                     {col.sigla}
                                 </th>
                             ))}
@@ -175,9 +176,11 @@ function CalendarioAdmin({ args }) {
                                 </td>
 
                                 {paginatedColumns.map((col) => {
-                                    const cellItems = gridData[`${col.id_slot}-${time}`] || []
+                                    const colKey = col[config.columnKey]
+
+                                    const cellItems = gridData[`${colKey}-${time}`] || []
                                     return (
-                                        <td key={`${time}-${col.id_slot}`} className="p-0 border-r border-slate-200 align-top relative">
+                                        <td key={`${time}-${col.id_slot}-${currentPage}`} className="p-0 border-r border-slate-200 align-top relative">
                                             <div className="absolute inset-x-0 top-0 z-10 p-1 flex gap-1">
                                                 {showAgendamentos ? (cellItems.map((item) => (
                                                     <EventCard
