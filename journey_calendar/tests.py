@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import streamlit as st
 import streamlit.components.v1 as components
-from datetime import timedelta, datetime
+from datetime import date, timedelta, datetime
 
 _RELEASE = False
 
@@ -22,33 +22,53 @@ else:
         path=str(build_dir),
     )
 
-if "data" not in st.session_state:
-    st.session_state.data = datetime.today()
+def addDay():
+    st.session_state.data_selecionada += timedelta(days=1)
 
-def addDate():
-    st.session_state.data += timedelta(days=1)
 
-def removeDate():
-    st.session_state.data -= timedelta(days=1)
-#---
+def removeDay():
+    st.session_state.data_selecionada -= timedelta(days=1)
+    
+    
+def addWeek():
+    st.session_state.data_selecionada += timedelta(weeks=1)
 
-col1, col2, col3 = st.columns([1, 9, 1])
+
+def removeWeek():
+    st.session_state.data_selecionada -= timedelta(weeks=1)
+    
+
+if "data_selecionada" not in st.session_state:
+    st.session_state["data_selecionada"] = date.today()
+data = st.session_state["data_selecionada"]
+
+col1, col2, col3 = st.columns([1, 3, 1])
 
 with col1:
-    st.write("")
-    st.button("Dia anterior", width="stretch", on_click=removeDate)
+    subcol1, subcol2 = st.columns(2)
+    with subcol1:
+        st.write("")
+        st.button(key="sem_pre", label="-1 Semana", use_container_width=True, on_click=removeWeek)
+    with subcol2:
+        st.write("")
+        st.button(key="dia_pre", label="Dia anterior", use_container_width=True, on_click=removeDay)
 
 with col2:
     st.session_state.data = st.date_input(
         "Selecione a data",
-        value=st.session_state.data
+        value=st.session_state.data_selecionada
     )
 
 with col3:
-    st.write("")
-    st.button("Dia posterior", width="stretch", on_click=addDate)
+    subcol1, subcol2 = st.columns(2)
+    with subcol1:
+        st.write("")
+        st.button(key="dia_post", label="Dia posterior", use_container_width=True, on_click=addDay)
+    with subcol2:
+        st.write("")
+        st.button(key="sem_post", label="+1 Semana", use_container_width=True, on_click=addWeek)
 
-data_str = st.session_state.data.strftime("%Y-%m-%d")
+data_str = st.session_state.data_selecionada.strftime("%Y-%m-%d")
 
 st.set_page_config(layout="wide")
 

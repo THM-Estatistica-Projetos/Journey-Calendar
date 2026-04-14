@@ -63,16 +63,39 @@ function CalendarioAdmin({ args }) {
         Streamlit.setFrameHeight()
     })
 
+    const [date, setDate] = useState(() => {
+        const today = new Date();
+        return today.toISOString().split("T")[0];
+    });
+
+    const changeDays = (days) => {
+        const current = new Date(date);
+        current.setDate(current.getDate() + days);
+        setDate(current.toISOString().split("T")[0]);
+    };
+
     const getHourSlot = (dateStr) => {
         const d = new Date(dateStr)
         const h = d.getUTCHours().toString().padStart(2, "0")
         return `${h}:00`
     }
 
+    const filteredItems = useMemo(() => {
+        return items.filter(item => {
+            if (!item[config.timeKey]) return false;
+
+            const itemDate = new Date(item[config.timeKey])
+                .toISOString()
+                .split("T")[0];
+
+            return itemDate === date;
+        });
+    }, [items, date, config]);
+
     const gridData = useMemo(() => {
         const map = {}
 
-        items.forEach(item => {
+        filteredItems.forEach(item => {
             const timeKey = getHourSlot(item[config.timeKey])
             const key = `${item[config.columnKey]}-${timeKey}`
 
@@ -107,6 +130,16 @@ function CalendarioAdmin({ args }) {
 
     return (
         <div className="font-sans text-slate-900">
+            <div className="flex items-center gap-3 py-3 rounded-lg">
+                <button onClick={() => changeDays(-7)} className="px-10 py-2 bg-white border rounded-md">-1 Semana</button>
+                <button onClick={() => changeDays(-1)} className="px-10 py-2 bg-white border rounded-md">Dia anterior</button>
+
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="flex-1 px-4 py-2 border rounded-md text-center" />
+
+                <button onClick={() => changeDays(1)} className="px-10 py-2 bg-white border rounded-md">Dia posterior</button>
+                <button onClick={() => changeDays(7)} className="px-10 py-2 bg-white border rounded-md">+1 Semana</button>
+            </div>
+
             {config.showToggle && (
                 <div className="flex gap-3">
                     <div
@@ -160,7 +193,7 @@ function CalendarioAdmin({ args }) {
                                 Horário
                             </th>
                             {paginatedColumns.map((col) => (
-                                
+
                                 <th key={`${col.id_slot}-${currentPage}`} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
                                     {col.sigla}
                                 </th>
