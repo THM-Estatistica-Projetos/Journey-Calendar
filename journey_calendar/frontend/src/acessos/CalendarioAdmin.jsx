@@ -53,6 +53,11 @@ function CalendarioAdmin({ args }) {
         return columns.slice(start, end)
     }, [columns, currentPage, effectivePageSize])
 
+    const [date, setDate] = useState(() => {
+        const today = new Date();
+        return today.toISOString().split("T")[0];
+    });
+
     useEffect(() => {
         if (!isPaginationEnabled) {
             setCurrentPage(0)
@@ -63,10 +68,10 @@ function CalendarioAdmin({ args }) {
         Streamlit.setFrameHeight()
     })
 
-    const [date, setDate] = useState(() => {
-        const today = new Date();
-        return today.toISOString().split("T")[0];
-    });
+    useEffect(() => {
+        e.preventDefault()
+        Streamlit.setComponentValue(date)
+    }, [date])
 
     const changeDays = (days) => {
         const current = new Date(date);
@@ -106,10 +111,6 @@ function CalendarioAdmin({ args }) {
 
         return map
     }, [filteredItems, config])
-
-    console.log("filteredItems", filteredItems)
-    console.log("date", date)
-    console.log("gridData", gridData)
 
     const containerGrid = useMemo(() => {
         const map = {}
