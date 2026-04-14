@@ -153,7 +153,7 @@ function CalendarioAdmin({ args }) {
             </div>) : null}
 
             <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
-                <table className="table-auto min-w-full border-collapse">
+                <table className="table-auto min-w-full border-collapse" key={`table-${currentPage}`}>
                     <thead>
                         <tr className="bg-slate-50 border-b border-slate-200">
                             <th className="p-3 border-r border-slate-200 text-xs font-semibold text-slate-500 sticky left-0 bg-slate-50 z-10 w-20">
