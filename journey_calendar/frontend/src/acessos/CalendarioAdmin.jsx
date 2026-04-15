@@ -22,6 +22,8 @@ function CalendarioAdmin({ args }) {
         config = {
             primaryKey: 'id',
             columnKey: 'columnId',
+            titleKey: 'titleId',
+            subtitleKey: 'subtitleId',
             timeKey: 'startTime',
             endKey: 'endTime',
             colorKey: 'color',
@@ -32,14 +34,17 @@ function CalendarioAdmin({ args }) {
     } = args
 
     const [isMinimalist, setIsMinimalist] = useState(false)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [isPaginationEnabled, setIsPaginationEnabled] = useState(false)
+    const [isPresenteEmojiShown, setIsPresenteEmojiShown] = useState(true)
+
+    const [showAgendamentos, setShowAgendamentos] = useState(true)
 
     const [isFiltrosModalOpen, setIsFiltrosModalOpen] = useState(false)
     const [isAdicionarModalOpen, setIsAdicionarModalOpen] = useState(false)
     const [isAtualizarModalOpen, setIsAtualizarModalOpen] = useState(false)
 
-    const [isPaginationEnabled, setIsPaginationEnabled] = useState(false)
     const [pageSize, setPageSize] = useState(config.pageSize)
+    const [currentPage, setCurrentPage] = useState(0)
 
     const [selectedEvent, setSelectedEvent] = useState({})
 
@@ -141,8 +146,6 @@ function CalendarioAdmin({ args }) {
         setIsAtualizarModalOpen(true)
     }
 
-    const [showAgendamentos, setShowAgendamentos] = useState(true)
-
     return (
         <div className="font-sans text-slate-900">
             <div className="flex items-center gap-3 py-3 rounded-lg">
@@ -237,6 +240,7 @@ function CalendarioAdmin({ args }) {
                                                         isMinimalist={isMinimalist}
                                                         config={config}
                                                         onClickEvent={handleEventClick}
+                                                        isPresenteEmojiShown={isPresenteEmojiShown}
                                                     />
                                                 ))) : null}
                                             </div>
@@ -273,19 +277,26 @@ function CalendarioAdmin({ args }) {
                 columns={columns}
                 isPaginationEnabled={isPaginationEnabled}
                 isFiltrosModalOpen={isFiltrosModalOpen}
+                isPresenteEmojiShown={isPresenteEmojiShown}
                 pageSize={pageSize}
                 setIsFiltrosModalOpen={setIsFiltrosModalOpen}
                 setIsPaginationEnabled={setIsPaginationEnabled}
+                setIsPresenteEmojiShown={setIsPresenteEmojiShown}
                 setPageSize={setPageSize}
             />
         </div>
     )
 }
 
-const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
+const EventCard = ({ item, isMinimalist, config, onClickEvent, isPresenteEmojiShown }) => {
 
     const color = item[config.colorKey] || "#3788d8"
     const slotHeight = config.slotHeight || 70
+
+    const stripCheck = (text) => {
+        if (!text) return text
+        return text.replace(/✅/g, "").trim()
+    }
 
     const calculateHeight = () => {
         if (!item[config.timeKey] || !item[config.endTime]) return slotHeight - 8
@@ -375,7 +386,9 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
                         )}
                     </div>
                     <div className="text-xs font-semibold text-slate-800 line-clamp-1">
-                        {item.title || "Sem título"}
+                        {isPresenteEmojiShown
+                            ? item.title || "Sem título"
+                            : stripCheck(item.title || "Sem título")}
                     </div>
                     {item.subtitle && (
                         <div className="text-[10px] text-slate-500 italic truncate">
@@ -394,8 +407,10 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent }) => {
                             {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
                         </div>
                     </div>
-                    <div className={`text-xs font-semibold ${isMinimalist ? "text-slate-500" : "text-white"} line-clamp-1`}>
-                        {item.title || "Sem título"}
+                    <div className="text-xs font-semibold text-slate-800 line-clamp-1">
+                        {isPresenteEmojiShown
+                            ? item.title || "Sem título"
+                            : stripCheck(item.title || "Sem título")}
                     </div>
                     {item.subtitle && (
                         <div className={`text-[10px] ${isMinimalist ? "text-slate-500" : "text-white"} italic truncate`}>

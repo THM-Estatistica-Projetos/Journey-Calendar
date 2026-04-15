@@ -4,9 +4,11 @@ import { Fragment, useState, useEffect } from "react";
 function ModalFiltros({
     setIsFiltrosModalOpen,
     setIsPaginationEnabled,
+    setIsPresenteEmojiShown,
     setPageSize,
     isFiltrosModalOpen,
     isPaginationEnabled,
+    isPresenteEmojiShown,
     columns,
     pageSize,
 }) {
@@ -25,19 +27,31 @@ function ModalFiltros({
 
                                 <div className="w-full border border-b-slate-800 my-4" />
 
-                                <div className="flex flex-col gap-3">
-                                <div className="flex gap-3">
-                                    <div
-                                        onClick={() => setIsPaginationEnabled(!isPaginationEnabled)}
-                                        className="mb-2 w-[52px] h-[26px] bg-white rounded-full border-2 border-gray-500 flex items-center cursor-pointer"
-                                    >
-                                        <div className={"w-[18px] h-[18px] bg-gray-500 rounded-full transition-all " + (isPaginationEnabled ? "translate-x-[28px] bg-gray-700" : "translate-x-[2px]")} />
+                                <div className="flex flex-col gap-3 my-4">
+                                    <div className="flex gap-3">
+                                        <div
+                                            onClick={() => setIsPaginationEnabled(!isPaginationEnabled)}
+                                            className="mb-2 w-[52px] h-[26px] bg-white rounded-full border-2 border-gray-500 flex items-center cursor-pointer"
+                                        >
+                                            <div className={"w-[18px] h-[18px] bg-gray-500 rounded-full transition-all " + (isPaginationEnabled ? "translate-x-[28px] bg-gray-700" : "translate-x-[2px]")} />
+                                        </div>
+                                        <p className="" >{isPaginationEnabled ? "Paginação Ativada" : "Paginação Desativada"}</p>
                                     </div>
-                                    <p className="" >{isPaginationEnabled ? "Paginação Ativada" : "Paginação Desativada"}</p>
+                                    {isPaginationEnabled ? (<div>
+                                        <input type="number" className="ml-3 w-25 h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3" value={pageSize} min="1" max="25" onChange={(e) => setPageSize(Number(e.target.value))} />
+                                    </div>) : null}
                                 </div>
-                                {isPaginationEnabled ? (<div>
-                                    <input type="number" className="ml-3 w-25 h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3" value={pageSize} min="1" max="25" onChange={(e) => setPageSize(Number(e.target.value))}/>
-                                </div>) : null}
+
+                                <div className="flex flex-col gap-3 my-4">
+                                    <div className="flex gap-3">
+                                        <div
+                                            onClick={() => setIsPresenteEmojiShown(!isPresenteEmojiShown)}
+                                            className="mb-2 w-[52px] h-[26px] bg-white rounded-full border-2 border-gray-500 flex items-center cursor-pointer"
+                                        >
+                                            <div className={"w-[18px] h-[18px] bg-gray-500 rounded-full transition-all " + (isPresenteEmojiShown ? "translate-x-[28px] bg-gray-700" : "translate-x-[2px]")} />
+                                        </div>
+                                        <p className="" >{isPresenteEmojiShown ? "Presenças Exibidas" : "Mostrar Presenças"}</p>
+                                    </div>
                                 </div>
 
                             </div>

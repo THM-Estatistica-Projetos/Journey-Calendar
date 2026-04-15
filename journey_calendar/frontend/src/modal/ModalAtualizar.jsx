@@ -20,6 +20,8 @@ function ModalAtualizar({
 
     const {
         primaryKey,
+        titleKey,
+        subtitleKey,
         columnKey,
         timeKey,
         endKey
@@ -107,8 +109,8 @@ function ModalAtualizar({
             setFormData({
                 operacao: "Update",
                 id: item[primaryKey],
-                paciente: patients.find(p => p.nome === item.title)?.id || "",
-                profissional: professionals.find(p => p.nome === item.subtitle)?.id_usuario || "",
+                paciente: patients.find(p => p.nome === item.title)?.[titleKey] || "",
+                profissional: professionals.find(p => p.nome === item.subtitle)?.[subtitleKey] || "",
                 slot: item[columnKey],
                 data: start.toISOString().slice(0, 10),
                 inicio: item[timeKey]?.slice(11, 16),
