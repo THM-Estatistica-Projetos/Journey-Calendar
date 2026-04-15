@@ -244,7 +244,7 @@ function CalendarioAdmin({ args }) {
                                                         isMinimalist={isMinimalist}
                                                         config={config}
                                                         onClickEvent={handleEventClick}
-                                                        isPresenteEmojiShown={isPresenteEmojiShown}
+                                                        emojiVisibility={emojiVisibility}
                                                     />
                                                 ))) : null}
                                             </div>
@@ -292,10 +292,20 @@ function CalendarioAdmin({ args }) {
     )
 }
 
-const EventCard = ({ item, isMinimalist, config, onClickEvent, isPresenteEmojiShown }) => {
+const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility }) => {
 
     const color = item[config.colorKey] || "#3788d8"
     const slotHeight = config.slotHeight || 70
+
+    const getStatusEmoji = (status) => {
+        const s = (status || "").toLowerCase().trim()
+
+        if (s === "cancelado") return "❌ "
+        if (["ausência", "ausencia", "sem aviso"].some(t => s.includes(t))) return "⚠️ "
+        if (s === "presente") return "✅ "
+
+        return ""
+    }
 
     const getStatusType = (status) => {
         const s = (status || "").toLowerCase().trim()
