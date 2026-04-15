@@ -35,7 +35,11 @@ function CalendarioAdmin({ args }) {
 
     const [isMinimalist, setIsMinimalist] = useState(false)
     const [isPaginationEnabled, setIsPaginationEnabled] = useState(false)
-    const [isPresenteEmojiShown, setIsPresenteEmojiShown] = useState(true)
+    const [emojiVisibility, setEmojiVisibility] = useState({
+        presente: true,
+        cancelado: true,
+        ausencia: true,
+    })
 
     const [showAgendamentos, setShowAgendamentos] = useState(true)
 
@@ -277,11 +281,11 @@ function CalendarioAdmin({ args }) {
                 columns={columns}
                 isPaginationEnabled={isPaginationEnabled}
                 isFiltrosModalOpen={isFiltrosModalOpen}
-                isPresenteEmojiShown={isPresenteEmojiShown}
                 pageSize={pageSize}
                 setIsFiltrosModalOpen={setIsFiltrosModalOpen}
                 setIsPaginationEnabled={setIsPaginationEnabled}
-                setIsPresenteEmojiShown={setIsPresenteEmojiShown}
+                emojiVisibility={emojiVisibility}
+                setEmojiVisibility={setEmojiVisibility}
                 setPageSize={setPageSize}
             />
         </div>
@@ -293,10 +297,21 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, isPresenteEmojiSh
     const color = item[config.colorKey] || "#3788d8"
     const slotHeight = config.slotHeight || 70
 
-    const stripCheck = (text) => {
-        if (!text) return text
-        return text.replace(/✅/g, "").trim()
+    const getStatusType = (status) => {
+        const s = (status || "").toLowerCase().trim()
+
+        if (s === "cancelado") return "cancelado"
+        if (["ausência", "ausencia", "sem aviso"].some(t => s.includes(t))) return "ausencia"
+        if (s === "presente") return "presente"
+
+        return null
     }
+
+    const statusType = getStatusType(item.status)
+    const statusEmoji = getStatusEmoji(item.status)
+
+    const shouldShowEmoji =
+        !statusType || emojiVisibility[statusType]
 
     const calculateHeight = () => {
         if (!item[config.timeKey] || !item[config.endTime]) return slotHeight - 8
@@ -386,9 +401,9 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, isPresenteEmojiSh
                         )}
                     </div>
                     <div className="text-xs font-semibold text-slate-800 line-clamp-1">
-                        {isPresenteEmojiShown
-                            ? item.title || "Sem título"
-                            : stripCheck(item.title || "Sem título")}
+                        {shouldShowEmoji
+                            ? `${statusEmoji}${item.title || "Sem título"}`
+                            : item.title || "Sem título"}
                     </div>
                     {item.subtitle && (
                         <div className="text-[10px] text-slate-500 italic truncate">
@@ -408,9 +423,9 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, isPresenteEmojiSh
                         </div>
                     </div>
                     <div className="text-xs font-semibold text-slate-800 line-clamp-1">
-                        {isPresenteEmojiShown
-                            ? item.title || "Sem título"
-                            : stripCheck(item.title || "Sem título")}
+                        {shouldShowEmoji
+                            ? `${statusEmoji}${item.title || "Sem título"}`
+                            : item.title || "Sem título"}
                     </div>
                     {item.subtitle && (
                         <div className={`text-[10px] ${isMinimalist ? "text-slate-500" : "text-white"} italic truncate`}>

@@ -4,11 +4,11 @@ import { Fragment, useState, useEffect } from "react";
 function ModalFiltros({
     setIsFiltrosModalOpen,
     setIsPaginationEnabled,
-    setIsPresenteEmojiShown,
     setPageSize,
     isFiltrosModalOpen,
     isPaginationEnabled,
-    isPresenteEmojiShown,
+    emojiVisibility,
+    setEmojiVisibility,
     columns,
     pageSize,
 }) {
@@ -35,22 +35,43 @@ function ModalFiltros({
                                         >
                                             <div className={"w-[18px] h-[18px] bg-gray-500 rounded-full transition-all " + (isPaginationEnabled ? "translate-x-[28px] bg-gray-700" : "translate-x-[2px]")} />
                                         </div>
-                                        <p className="" >{isPaginationEnabled ? "Paginação Ativada" : "Paginação Desativada"}</p>
+                                        <p className="font-semibold text-slate-600" >{isPaginationEnabled ? "Paginação Ativada" : "Paginação Desativada"}</p>
                                     </div>
                                     {isPaginationEnabled ? (<div>
                                         <input type="number" className="ml-3 w-25 h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3" value={pageSize} min="1" max="25" onChange={(e) => setPageSize(Number(e.target.value))} />
                                     </div>) : null}
                                 </div>
 
-                                <div className="flex flex-col gap-3 my-4">
-                                    <div className="flex gap-3">
-                                        <div
-                                            onClick={() => setIsPresenteEmojiShown(!isPresenteEmojiShown)}
-                                            className="mb-2 w-[52px] h-[26px] bg-white rounded-full border-2 border-gray-500 flex items-center cursor-pointer"
-                                        >
-                                            <div className={"w-[18px] h-[18px] bg-gray-500 rounded-full transition-all " + (isPresenteEmojiShown ? "translate-x-[28px] bg-gray-700" : "translate-x-[2px]")} />
-                                        </div>
-                                        <p className="" >{isPresenteEmojiShown ? "Presenças Exibidas" : "Mostrar Presenças"}</p>
+                                <div className="flex flex-col gap-3 mt-4">
+                                    <p className="font-semibold text-slate-600">Emojis</p>
+
+                                    <div className="flex gap-2 flex-wrap">
+                                        {[
+                                            { key: "presente", label: "✅ Presente" },
+                                            { key: "cancelado", label: "❌ Cancelado" },
+                                            { key: "ausencia", label: "⚠️ Ausência" },
+                                        ].map(({ key, label }) => {
+                                            const active = emojiVisibility[key]
+
+                                            return (
+                                                <button
+                                                    key={key}
+                                                    onClick={() =>
+                                                        setEmojiVisibility(prev => ({
+                                                            ...prev,
+                                                            [key]: !prev[key]
+                                                        }))
+                                                    }
+                                                    className={`px-3 py-1 rounded-full border text-sm transition-all duration-200 focus:outline-none
+                                                        ${active
+                                                            ? "bg-white border-blue-600"
+                                                            : "bg-slate-200 opacity-50 text-slate-600 border-slate-300 hover:bg-slate-100"
+                                                        }`}
+                                                >
+                                                    {label}
+                                                </button>
+                                            )
+                                        })}
                                     </div>
                                 </div>
 
