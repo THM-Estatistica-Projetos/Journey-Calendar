@@ -103,12 +103,11 @@ function ModalAtualizar({
             const start = new Date(item[timeKey])
             const end = new Date(item[endKey])
 
-            const selectedPatient = patients.find(p => p.nome === item.title);
 
             setFormData({
                 operacao: "Update",
                 id: item[primaryKey],
-                paciente: selectedPatient?.id_paciente || "",
+                paciente: patients.find(p => p.nome === item.title)?.id || "",
                 profissional: professionals.find(p => p.nome === item.subtitle)?.id_usuario || "",
                 slot: item[columnKey],
                 data: start.toISOString().slice(0, 10),
