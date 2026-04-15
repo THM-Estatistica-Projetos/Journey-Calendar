@@ -267,6 +267,7 @@ function CalendarioAdmin({ args }) {
                 containers={containers}
                 tipo_aluguel={tipo_aluguel}
                 columns={columns}
+                config={config}
             />
             <ModalFiltros
                 columns={columns}

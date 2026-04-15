@@ -14,8 +14,16 @@ function ModalAtualizar({
     item,
     patients,
     professionals,
-    columns
+    columns,
+    config
 }) {
+
+    const {
+        primaryKey,
+        columnKey,
+        timeKey,
+        endKey
+    } = config
 
     const handleSubmit = () => {
         Streamlit.setComponentValue({
@@ -92,34 +100,26 @@ function ModalAtualizar({
     useEffect(() => {
         if (item && isAtualizarModalOpen) {
 
-            const start = new Date(item.startTime)
-            const end = new Date(item.endTime)
+            const start = new Date(item[timeKey])
+            const end = new Date(item[endKey])
 
-            // Encontrando o paciente selecionado com base no título do item
             const selectedPatient = patients.find(p => p.nome === item.title);
 
-            // console.log("Paciente Selecionado:", selectedPatient);
-            // console.log("É Apollo:", isApollo, "Valor Bruto:", selectedPatient?.paciente_apollo);
-
             setFormData({
-                /*tipo: "agendamento",*/
                 operacao: "Update",
-                id: item.id,
+                id: item[primaryKey],
                 paciente: selectedPatient?.id_paciente || "",
                 profissional: professionals.find(p => p.nome === item.subtitle)?.id_usuario || "",
-                slot: item.columnId,
+                slot: item[columnKey],
                 data: start.toISOString().slice(0, 10),
-                inicio: item.startTime.slice(11, 16),
-                fim: item.endTime.slice(11, 16),
+                inicio: item[timeKey]?.slice(11, 16),
+                fim: item[endKey]?.slice(11, 16),
                 status: item.status || "",
                 paciente_apollo: item.paciente_apollo || false,
                 em_lote: item.em_lote || false
             })
-
-            // console.log("Form data:", formData)
-            // console.log("Item data:", item)
         }
-    }, [item, isAtualizarModalOpen, patients, professionals])
+    }, [item, isAtualizarModalOpen, patients, professionals, config])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -268,7 +268,7 @@ function ModalAtualizar({
                                             Data:
                                         </span>
                                         <p className="ml-3 flex-1 rounded bg-slate-100 py-3 px-3">
-                                            {formatDate(item.startTime)}
+                                            {formatDate(item[timeKey])}
                                         </p>
                                     </div>
                                     <div className="flex gap-1 flex-col w-fix">
