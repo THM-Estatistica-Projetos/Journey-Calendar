@@ -214,7 +214,7 @@ function ModalAtualizar({
                                             className="ml-3 rounded bg-slate-100 py-3 px-3 w-fix"
                                         >
                                             {sortAlfabetical(patients).map((patient) => (
-                                                <option key={patient.id_paciente} value={patient.id_paciente}>
+                                                <option key={patient[titleKey]} value={patient[titleKey]}>
                                                     {patient.nome}
                                                 </option>
                                             ))}
@@ -229,7 +229,7 @@ function ModalAtualizar({
                                             className="ml-3 rounded bg-slate-100 py-3 px-3 w-fix"
                                         >
                                             {columns.map((column) => (
-                                                <option key={column.id_slot} value={column.id_slot}>{column.nome}</option>
+                                                <option key={column[columnKey]} value={column[columnKey]}>{column.nome}</option>
                                             ))}
                                         </select>
                                     </div>
