@@ -243,7 +243,9 @@ function ModalAtualizar({
                                         >
                                             <option value="">Selecione um profissional</option>
                                             {sortAlfabetical(professionals).map((professional) => (
-                                                <option key={professional.id_usuario} value={professional.id_usuario}>{professional.nome}</option>
+                                                <option key={professional[subtitleKey]} value={professional[subtitleKey]}>
+                                                    {professional.nome}
+                                                </option>
                                             ))}
                                         </select>
                                     </div>
@@ -253,7 +255,7 @@ function ModalAtualizar({
                                             <input
                                                 type="time"
                                                 name="inicio"
-                                                value={formData.inicio}
+                                                value={formData[timeKey]}
                                                 onChange={handleChange}
                                                 className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
                                             />
@@ -263,7 +265,7 @@ function ModalAtualizar({
                                             <input
                                                 type="time"
                                                 name="fim"
-                                                value={formData.fim}
+                                                value={formData[endKey]}
                                                 onChange={handleChange}
                                                 className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
                                             />
