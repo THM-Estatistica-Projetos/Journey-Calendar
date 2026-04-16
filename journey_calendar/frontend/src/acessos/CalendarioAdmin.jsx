@@ -40,6 +40,11 @@ function CalendarioAdmin({ args }) {
         cancelado: true,
         ausencia: true,
     })
+    const [itemVisibility, setItemVisibility] = useState({
+        presente: true,
+        cancelado: true,
+        ausencia: true,
+    })
 
     const [showAgendamentos, setShowAgendamentos] = useState(true)
 
@@ -108,13 +113,31 @@ function CalendarioAdmin({ args }) {
     };
 
     const filteredItems = useMemo(() => {
+        const getStatusType = (status) => {
+            const s = (status || "").toLowerCase().trim()
+
+            if (s === "cancelado") return "cancelado"
+            if (["ausência", "ausencia", "sem aviso"].some(t => s.includes(t))) return "ausencia"
+            if (s === "presente") return "presente"
+
+            return null
+        }
+
         return items.filter(item => {
             if (!item[config.timeKey]) return false;
 
             const itemDate = formatLocalDate(new Date(item[config.timeKey]));
-            return itemDate === date;
+            if (itemDate !== date) return false;
+
+            const statusType = getStatusType(item.status);
+
+            if (statusType && itemVisibility[statusType] === false) {
+                return false;
+            }
+
+            return true;
         });
-    }, [items, date, config]);
+    }, [items, date, config, itemVisibility]);
 
     const gridData = useMemo(() => {
         const map = {}
@@ -287,6 +310,8 @@ function CalendarioAdmin({ args }) {
                 emojiVisibility={emojiVisibility}
                 setEmojiVisibility={setEmojiVisibility}
                 setPageSize={setPageSize}
+                itemVisibility={itemVisibility}
+                setItemVisibility={setItemVisibility}
             />
         </div>
     )

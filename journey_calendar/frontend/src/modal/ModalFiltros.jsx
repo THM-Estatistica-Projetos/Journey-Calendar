@@ -9,6 +9,8 @@ function ModalFiltros({
     isPaginationEnabled,
     emojiVisibility,
     setEmojiVisibility,
+    itemVisibility,
+    setItemVisibility,
     columns,
     pageSize,
 }) {
@@ -40,6 +42,44 @@ function ModalFiltros({
                                     {isPaginationEnabled ? (<div>
                                         <input type="number" className="ml-3 w-25 h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3" value={pageSize} min="1" max="25" onChange={(e) => setPageSize(Number(e.target.value))} />
                                     </div>) : null}
+                                </div>
+
+                                <div className="flex flex-col gap-3 mt-4">
+                                    <p className="font-semibold text-slate-600">Mostrar agendamentos</p>
+
+                                    <div className="flex gap-2 flex-wrap">
+                                        {[
+                                            { key: "presente", label: "✅ Presente" },
+                                            { key: "cancelado", label: "❌ Cancelado" },
+                                            { key: "ausencia", label: "⚠️ Ausência" },
+                                        ].map(({ key, label }) => {
+                                            const active = itemVisibility[key]
+
+                                            return (
+                                                <button
+                                                    key={key}
+                                                    onClick={() => {
+                                                        setItemVisibility(prev => ({
+                                                            ...prev,
+                                                            [key]: !prev[key]
+                                                        }));
+
+                                                        setEmojiVisibility(prev => ({
+                                                            ...prev,
+                                                            [key]: !prev[key]
+                                                        }));
+                                                    }}
+                                                    className={`px-3 py-1 rounded-full border text-sm transition-all duration-200 focus:outline-none
+                                                        ${active
+                                                            ? "bg-white border-blue-600"
+                                                            : "bg-slate-200 opacity-50 text-slate-600 border-slate-300 hover:bg-slate-100"
+                                                        }`}
+                                                >
+                                                    {label}
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-col gap-3 mt-4">
