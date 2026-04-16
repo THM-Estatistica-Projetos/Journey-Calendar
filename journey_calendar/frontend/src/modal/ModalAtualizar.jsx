@@ -122,6 +122,11 @@ function ModalAtualizar({
         }
     }, [item, isAtualizarModalOpen, patients, professionals, config])
 
+    console.log("Agendamentos", item)
+    console.log("Pacientes", patients)
+    console.log("Slot", columns)
+    console.log("Médicos", professionals)
+
     const handleChange = (e) => {
         const { name, value } = e.target
 
