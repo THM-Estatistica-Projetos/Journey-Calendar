@@ -301,8 +301,8 @@ function CalendarioAdmin({ args }) {
             <ModalAdicionar
                 setIsAdicionarModalOpen={setIsAdicionarModalOpen}
                 isAdicionarModalOpen={isAdicionarModalOpen}
-                patients={patients}
-                professionals={professionals}
+                patientsMap={patientsMap}
+                professionalsMap={professionalsMap}
                 containers={containers}
                 tipo_aluguel={tipo_aluguel}
                 columns={columns}

@@ -12,9 +12,7 @@ function ModalAtualizar({
     setIsAtualizarModalOpen,
     isAtualizarModalOpen,
     item,
-    patients,
     patientsMap,
-    professionals,
     professionalsMap,
     columns,
     config
@@ -122,12 +120,10 @@ function ModalAtualizar({
                 em_lote: item.em_lote || false
             })
         }
-    }, [item, isAtualizarModalOpen, patients, professionals, config])
+    }, [item, isAtualizarModalOpen, config])
 
     console.log("Agendamentos", item)
-    console.log("Pacientes", patients)
     console.log("Slot", columns)
-    console.log("Médicos", professionals)
 
     const handleChange = (e) => {
         const { name, value } = e.target

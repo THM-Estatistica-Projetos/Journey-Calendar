@@ -6,8 +6,8 @@ import { Streamlit } from "streamlit-component-lib";
 function ModalAdicionar({
     setIsAdicionarModalOpen,
     isAdicionarModalOpen,
-    patients,
-    professionals,
+    patientsMap,
+    professionalsMap,
     tipo_aluguel,
     columns
 }) {
@@ -167,8 +167,15 @@ function ModalAdicionar({
                                                 className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
                                             >
                                                 <option value="">Selecione um paciente</option>
-                                                {sortAlfabetical(patients).map((patient) => (
-                                                    <option key={patient.id_paciente} value={patient.id_paciente}>{patient.nome}</option>
+                                                {sortAlfabetical(
+                                                    Object.entries(patientsMap).map(([id, nome]) => ({
+                                                        id,
+                                                        nome
+                                                    }))
+                                                ).map(({ id, nome }) => (
+                                                    <option key={id} value={id}>
+                                                        {nome}
+                                                    </option>
                                                 ))}
                                             </select>
                                         </div>
@@ -181,8 +188,15 @@ function ModalAdicionar({
                                                 className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
                                             >
                                                 <option value="">Selecione um profissional</option>
-                                                {sortAlfabetical(professionals).map((professional) => (
-                                                    <option key={professional.id_usuario} value={professional.id_usuario}>{professional.nome}</option>
+                                                {sortAlfabetical(
+                                                    Object.entries(professionalsMap).map(([id, nome]) => ({
+                                                        id,
+                                                        nome
+                                                    }))
+                                                ).map(({ id, nome }) => (
+                                                    <option key={id} value={id}>
+                                                        {nome}
+                                                    </option>
                                                 ))}
                                             </select>
                                         </div>
