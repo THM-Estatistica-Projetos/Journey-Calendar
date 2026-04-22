@@ -312,7 +312,9 @@ function CalendarioAdmin({ args }) {
                 isAtualizarModalOpen={isAtualizarModalOpen}
                 item={selectedEvent}
                 patients={patients}
+                patientsMap={patientsMap}
                 professionals={professionals}
+                professionalsMap={professionalsMap}
                 containers={containers}
                 tipo_aluguel={tipo_aluguel}
                 columns={columns}
