@@ -409,8 +409,8 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
 
     const [isExpanded, setIsExpanded] = useState(false)
 
-    const patientName = patientMap[item.title] || "Paciente desconhecido"
-    const professionalName = professionalMap[item.subtitle] || "Profissional desconhecido"
+    const patientName = patientsMap[item.title] || "Paciente desconhecido"
+    const professionalName = professionalsMap[item.subtitle] || "Profissional desconhecido"
 
     return (
         <>
