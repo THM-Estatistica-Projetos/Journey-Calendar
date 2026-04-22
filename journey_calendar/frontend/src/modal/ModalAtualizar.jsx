@@ -99,6 +99,22 @@ function ModalAtualizar({
         )
     }
 
+    const patientsMap = useMemo(() => {
+        const map = {}
+        patients.forEach(p => {
+            map[p.nome] = p.id
+        })
+        return map
+    }, [patients])
+
+    const professionalsMap = useMemo(() => {
+        const map = {}
+        professionals.forEach(p => {
+            map[p.nome] = p.id_usuario
+        })
+        return map
+    }, [professionals])
+
     useEffect(() => {
         if (item && isAtualizarModalOpen) {
 
@@ -109,8 +125,8 @@ function ModalAtualizar({
             setFormData({
                 operacao: "Update",
                 id: item[primaryKey],
-                paciente: patients.find(p => p.nome === item.title)?.[titleKey] || "",
-                profissional: professionals.find(p => p.nome === item.subtitle)?.[subtitleKey] || "",
+                paciente: patientsMap[item.title] || "",
+                profissional: professionalsMap[item.subtitle] || "",
                 slot: item[columnKey],
                 data: start.toISOString().slice(0, 10),
                 inicio: item[timeKey]?.slice(11, 16),
@@ -214,7 +230,7 @@ function ModalAtualizar({
                                             className="ml-3 rounded bg-slate-100 py-3 px-3 w-fix"
                                         >
                                             {sortAlfabetical(patients).map((patient) => (
-                                                <option key={patient[titleKey]} value={patient[titleKey]}>
+                                                <option key={patient.id} value={patient.id}>
                                                     {patient.nome}
                                                 </option>
                                             ))}
@@ -241,9 +257,8 @@ function ModalAtualizar({
                                             onChange={handleChange}
                                             className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
                                         >
-                                            <option value="">Selecione um profissional</option>
                                             {sortAlfabetical(professionals).map((professional) => (
-                                                <option key={professional[subtitleKey]} value={professional[subtitleKey]}>
+                                                <option key={professional.id_usuario} value={professional.id_usuario}>
                                                     {professional.nome}
                                                 </option>
                                             ))}
@@ -255,7 +270,7 @@ function ModalAtualizar({
                                             <input
                                                 type="time"
                                                 name="inicio"
-                                                value={formData[timeKey]}
+                                                value={formData.inicio}
                                                 onChange={handleChange}
                                                 className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
                                             />
@@ -265,7 +280,7 @@ function ModalAtualizar({
                                             <input
                                                 type="time"
                                                 name="fim"
-                                                value={formData[endKey]}
+                                                value={formData.fim}
                                                 onChange={handleChange}
                                                 className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
                                             />

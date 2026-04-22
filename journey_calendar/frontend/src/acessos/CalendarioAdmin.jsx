@@ -74,6 +74,22 @@ function CalendarioAdmin({ args }) {
 
     const [lastDate, setLastDate] = useState(date)
 
+    const patientsMap = useMemo(() => {
+        const map = {}
+        patients.forEach(p => {
+            map[p.id] = p.nome
+        })
+        return map
+    }, [patients])
+
+    const professionalsMap = useMemo(() => {
+        const map = {}
+        professionals.forEach(p => {
+            map[p.id] = p.nome
+        })
+        return map
+    }, [professionals])
+
     useEffect(() => {
         if (!isPaginationEnabled) {
             setCurrentPage(0)
@@ -268,6 +284,8 @@ function CalendarioAdmin({ args }) {
                                                         config={config}
                                                         onClickEvent={handleEventClick}
                                                         emojiVisibility={emojiVisibility}
+                                                        patientsMap={patientsMap}
+                                                        professionalsMap={professionalsMap}
                                                     />
                                                 ))) : null}
                                             </div>
@@ -317,7 +335,7 @@ function CalendarioAdmin({ args }) {
     )
 }
 
-const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility }) => {
+const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, patientsMap, professionalsMap }) => {
 
     const color = item[config.colorKey] || "#3788d8"
     const slotHeight = config.slotHeight || 70
@@ -391,6 +409,9 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility }
 
     const [isExpanded, setIsExpanded] = useState(false)
 
+    const patientName = patientMap[item.title] || "Paciente desconhecido"
+    const professionalName = professionalMap[item.subtitle] || "Profissional desconhecido"
+
     return (
         <>
             {item.paciente_apollo === true ? (
@@ -437,12 +458,12 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility }
                     </div>
                     <div className="text-xs font-semibold text-slate-800 line-clamp-1">
                         {shouldShowEmoji
-                            ? `${statusEmoji}${item.title || "Sem título"}`
-                            : item.title || "Sem título"}
+                            ? `${statusEmoji}${patientName}`
+                            : patientName}
                     </div>
                     {item.subtitle && (
                         <div className="text-[10px] text-slate-500 italic truncate">
-                            {item.subtitle}
+                            {professionalName}
                         </div>
                     )}
                     <div className="text-[10px] text-slate-500 italic truncate">
@@ -459,12 +480,12 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility }
                     </div>
                     <div className="text-xs font-semibold text-slate-800 line-clamp-1">
                         {shouldShowEmoji
-                            ? `${statusEmoji}${item.title || "Sem título"}`
-                            : item.title || "Sem título"}
+                            ? `${statusEmoji}${patientName}`
+                            : patientName}
                     </div>
                     {item.subtitle && (
                         <div className={`text-[10px] ${isMinimalist ? "text-slate-500" : "text-white"} italic truncate`}>
-                            {item.subtitle}
+                            {professionalName}
                         </div>
                     )}
                     <div className={`text-[10px] ${isMinimalist ? "text-slate-500" : "text-white"} italic truncate`}>
