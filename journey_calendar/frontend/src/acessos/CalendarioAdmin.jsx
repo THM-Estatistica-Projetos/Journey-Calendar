@@ -85,7 +85,7 @@ function CalendarioAdmin({ args }) {
     const professionalsMap = useMemo(() => {
         const map = {}
         professionals.forEach(p => {
-            map[p.id] = p.nome
+            map[p.id_usuario] = p.nome
         })
         return map
     }, [professionals])
