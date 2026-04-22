@@ -337,6 +337,11 @@ function CalendarioAdmin({ args }) {
 
 const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, patientsMap, professionalsMap }) => {
 
+    console.log({
+        subtitle: item.subtitle,
+        found: professionalsMap[item.subtitle],
+    })
+
     const color = item[config.colorKey] || "#3788d8"
     const slotHeight = config.slotHeight || 70
 
