@@ -9,25 +9,27 @@ function ModalAdicionar({
     patientsMap,
     professionalsMap,
     tipo_aluguel,
-    columns
+    columns,
+    config
 }) {
 
+    const {
+        primaryKey,
+        titleKey,
+        subtitleKey,
+        columnKey,
+        timeKey,
+        endKey
+    } = config
+
     const hoje = new Date().toLocaleDateString("sv-SE")
-
-    const [isLocacao, setIsLocacao] = useState(null)
-
-    useEffect(() => {
-        if (isAdicionarModalOpen) {
-            setIsLocacao(null)
-        }
-    }, [isAdicionarModalOpen])
 
     const initialAgendamentoFormData = {
         /*tipo: "agendamento",*/
         operacao: "Add",
         paciente: "",
         profissional: "",
-        slot: columns[0]?.id_slot || "",
+        slot: columns[0]?.[columnKey] || "",
         inicio: "",
         fim: "",
         data: hoje,
@@ -37,22 +39,7 @@ function ModalAdicionar({
         em_lote: false,
     }
 
-    const initialLocacaoFormData = {
-        tipo: "locacao",
-        operacao: "Add",
-        profissional: "",
-        slot: "",
-        tipo_aluguel: "",
-        recorrencia: null,
-        data_locacao: hoje,
-        data_referencia: hoje,
-        inicio: "",
-        fim: "",
-        em_lote: false,
-    }
-
     const [agendamentoFormData, setAgendamentoFormData] = useState(initialAgendamentoFormData)
-    const [locacaoFormData, setLocacaoFormData] = useState(initialLocacaoFormData)
 
     const handleChangeAgendamento = (e) => {
         const { name, value } = e.target
@@ -65,33 +52,16 @@ function ModalAdicionar({
         }))
     }
 
-    const handleChangeLocacao = (e) => {
-        const { name, value } = e.target
-
-        const parsedValue = name === "em_lote" ? value === "true" : value;
-
-        setLocacaoFormData((prev) => ({
-            ...prev,
-            [name]: parsedValue
-        }))
-    }
-
     useEffect(() => {
         if (isAdicionarModalOpen) {
             setAgendamentoFormData(initialAgendamentoFormData)
-            setLocacaoFormData(initialLocacaoFormData)
         }
     }, [isAdicionarModalOpen])
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setIsAdicionarModalOpen(false)
-
-        if (isLocacao) {
-            Streamlit.setComponentValue(locacaoFormData)
-        } else {
-            Streamlit.setComponentValue(agendamentoFormData)
-        }
+        Streamlit.setComponentValue(agendamentoFormData)
     }
 
     const sortAlfabetical = (options) => {
@@ -210,7 +180,7 @@ function ModalAdicionar({
                                             >
                                                 <option value="">Selecione um slot</option>
                                                 {columns.map((column) => (
-                                                    <option key={column.id_slot} value={column.id_slot}>{column.nome}</option>
+                                                    <option key={column[columnKey]} value={column[columnKey]}>{column.nome}</option>
                                                 ))}
                                             </select>
                                         </div>
