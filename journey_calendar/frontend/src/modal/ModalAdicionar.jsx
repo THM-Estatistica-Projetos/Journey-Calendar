@@ -27,7 +27,7 @@ function ModalAdicionar({
         operacao: "Add",
         paciente: "",
         profissional: "",
-        slot: "Consultório 1",
+        slot: columns[0]?.id_slot || "",
         inicio: "",
         fim: "",
         data: hoje,
@@ -208,7 +208,7 @@ function ModalAdicionar({
                                                 onChange={handleChangeAgendamento}
                                                 className="ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3"
                                             >
-                                                <option value="Selecione um slot">Selecione um slot</option>
+                                                <option value="">Selecione um slot</option>
                                                 {columns.map((column) => (
                                                     <option key={column.id_slot} value={column.id_slot}>{column.nome}</option>
                                                 ))}
