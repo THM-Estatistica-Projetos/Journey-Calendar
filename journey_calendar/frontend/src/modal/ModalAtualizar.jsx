@@ -31,7 +31,8 @@ function ModalAtualizar({
         Streamlit.setComponentValue({
             tipo: "agendamento",
             operacao: "Remove",
-            id: item.id
+            id: item.id,
+            id_paciente: item[titleKey]
         })
         setIsAtualizarModalOpen(false)
     }
