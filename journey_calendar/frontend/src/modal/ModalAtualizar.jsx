@@ -32,7 +32,9 @@ function ModalAtualizar({
             tipo: "agendamento",
             operacao: "Remove",
             id: item.id,
-            id_paciente: item[titleKey]
+            id_paciente: formData.paciente,
+            id_usuario: formData.profissional,
+            id_slot: formData.slot,
         })
         setIsAtualizarModalOpen(false)
     }
