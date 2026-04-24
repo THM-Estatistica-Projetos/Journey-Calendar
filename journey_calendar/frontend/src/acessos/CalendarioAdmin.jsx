@@ -173,7 +173,6 @@ function CalendarioAdmin({ args }) {
     }, [filteredItems, config])
 
     const handleEventClick = (item) => {
-        console.log(item)
         setSelectedEvent(item)
         setIsAtualizarModalOpen(true)
     }
@@ -413,63 +412,43 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
                     <img src={Logo} alt="Logo" className="bg-white rounded-full" />
                 </div>
             ) : null*/}
-            {height < 62 ? (
-                <div onClick={() => onClickEvent(item)}
-                    style={style}
-                    className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
-                >
-                    <div className="flex justify-between w-full">
-                        <div className="text-[10px] font-bold text-slate-500 mb-1">
-                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
-                        </div>
-                        {height < 62 ? (
-                            <>
-                                <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
-                            </>
-                        ) : (
-                            <>
-                            </>
-                        )}
+            <div
+                onClick={() => onClickEvent(item)}
+                style={style}
+                className="w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"
+            >
+                <div className="flex justify-between w-full">
+                    <div className="text-[10px] font-bold text-slate-500 mb-1">
+                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
                     </div>
+
+                    <MdOutlineExpandMore
+                        onMouseEnter={() => setIsExpanded(true)}
+                        onMouseLeave={() => setIsExpanded(false)}
+                        className="w-10"
+                    />
                 </div>
-            ) : (
-                <div onClick={() => onClickEvent(item)}
-                    style={style}
-                    className={"w-full p-2 rounded shadow-sm transition-all hover:shadow-md cursor-default items-center overflow-hidden"}
-                >
-                    <div className="flex justify-between w-full">
-                        <div className="text-[10px] font-bold text-slate-500 mb-1">
-                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
-                        </div>
-                        {height < 62 ? (
-                            <>
-                                <MdOutlineExpandMore onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)} className="w-10" />
-                            </>
-                        ) : (
-                            <>
-                            </>
-                        )}
-                    </div>
-                    <div className="text-xs font-semibold text-slate-800 line-clamp-1">
-                        {shouldShowEmoji
-                            ? `${statusEmoji}${patientName}`
-                            : patientName}
-                    </div>
-                    {item.subtitle && (
-                        <div className="text-[10px] text-slate-500 italic truncate">
-                            {professionalName}
-                        </div>
-                    )}
+
+                <div className="text-xs font-semibold text-slate-800 line-clamp-1">
+                    {shouldShowEmoji
+                        ? `${statusEmoji}${patientName}`
+                        : patientName}
                 </div>
-            )}
+
+                {item.subtitle && (
+                    <div className="text-[10px] text-slate-500 italic truncate">
+                        {professionalName}
+                    </div>
+                )}
+            </div>
             {isExpanded ? (
-                <div style={styleHover} className={`absolute rounded w-full translate-y-[${offset}px] p-2`}>
+                <div style={styleHover} className={`absolute rounded min-w-[200px] w-full translate-y-[${offset}px] p-2`}>
                     <div className="flex justify-between w-full">
                         <div className={`text-[10px] font-bold ${isMinimalist ? "text-slate-500" : "text-white"} mb-1`}>
                             {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
                         </div>
                     </div>
-                    <div className="text-xs font-semibold text-slate-800 line-clamp-1">
+                    <div className="text-xs font-semibold text-slate-800 line-clamp-1 rounded bg-white opacity-80 p-2">
                         {shouldShowEmoji
                             ? `${statusEmoji}${patientName}`
                             : patientName}

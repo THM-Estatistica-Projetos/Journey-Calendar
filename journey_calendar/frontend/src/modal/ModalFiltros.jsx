@@ -39,15 +39,28 @@ function ModalFiltros({
                                         </div>
                                         <p className="font-semibold text-slate-600" >{isPaginationEnabled ? "Paginação Ativada" : "Paginação Desativada"}</p>
                                     </div>
-                                    {isPaginationEnabled ? (<div>
-                                        <input type="number" className="ml-3 w-25 h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3" value={pageSize} min="1" max="25" onChange={(e) => setPageSize(Number(e.target.value))} />
-                                    </div>) : null}
+                                    {isPaginationEnabled && (
+                                        <div className="flex items-center gap-3 w-full">
+                                            <input
+                                                type="range"
+                                                min="1"
+                                                max="25"
+                                                value={pageSize}
+                                                onChange={(e) => setPageSize(Number(e.target.value))}
+                                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-700 [&::-webkit-slider-thumb]:hover:scale-110 [&::-webkit-slider-thumb]:transition [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-700 [&::-moz-range-thumb]:border-none"
+                                            />
+
+                                            <span className="text-sm text-gray-700 w-8 text-center">
+                                                {pageSize}
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="flex flex-col gap-3 mt-4">
                                     <p className="font-semibold text-slate-600">Mostrar agendamentos</p>
 
-                                    <div className="flex gap-2 flex-wrap">
+                                    <div className="flex gap-2 justify-around">
                                         {[
                                             { key: "agendado", label: "📅 Agendado" },
                                             { key: "presente", label: "✅ Presente" },
@@ -70,7 +83,7 @@ function ModalFiltros({
                                                             [key]: !prev[key]
                                                         }));
                                                     }}
-                                                    className={`px-3 py-1 rounded-full border text-sm transition-all duration-200 focus:outline-none
+                                                    className={`px-3 py-1 w-25 rounded-full border text-sm transition-all duration-200 focus:outline-none
                                                         ${active
                                                             ? "bg-white border-blue-600"
                                                             : "bg-slate-200 opacity-50 text-slate-600 border-slate-300 hover:bg-slate-100"
@@ -86,7 +99,7 @@ function ModalFiltros({
                                 <div className="flex flex-col gap-3 mt-4">
                                     <p className="font-semibold text-slate-600">Emojis</p>
 
-                                    <div className="flex gap-2 flex-wrap">
+                                    <div className="flex gap-2 justify-around">
                                         {[
                                             { key: "agendado", label: "📅 Agendado" },
                                             { key: "presente", label: "✅ Presente" },
@@ -104,7 +117,7 @@ function ModalFiltros({
                                                             [key]: !prev[key]
                                                         }))
                                                     }
-                                                    className={`px-3 py-1 rounded-full border text-sm transition-all duration-200 focus:outline-none
+                                                    className={`px-3 py-1 w-25 rounded-full border text-sm transition-all duration-200 focus:outline-none
                                                         ${active
                                                             ? "bg-white border-blue-600"
                                                             : "bg-slate-200 opacity-50 text-slate-600 border-slate-300 hover:bg-slate-100"

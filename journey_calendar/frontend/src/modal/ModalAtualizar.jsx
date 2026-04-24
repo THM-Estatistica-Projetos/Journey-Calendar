@@ -128,9 +128,6 @@ function ModalAtualizar({
         }
     }, [item, isAtualizarModalOpen, config])
 
-    console.log("Agendamentos", item)
-    console.log("Slot", columns)
-
     const handleChange = (e) => {
         const { name, value } = e.target
 
@@ -305,7 +302,7 @@ function ModalAtualizar({
                                     </div>
                                     <div className="flex gap-1 flex-col w-fix">
                                         <span className="text-xl text-gray-600 font-medium">Status</span>
-                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
+                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3 justify-around">
                                             <div className={`flex gap-1 ${getStatusClass(null)}`}>
                                                 <input
                                                     type="radio"
