@@ -170,7 +170,16 @@ function ModalAtualizar({
 
     const isStatusDisabled = (optionValue) => {
         if (originalStatus === null) return false
-        return optionValue !== null
+        return optionValue !== null && optionValue !== originalStatus
+    }
+
+    const getStatusClass = (optionValue) => {
+        if (originalStatus === null) return ""
+
+        const isEnabled =
+            optionValue === null || optionValue === originalStatus
+
+        return isEnabled ? "opacity-100" : "opacity-30 cursor-not-allowed"
     }
 
     return (
@@ -296,7 +305,7 @@ function ModalAtualizar({
                                     <div className="flex gap-1 flex-col w-fix">
                                         <span className="text-xl text-gray-600 font-medium">Status</span>
                                         <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
-                                            <div className="flex gap-1 w-fix">
+                                            <div className={`flex gap-1 ${getStatusClass(null)}`}>
                                                 <input
                                                     type="radio"
                                                     name="status"
@@ -305,9 +314,9 @@ function ModalAtualizar({
                                                     onChange={handleChange}
                                                     disabled={isStatusDisabled(null)}
                                                 />
-                                                <span className="text-md text-gray-600 font-medium">Agendado</span>
+                                                <span>Agendado</span>
                                             </div>
-                                            <div className={`flex gap-1 w-fix ${formData.status === null ? "opacity-100" : "opacity-30 cursor-not-allowed"}`}>
+                                            <div className={`flex gap-1 ${getStatusClass("Presente")}`}>
                                                 <input
                                                     type="radio"
                                                     name="status"
@@ -316,9 +325,9 @@ function ModalAtualizar({
                                                     onChange={handleChange}
                                                     disabled={isStatusDisabled("Presente")}
                                                 />
-                                                <span className="text-md text-gray-600 font-medium">Presente</span>
+                                                <span>Presente</span>
                                             </div>
-                                            <div className={`flex gap-1 w-fix ${formData.status === null ? "opacity-100" : "opacity-30 cursor-not-allowed"}`}>
+                                            <div className={`flex gap-1 ${getStatusClass("Cancelado")}`}>
                                                 <input
                                                     type="radio"
                                                     name="status"
@@ -327,9 +336,9 @@ function ModalAtualizar({
                                                     onChange={handleChange}
                                                     disabled={isStatusDisabled("Cancelado")}
                                                 />
-                                                <span className="text-md text-gray-600 font-medium">Cancelado</span>
+                                                <span>Presente</span>
                                             </div>
-                                            <div className={`flex gap-1 w-fix ${formData.status === null ? "opacity-100" : "opacity-30 cursor-not-allowed"}`}>
+                                            <div className={`flex gap-1 ${getStatusClass("Ausência sem Aviso")}`}>
                                                 <input
                                                     type="radio"
                                                     name="status"
@@ -338,7 +347,7 @@ function ModalAtualizar({
                                                     onChange={handleChange}
                                                     disabled={isStatusDisabled("Ausência sem Aviso")}
                                                 />
-                                                <span className="text-md text-gray-600 font-medium">Ausência sem Aviso</span>
+                                                <span>Presente</span>
                                             </div>
                                         </fieldset>
                                     </div>
