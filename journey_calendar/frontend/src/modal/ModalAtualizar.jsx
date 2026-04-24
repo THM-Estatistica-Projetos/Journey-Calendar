@@ -102,12 +102,13 @@ function ModalAtualizar({
         )
     }
 
+    const [originalStatus, setOriginalStatus] = useState(null)
+
     useEffect(() => {
         if (item && isAtualizarModalOpen) {
-
             const start = new Date(item[timeKey])
-            const end = new Date(item[endKey])
 
+            const initialStatus = item.status ?? null
 
             setFormData({
                 operacao: "Update",
@@ -118,10 +119,12 @@ function ModalAtualizar({
                 data: start.toISOString().slice(0, 10),
                 inicio: item[timeKey]?.slice(11, 16),
                 fim: item[endKey]?.slice(11, 16),
-                status: item.status || "",
+                status: initialStatus,
                 paciente_apollo: item.paciente_apollo || false,
                 em_lote: item.em_lote || false
             })
+
+            setOriginalStatus(initialStatus)
         }
     }, [item, isAtualizarModalOpen, config])
 
@@ -131,7 +134,13 @@ function ModalAtualizar({
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        const parsedValue = name === "paciente_apollo" || name === "em_lote" ? value === "true" : value;
+        let parsedValue = value
+
+        if (name === "status") {
+            parsedValue = value === "null" ? null : value
+        } else if (name === "paciente_apollo" || name === "em_lote") {
+            parsedValue = value === "true"
+        }
 
         setFormData(prev => ({
             ...prev,
@@ -157,6 +166,11 @@ function ModalAtualizar({
         })
 
         setIsAtualizarModalOpen(false)
+    }
+
+    const isStatusDisabled = (optionValue) => {
+        if (originalStatus === null) return false
+        return optionValue !== null
     }
 
     return (
@@ -286,9 +300,10 @@ function ModalAtualizar({
                                                 <input
                                                     type="radio"
                                                     name="status"
-                                                    value={null}
+                                                    value="null"
                                                     checked={formData.status === null}
                                                     onChange={handleChange}
+                                                    disabled={isStatusDisabled(null)}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Agendado</span>
                                             </div>
@@ -299,7 +314,7 @@ function ModalAtualizar({
                                                     value="Presente"
                                                     checked={formData.status === "Presente"}
                                                     onChange={handleChange}
-                                                    disabled={formData.status !== null}
+                                                    disabled={isStatusDisabled("Presente")}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Presente</span>
                                             </div>
@@ -310,7 +325,7 @@ function ModalAtualizar({
                                                     value="Cancelado"
                                                     checked={formData.status === "Cancelado"}
                                                     onChange={handleChange}
-                                                    disabled={formData.status !== null}
+                                                    disabled={isStatusDisabled("Cancelado")}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Cancelado</span>
                                             </div>
@@ -321,7 +336,7 @@ function ModalAtualizar({
                                                     value="Ausência sem Aviso"
                                                     checked={formData.status === "Ausência sem Aviso"}
                                                     onChange={handleChange}
-                                                    disabled={formData.status !== null}
+                                                    disabled={isStatusDisabled("Ausência sem Aviso")}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Ausência sem Aviso</span>
                                             </div>
