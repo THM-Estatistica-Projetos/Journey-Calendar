@@ -34,8 +34,7 @@ function ModalAdicionar({
         fim: "",
         data: hoje,
         data_referencia: hoje,
-        status: "Agendado",
-        paciente_apollo: false,
+        status: null,
         em_lote: false,
     }
 
@@ -116,18 +115,6 @@ function ModalAdicionar({
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        {agendamentoFormData.em_lote ? (
-                                            <div className="flex gap-1 flex-col w-fix ml-10">
-                                                <span className="text-xl text-gray-600 font-medium">Até quando?</span>
-                                                <input
-                                                    type="date"
-                                                    name="data_referencia"
-                                                    value={agendamentoFormData.data_referencia}
-                                                    onChange={handleChangeAgendamento}
-                                                    className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-200 py-4 px-3"
-                                                />
-                                            </div>
-                                        ) : null}
                                         <div className="flex gap-1 flex-col">
                                             <span className="text-xl text-gray-600 font-medium">Paciente</span>
                                             <select
@@ -184,6 +171,41 @@ function ModalAdicionar({
                                                 ))}
                                             </select>
                                         </div>
+                                        {agendamentoFormData.em_lote ? (
+                                            <div className="flex gap-3">
+                                                <div className="flex gap-1 flex-col w-50">
+                                                    <span className="text-xl text-gray-600 font-medium">Data Inicial</span>
+                                                    <input
+                                                        type="date"
+                                                        name="data"
+                                                        value={agendamentoFormData.data}
+                                                        onChange={handleChangeAgendamento}
+                                                        className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
+                                                    />
+                                                </div>
+                                                <div className="flex gap-1 flex-col w-50">
+                                                    <span className="text-xl text-gray-600 font-medium">Até quando?</span>
+                                                    <input
+                                                        type="date"
+                                                        name="data_referencia"
+                                                        value={agendamentoFormData.data_referencia}
+                                                        onChange={handleChangeAgendamento}
+                                                        className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="flex gap-1 flex-col w-fix">
+                                                <span className="text-xl text-gray-600 font-medium">Data</span>
+                                                <input
+                                                    type="date"
+                                                    name="data"
+                                                    value={agendamentoFormData.data}
+                                                    onChange={handleChangeAgendamento}
+                                                    className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
+                                                />
+                                            </div>
+                                        )}
                                         <div className="flex gap-3">
                                             <div className="flex gap-1 flex-col w-50">
                                                 <span className="text-xl text-gray-600 font-medium">Inicio</span>
@@ -206,17 +228,7 @@ function ModalAdicionar({
                                                 />
                                             </div>
                                         </div>
-                                        <div className="flex gap-1 flex-col w-fix">
-                                            <span className="text-xl text-gray-600 font-medium">Data</span>
-                                            <input
-                                                type="date"
-                                                name="data"
-                                                value={agendamentoFormData.data}
-                                                onChange={handleChangeAgendamento}
-                                                className="ml-3 w-fix h-3 rounded focus:outline-none p-2 bg-slate-100 py-4 px-3"
-                                            />
-                                        </div>
-                                        <div className="flex gap-1 flex-col w-fix">
+                                        {/*<div className="flex gap-1 flex-col w-fix">
                                             <span className="text-xl text-gray-600 font-medium">Status</span>
                                             <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
                                                 <div className="flex gap-1 w-fix">
@@ -239,16 +251,6 @@ function ModalAdicionar({
                                                     />
                                                     <span className="text-md text-gray-600 font-medium">Presente</span>
                                                 </div>
-                                                {/*<div className="flex gap-1 w-fix">
-                                                        <input
-                                                            type="radio"
-                                                            name="status"
-                                                            value="Cancelado"
-                                                            checked={agendamentoFormData.status === "Cancelado"}
-                                                            onChange={handleChangeAgendamento}
-                                                        />
-                                                        <span className="text-md text-gray-600 font-medium">Cancelado</span>
-                                                    </div>*/}
                                             </fieldset>
                                         </div>
                                         <div className="flex gap-1 flex-col w-fix">
@@ -275,7 +277,7 @@ function ModalAdicionar({
                                                     <span className="text-md text-gray-600 font-medium">Não</span>
                                                 </div>
                                             </fieldset>
-                                        </div>
+                                        </div>*/}
                                         <button type="submit" className="w-full border bg-[#afd5a3] rounded-md text-md text-slate-600 font-medium p-2 shadow-sm hover:translate-y-[-4px] hover:bg-[#bdddc1] transition-all">
                                             Adicionar
                                         </button>

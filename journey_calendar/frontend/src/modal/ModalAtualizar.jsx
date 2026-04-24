@@ -286,31 +286,44 @@ function ModalAtualizar({
                                                 <input
                                                     type="radio"
                                                     name="status"
-                                                    value="Agendado"
-                                                    checked={formData.status === "Agendado"}
+                                                    value={null}
+                                                    checked={formData.status === null}
                                                     onChange={handleChange}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Agendado</span>
                                             </div>
-                                            <div className="flex gap-1 w-fix">
+                                            <div className={`flex gap-1 w-fix ${formData.status === null ? "opacity-100" : "opacity-30 cursor-not-allowed"}`}>
                                                 <input
                                                     type="radio"
                                                     name="status"
                                                     value="Presente"
                                                     checked={formData.status === "Presente"}
                                                     onChange={handleChange}
+                                                    disabled={formData.status !== null}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Presente</span>
                                             </div>
-                                            <div className="flex gap-1 w-fix">
+                                            <div className={`flex gap-1 w-fix ${formData.status === null ? "opacity-100" : "opacity-30 cursor-not-allowed"}`}>
                                                 <input
                                                     type="radio"
                                                     name="status"
                                                     value="Cancelado"
                                                     checked={formData.status === "Cancelado"}
                                                     onChange={handleChange}
+                                                    disabled={formData.status !== null}
                                                 />
                                                 <span className="text-md text-gray-600 font-medium">Cancelado</span>
+                                            </div>
+                                            <div className={`flex gap-1 w-fix ${formData.status === null ? "opacity-100" : "opacity-30 cursor-not-allowed"}`}>
+                                                <input
+                                                    type="radio"
+                                                    name="status"
+                                                    value="Ausência sem Aviso"
+                                                    checked={formData.status === "Ausência sem Aviso"}
+                                                    onChange={handleChange}
+                                                    disabled={formData.status !== null}
+                                                />
+                                                <span className="text-md text-gray-600 font-medium">Ausência sem Aviso</span>
                                             </div>
                                         </fieldset>
                                     </div>
