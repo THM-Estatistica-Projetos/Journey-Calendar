@@ -263,7 +263,8 @@ function ModalAtualizar({
                                             name="profissional"
                                             value={formData.profissional}
                                             onChange={handleChange}
-                                            className="ml-3 w-fix rounded bg-slate-100 py-3 px-3"
+                                            className="ml-3 w-fix rounded bg-slate-100 py-3 px-3 opacity-50 cursor-not-allowed"
+                                            disabled="true"
                                         >
                                             {Object.entries(professionalsMap).map(([id, nome]) => (
                                                 <option key={id} value={id}>
