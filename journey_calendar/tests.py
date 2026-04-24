@@ -22,57 +22,9 @@ else:
         path=str(build_dir),
     )
 
-def addDay():
-    st.session_state.data_selecionada += timedelta(days=1)
-
-
-def removeDay():
-    st.session_state.data_selecionada -= timedelta(days=1)
-    
-    
-def addWeek():
-    st.session_state.data_selecionada += timedelta(weeks=1)
-
-
-def removeWeek():
-    st.session_state.data_selecionada -= timedelta(weeks=1)
-    
-
-if "data_selecionada" not in st.session_state:
-    st.session_state["data_selecionada"] = date.today()
-data = st.session_state["data_selecionada"]
-
-col1, col2, col3 = st.columns([1, 3, 1])
-
-with col1:
-    subcol1, subcol2 = st.columns(2)
-    with subcol1:
-        st.write("")
-        st.button(key="sem_pre", label="-1 Semana", use_container_width=True, on_click=removeWeek)
-    with subcol2:
-        st.write("")
-        st.button(key="dia_pre", label="Dia anterior", use_container_width=True, on_click=removeDay)
-
-with col2:
-    st.session_state.data = st.date_input(
-        "Selecione a data",
-        value=st.session_state.data_selecionada
-    )
-
-with col3:
-    subcol1, subcol2 = st.columns(2)
-    with subcol1:
-        st.write("")
-        st.button(key="dia_post", label="Dia posterior", use_container_width=True, on_click=addDay)
-    with subcol2:
-        st.write("")
-        st.button(key="sem_post", label="+1 Semana", use_container_width=True, on_click=addWeek)
-
-data_str = st.session_state.data_selecionada.strftime("%Y-%m-%d")
-
 st.set_page_config(layout="wide")
 
-def journey_calendar(items, containers, tipo_aluguel, patients, professionals, columns, time_slots=None, config=None, key=None, acesso="", paciente_apollo=False):
+def journey_calendar(items, containers, patients, professionals, columns, time_slots=None, config=None, key=None, acesso="", paciente_apollo=False):
     """
     items: Lista de dicionários formatados
     columns: Lista de strings ou dicts [{"id": "C1", "title": "Consultório 1"}]
@@ -85,7 +37,6 @@ def journey_calendar(items, containers, tipo_aluguel, patients, professionals, c
     return _journey_calendar(
         items=items,
         containers=containers,
-        tipo_aluguel=tipo_aluguel,
         patients=patients,
         professionals=professionals,
         columns=columns,
@@ -119,150 +70,64 @@ def format_data_for_calendar(raw_data):
         })
     return formatted
 
-professionals = [
-    {
-        "id_usuario" : 1,
-        "nome": "Tiago",
-        "papel":"medico_parceiro"
-    },
-    {
-        "id_usuario" : 2,
-        "nome": "Ronney",
-        "papel":"medico_parceiro"
-    },
-    {
-        "id_usuario" : 3,
-        "nome": "Eduardo",
-        "papel":"apollo_especial"
-    },
-    {
-        "id_usuario" : 4,
-        "nome": "Alice",
-        "papel":"apollo_especial"
-    },
+profissionais_formatados = [
+    {"id_usuario": 1, "nome": "Dr. João"},
+    {"id_usuario": 2, "nome": "Dra. Maria"},
+    {"id_usuario": 3, "nome": "Dr. Pedro"},
+    {"id_usuario": 4, "nome": "Dra. Ana"},
+    {"id_usuario": 5, "nome": "Dr. Carlos"},
 ]
 
-db_fake_raw = [
+agendamentos_formatados = [
     {
-        "id": 1,
-        "container_id": 1,
-        "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:00:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:00:00.000Z",
-        "slot": {"id_slot": 1},
-        "paciente_apollo": True,
-        "paciente": {"id_paciente": 101, "nome": "João Silva", "cor": "#2196F3"},
-        "profissional": {"usuario": {"nome": "Sei la"}},
-        "em_lote": True
+        "id": 165886,
+        "title": 2930,
+        "subtitle": 5,
+        "slotId": 5,
+        "inicio": "2026-04-01T07:00:00.000Z",
+        "fim": "2026-04-01T08:00:00.000Z",
+        "status": "Presente",
+        "cor": "#DA70D6"
     },
     {
-        "id": 2,
-        "container_id": 2,
-        "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T08:30:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T09:00:00.000Z",
-        "slot": {"id_slot": 2},
-        "paciente_apollo": False,
-        "paciente": {"id_paciente": 102, "nome": "Maria Oliveira", "cor": "#2196F3"},
-        "profissional": {"usuario": {"nome": "Dr. Carlos"}},
-        "em_lote": True
+        "id": 165887,
+        "title": 2931,
+        "subtitle": 2,
+        "slotId": 3,
+        "inicio": "2026-04-01T08:00:00.000Z",
+        "fim": "2026-04-01T09:30:00.000Z",
+        "status": "Cancelado",
+        "cor": "#FF6B6B"
     },
     {
-        "id": 3,
-        "container_id": 3,
-        "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:00:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T10:30:00.000Z",
-        "slot": {"id_slot": 1},
-        "paciente_apollo": False,
-        "paciente": {"id_paciente": 103, "nome": "Pedro Santos", "cor": "#2196F3"},
-        "profissional": {"usuario": {"nome": "Dra. Ana"}}
+        "id": 165888,
+        "title": 2932,
+        "subtitle": 1,
+        "slotId": 1,
+        "inicio": "2026-04-01T09:30:00.000Z",
+        "fim": "2026-04-01T10:30:00.000Z",
+        "status": "Ausência sem Aviso",
+        "cor": "#FFA500"
     },
     {
-        "id": 4,
-        "container_id": 4,
-        "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:30:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
-        "slot": {"id_slot": 2},
-        "paciente_apollo": True,
-        "em_lote": True,
-        "paciente": {"id_paciente": 104, "nome": "Fernanda Costa", "cor": "#172531"},
-        "profissional": {"usuario": {"nome": "Dr. Paulo"}}
+        "id": 165889,
+        "title": 2933,
+        "subtitle": 4,
+        "slotId": 2,
+        "inicio": "2026-04-01T10:30:00.000Z",
+        "fim": "2026-04-01T12:00:00.000Z",
+        "status": None,
+        "cor": "#4CAF50"
     },
     {
-        "id": 5,
-        "container_id": 5,
-        "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T13:30:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T18:00:00.000Z",
-        "slot": {"id_slot": 3},
-        "paciente_apollo": False,
-        "paciente": {"id_paciente": 105, "nome": "Eduardo Paiva", "cor": "#172531"},
-        "profissional": {"usuario": {"nome": "Dr. Paulo"}}
-    },
-    {
-        "id": 6,
-        "container_id": 6,
-        "inicio": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:00:00.000Z",
-        "fim": f"{st.session_state.data.strftime('%Y-%m-%d')}T16:30:00.000Z",
-        "slot": {"id_slot": 4},
-        "paciente_apollo": True,
-        "paciente": {"id_paciente": 106, "nome": "Juliana Rocha", "cor": "#172531"},
-        "profissional": {"usuario": {"nome": "Tiago"}},
-        "em_lote": True
-    }
-]
-
-containers = [
-    {
-        "id": 1,
-        "inicio": f"{data_str}T08:00:00.000Z",
-        "fim": f"{data_str}T12:00:00.000Z",
-        "slot": "1",
-        "tipo_aluguel": "Sala cheia",
-        "data_locacao": data_str,
-        "profissional": "Tiago",
-        "em_lote": False,
-        "color": "#ff9100"
-    },
-    {
-        "id": 2,
-        "inicio": f"{data_str}T09:30:00.000Z",
-        "fim": f"{data_str}T11:30:00.000Z",
-        "slot": "2",
-        "tipo_aluguel": "Período manhã",
-        "profissional": "Ronney",
-        "data_locacao": data_str,
-        "em_lote": False,
-        "color": "#cbd5f5"
-    },
-    {
-        "id": 3,
-        "inicio": f"{data_str}T13:00:00.000Z",
-        "fim": f"{data_str}T18:00:00.000Z",
-        "slot": "3",
-        "tipo_aluguel": "Período tarde",
-        "profissional": "Eduardo",
-        "data_locacao": data_str,
-        "em_lote": True,
-        "color": "#bbf7d0"
-    },
-    {
-        "id": 4,
-        "inicio": f"{data_str}T07:00:00.000Z",
-        "fim": f"{data_str}T19:00:00.000Z",
-        "slot": "4",
-        "tipo_aluguel": "Dia inteiro",
-        "data_locacao": data_str,
-        "profissional": "Alice",
-        "em_lote": False,
-        "color": "#fde68a"
-    },
-    {
-        "id": 5,
-        "inicio": f"{data_str}T10:15:00.000Z",
-        "fim": f"{data_str}T14:45:00.000Z",
-        "slot": "5",
-        "tipo_aluguel": "Custom",
-        "profissional": "Tiago",
-        "em_lote": False,
-        "color": "#fca5a5"
+        "id": 165890,
+        "title": 2934,
+        "subtitle": 3,
+        "slotId": 4,
+        "inicio": "2026-04-01T13:00:00.000Z",
+        "fim": "2026-04-01T14:00:00.000Z",
+        "status": "Presente",
+        "cor": "#2196F3"
     }
 ]
 
@@ -277,17 +142,34 @@ tipo_aluguel = [
 	}
 ]
 
-patients = [
-    {
-        "id_paciente": item["paciente"].get("id_paciente"),
-        "nome": item["paciente"].get("nome"),
-        "paciente_apollo": item.get("paciente_apollo", item["paciente"].get("paciente_apollo", False))
-    }
-    for item in db_fake_raw
+pacientes_formatados = [
+    {"id": 2930, "nome": "Paciente 2930", "cpf": "000", "paciente_apollo": False},
+    {"id": 2931, "nome": "Paciente 2931", "cpf": "000", "paciente_apollo": False},
+    {"id": 2932, "nome": "Paciente 2932", "cpf": "000", "paciente_apollo": False},
+    {"id": 2933, "nome": "Paciente 2933", "cpf": "000", "paciente_apollo": False},
+    {"id": 2934, "nome": "Paciente 2934", "cpf": "000", "paciente_apollo": False},
 ]
 
-items = format_data_for_calendar(db_fake_raw)
-headers = [{"id_slot": f"{i}", "nome": f"Consultório {i}", "sigla": f"C{i}"} for i in range(1, 30)]
+slots_formatados = [
+    {"slotId": 1, "nome": "Sala 1", "sigla": "S1"},
+    {"slotId": 2, "nome": "Sala 2", "sigla": "S2"},
+    {"slotId": 3, "nome": "Sala 3", "sigla": "S3"},
+    {"slotId": 4, "nome": "Sala 4", "sigla": "S4"},
+    {"slotId": 5, "nome": "Sala 5", "sigla": "S5"},
+    {"slotId": 6, "nome": "Sala 6", "sigla": "S6"},
+    {"slotId": 7, "nome": "Sala 7", "sigla": "S7"},
+    {"slotId": 8, "nome": "Sala 8", "sigla": "S8"},
+    {"slotId": 9, "nome": "Sala 9", "sigla": "S9"},
+    {"slotId": 10, "nome": "Sala 10", "sigla": "S10"},
+    {"slotId": 11, "nome": "Sala 11", "sigla": "S11"},
+    {"slotId": 12, "nome": "Sala 12", "sigla": "S12"},
+    {"slotId": 13, "nome": "Sala 13", "sigla": "S13"},
+    {"slotId": 14, "nome": "Sala 14", "sigla": "S14"},
+    {"slotId": 15, "nome": "Sala 15", "sigla": "S15"},
+    {"slotId": 16, "nome": "Sala 16", "sigla": "S16"},
+    {"slotId": 17, "nome": "Sala 17", "sigla": "S17"},
+    {"slotId": 18, "nome": "Sala 18", "sigla": "S18"},
+]
 
 today = st.session_state.data
 start_week = today - timedelta(days=(today.weekday() + 1) % 7)
@@ -323,24 +205,25 @@ for i in range(7):
 #    acesso="Medico"
 #)
 
-resultado = journey_calendar(
-    items=items,
-    containers=containers,
-    tipo_aluguel=tipo_aluguel,
-    patients=patients,
-    professionals=professionals,
-    columns=headers,
+retorno = journey_calendar(
+    items=agendamentos_formatados,
+    containers=[],
+    patients=pacientes_formatados,
+    professionals=profissionais_formatados,
+    columns=slots_formatados,
     config={
         "primaryKey": "id",
-        "columnKey": "columnId",
-        "timeKey": "startTime",
-        "endTime": "endTime",
-        "colorKey": "color",
+        "titleKey": "title",
+        "subtitleKey": "subtitle",
+        "columnKey": "slotId",
+        "timeKey": "inicio",
+        "endKey": "fim",
+        "colorKey": "cor",
         "showToggle": True,
-        "pageSize": 5
+        "pageSize": 10
     },
-    key="2",
+    key="apollo_calendar",
     acesso="Admin"
 )
 
-st.write(resultado)
+st.write(retorno)
