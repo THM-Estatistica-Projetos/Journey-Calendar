@@ -49,6 +49,7 @@ function ModalFiltros({
 
                                     <div className="flex gap-2 flex-wrap">
                                         {[
+                                            { key: "agendado", label: "📅 Agendado" },
                                             { key: "presente", label: "✅ Presente" },
                                             { key: "cancelado", label: "❌ Cancelado" },
                                             { key: "ausencia", label: "⚠️ Ausência" },
@@ -87,6 +88,7 @@ function ModalFiltros({
 
                                     <div className="flex gap-2 flex-wrap">
                                         {[
+                                            { key: "agendado", label: "📅 Agendado" },
                                             { key: "presente", label: "✅ Presente" },
                                             { key: "cancelado", label: "❌ Cancelado" },
                                             { key: "ausencia", label: "⚠️ Ausência" },

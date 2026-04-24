@@ -36,11 +36,13 @@ function CalendarioAdmin({ args }) {
     const [isMinimalist, setIsMinimalist] = useState(false)
     const [isPaginationEnabled, setIsPaginationEnabled] = useState(false)
     const [emojiVisibility, setEmojiVisibility] = useState({
+        agendado: true,
         presente: true,
         cancelado: true,
         ausencia: true,
     })
     const [itemVisibility, setItemVisibility] = useState({
+        agendado: true,
         presente: true,
         cancelado: true,
         ausencia: true,
@@ -132,6 +134,7 @@ function CalendarioAdmin({ args }) {
         const getStatusType = (status) => {
             const s = (status || "").toLowerCase().trim()
 
+            if (s === "") return "agendado"
             if (s === "cancelado") return "cancelado"
             if (["ausência", "ausencia", "sem aviso"].some(t => s.includes(t))) return "ausencia"
             if (s === "presente") return "presente"
@@ -168,20 +171,6 @@ function CalendarioAdmin({ args }) {
 
         return map
     }, [filteredItems, config])
-
-    const containerGrid = useMemo(() => {
-        const map = {}
-
-        containers.forEach(container => {
-            const timeKey = getHourSlot(container.inicio)
-            const key = `${container.slot}-${timeKey}`
-
-            if (!map[key]) map[key] = []
-            map[key].push(container)
-        })
-
-        return map
-    }, [containers])
 
     const handleEventClick = (item) => {
         console.log(item)
@@ -351,6 +340,7 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
     const getStatusEmoji = (status) => {
         const s = (status || "").toLowerCase().trim()
 
+        if (s === "") return "📅 "
         if (s === "cancelado") return "❌ "
         if (["ausência", "ausencia", "sem aviso"].some(t => s.includes(t))) return "⚠️ "
         if (s === "presente") return "✅ "
@@ -361,6 +351,7 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
     const getStatusType = (status) => {
         const s = (status || "").toLowerCase().trim()
 
+        if (s === "") return "agendado"
         if (s === "cancelado") return "cancelado"
         if (["ausência", "ausencia", "sem aviso"].some(t => s.includes(t))) return "ausencia"
         if (s === "presente") return "presente"
@@ -422,11 +413,11 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
 
     return (
         <>
-            {item.paciente_apollo === true ? (
+            {/*item.paciente_apollo === true ? (
                 <div className={`w-7 px-1 flex items-center bg-[${color}] rounded mt-[${calculateOffset()}px]`}>
                     <img src={Logo} alt="Logo" className="bg-white rounded-full" />
                 </div>
-            ) : null}
+            ) : null*/}
             {height < 62 ? (
                 <div onClick={() => onClickEvent(item)}
                     style={style}
@@ -474,9 +465,6 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
                             {professionalName}
                         </div>
                     )}
-                    <div className="text-[10px] text-slate-500 italic truncate">
-                        {item.paciente_apollo ? 'Apollo' : 'Particular'}
-                    </div>
                 </div>
             )}
             {isExpanded ? (
@@ -496,9 +484,6 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
                             {professionalName}
                         </div>
                     )}
-                    <div className={`text-[10px] ${isMinimalist ? "text-slate-500" : "text-white"} italic truncate`}>
-                        {item.paciente_apollo ? 'Apollo' : 'Particular'}
-                    </div>
                 </div>
             ) : (<></>)}
         </>

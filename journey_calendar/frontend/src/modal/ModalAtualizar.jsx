@@ -336,7 +336,7 @@ function ModalAtualizar({
                                                     onChange={handleChange}
                                                     disabled={isStatusDisabled("Cancelado")}
                                                 />
-                                                <span>Presente</span>
+                                                <span>Cancelado</span>
                                             </div>
                                             <div className={`flex gap-1 ${getStatusClass("Ausência sem Aviso")}`}>
                                                 <input
@@ -347,11 +347,11 @@ function ModalAtualizar({
                                                     onChange={handleChange}
                                                     disabled={isStatusDisabled("Ausência sem Aviso")}
                                                 />
-                                                <span>Presente</span>
+                                                <span>Ausência sem Aviso</span>
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div className="flex gap-1 flex-col w-fix">
+                                    {/*<div className="flex gap-1 flex-col w-fix">
                                         <span className="text-xl text-gray-600 font-medium">Paciente Apollo?</span>
                                         <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3">
                                             <div className="flex gap-1 w-fix">
@@ -375,7 +375,7 @@ function ModalAtualizar({
                                                 <span className="text-md text-gray-600 font-medium">Não</span>
                                             </div>
                                         </fieldset>
-                                    </div>
+                                    </div>*/}
                                 </div>
 
                                 <div className="w-full flex gap-3">
