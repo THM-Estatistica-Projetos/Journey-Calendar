@@ -11,6 +11,8 @@ function ModalFiltros({
     setEmojiVisibility,
     itemVisibility,
     setItemVisibility,
+    columnsSize,
+    setColumnsSize,
     columns,
     pageSize,
 }) {
@@ -40,6 +42,8 @@ function ModalFiltros({
                                         <p className="font-semibold text-slate-600" >{isPaginationEnabled ? "Paginação Ativada" : "Paginação Desativada"}</p>
                                     </div>
                                     {isPaginationEnabled && (
+                                        <>
+                                        <p className="font-semibold text-slate-600">Quantidade de colunas por página</p>
                                         <div className="flex items-center gap-3 w-full">
                                             <input
                                                 type="range"
@@ -54,9 +58,26 @@ function ModalFiltros({
                                                 {pageSize}
                                             </span>
                                         </div>
+                                        </>
                                     )}
                                 </div>
+                                <div className="flex flex-col gap-3 mt-4">
+                                    <p className="font-semibold text-slate-600">Tamanho da coluna</p>
+                                    <div className="flex items-center gap-3 w-full">
+                                            <input
+                                                type="range"
+                                                min="100"
+                                                max="350"
+                                                value={columnsSize}
+                                                onChange={(e) => setColumnsSize(Number(e.target.value))}
+                                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-700 [&::-webkit-slider-thumb]:hover:scale-110 [&::-webkit-slider-thumb]:transition [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-700 [&::-moz-range-thumb]:border-none"
+                                            />
 
+                                            <span className="text-sm text-gray-700 w-8 text-center">
+                                                {columnsSize}
+                                            </span>
+                                        </div>
+                                </div>
                                 <div className="flex flex-col gap-3 mt-4">
                                     <p className="font-semibold text-slate-600">Mostrar agendamentos</p>
 

@@ -171,20 +171,9 @@ slots_formatados = [
     {"slotId": 18, "nome": "Sala 18", "sigla": "S18"},
 ]
 
-today = st.session_state.data
-start_week = today - timedelta(days=(today.weekday() + 1) % 7)
-
 headers_medico = []
 
 dias = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"]
-
-for i in range(7):
-    d = start_week + timedelta(days=i)
-
-    headers_medico.append({
-        "date": d.strftime("%Y-%m-%d"),
-        "label": f"{dias[i]} {d.day}"
-    })
 
 #paciente_apollo_default = st.toggle("Paciente Apollo padrao?", value=False)
 

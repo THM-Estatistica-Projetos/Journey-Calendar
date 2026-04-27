@@ -57,6 +57,8 @@ function CalendarioAdmin({ args }) {
     const [pageSize, setPageSize] = useState(config.pageSize)
     const [currentPage, setCurrentPage] = useState(0)
 
+    const [columnsSize, setColumnsSize] = useState(120)
+
     const [selectedEvent, setSelectedEvent] = useState({})
 
     const effectivePageSize = isPaginationEnabled
@@ -234,7 +236,7 @@ function CalendarioAdmin({ args }) {
                 </button>
             </div>) : null}
 
-            <div className="w-full overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
+            <div className="w-full overflow-x-scroll bg-white rounded-xl shadow-sm border border-slate-200">
                 <table className="table-auto min-w-full border-collapse" key={`table-${currentPage}`}>
                     <thead>
                         <tr className="bg-slate-50 border-b border-slate-200">
@@ -243,7 +245,7 @@ function CalendarioAdmin({ args }) {
                             </th>
                             {paginatedColumns.map((col) => (
 
-                                <th key={`${col.id_slot}-${currentPage}`} className="p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap">
+                                <th key={`${col.id_slot}-${currentPage}`} className={`min-w-[${columnsSize}px] p-4 text-sm font-bold text-slate-700 border-r border-slate-200 text-left whitespace-nowrap`}>
                                     {col.sigla}
                                 </th>
                             ))}
@@ -321,6 +323,8 @@ function CalendarioAdmin({ args }) {
                 setPageSize={setPageSize}
                 itemVisibility={itemVisibility}
                 setItemVisibility={setItemVisibility}
+                columnsSize={columnsSize}
+                setColumnsSize={setColumnsSize}
             />
         </div>
     )
