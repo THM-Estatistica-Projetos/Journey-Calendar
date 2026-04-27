@@ -364,10 +364,10 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
         !statusType || emojiVisibility[statusType]
 
     const calculateHeight = () => {
-        if (!item[config.timeKey] || !item[config.endTime]) return slotHeight - 8
+        if (!item[config.timeKey] || !item[config.endKey]) return slotHeight - 8
 
         const start = new Date(item[config.timeKey])
-        const end = new Date(item[config.endTime])
+        const end = new Date(item[config.endKey])
         const durationInMinutes = (end - start) / (1000 * 60)
 
         const height = (durationInMinutes / 60) * slotHeight
@@ -423,7 +423,7 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
             >
                 <div className="flex justify-between w-full">
                     <div className="text-[10px] font-bold text-slate-500 mb-1">
-                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                        {formatTime(item[config.timeKey])} - {formatTime(item[config.endKey])}
                     </div>
 
                     <MdOutlineExpandMore
@@ -449,7 +449,7 @@ const EventCard = ({ item, isMinimalist, config, onClickEvent, emojiVisibility, 
                 <div style={styleHover} className={`absolute rounded min-w-[200px] w-full translate-y-[${offset}px] p-2`}>
                     <div className="flex justify-between w-full">
                         <div className={`text-[10px] font-bold ${isMinimalist ? "text-slate-500" : "text-white"} mb-1`}>
-                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endTime])}
+                            {formatTime(item[config.timeKey])} - {formatTime(item[config.endKey])}
                         </div>
                     </div>
                     <div className="text-xs font-semibold text-slate-800 line-clamp-1 rounded bg-white opacity-80 p-2">
