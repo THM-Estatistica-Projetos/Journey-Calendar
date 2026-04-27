@@ -372,7 +372,7 @@ function ModalAtualizar({
                                     </div>
                                     <div className="flex gap-1 flex-col w-fix">
                                         <span className="text-xl text-gray-600 font-medium">Tipo</span>
-                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3 justify-around">
+                                        <fieldset className={`flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3 justify-around ${formData.em_lote ? "opacity-50" : ""}`}>
                                             <div className="flex gap-1">
                                                 <input
                                                     type="radio"
@@ -380,6 +380,7 @@ function ModalAtualizar({
                                                     value="SESSAO"
                                                     checked={formData.type === "SESSAO" || formData.type === null}
                                                     onChange={handleChange}
+                                                    disabled={formData.em_lote}
                                                 />
                                                 <span>Sessão comum</span>
                                             </div>
@@ -390,6 +391,7 @@ function ModalAtualizar({
                                                     value="AVALIACAO_INICIAL"
                                                     checked={formData.type === "AVALIACAO_INICIAL"}
                                                     onChange={handleChange}
+                                                    disabled={formData.em_lote}
                                                 />
                                                 <span>Avaliação Inicial</span>
                                             </div>
@@ -400,6 +402,7 @@ function ModalAtualizar({
                                                     value="REAVALIACAO"
                                                     checked={formData.type === "REAVALIACAO"}
                                                     onChange={handleChange}
+                                                    disabled={formData.em_lote}
                                                 />
                                                 <span>Reavaliação</span>
                                             </div>
