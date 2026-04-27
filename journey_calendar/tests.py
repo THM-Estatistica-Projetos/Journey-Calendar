@@ -125,7 +125,7 @@ agendamentos_formatados = [
         "status": None,
         "cor": "#4CAF50",
         "tipo": "SESSAO",
-        "em_lote": True
+        "em_lote": False
     },
     {
         "id": 165890,
@@ -137,7 +137,7 @@ agendamentos_formatados = [
         "status": "Presente",
         "cor": "#2196F3",
         "tipo": "REAVALIACAO",
-        "em_lote": True
+        "em_lote": False
     }
 ]
 
