@@ -232,6 +232,19 @@ function ModalAtualizar({
                                             </div>
                                         </fieldset>
                                     </div>
+                                    {item.em_lote === true && formData.em_lote === false ? (
+                                        <div className="flex w-full gap-3 rounded overflow-hidden mt-1">
+
+                                            <div className="bg-orange-400 flex items-center justify-center px-2">
+                                                <span className="text-2xl">⚠️</span>
+                                            </div>
+
+                                            <div className="bg-orange-300 font-medium p-3 text-gray-800 flex items-center">
+                                                Atenção! Esse agendamento pertence a um lote, se ele for atualizado unitariamente ele sairá do lote ao qual pertence e passará a ser único
+                                            </div>
+
+                                        </div>
+                                    ) : null}
                                     <div className="flex gap-1 flex-col">
                                         <span className="text-xl text-gray-600 font-medium">Paciente</span>
                                         <select

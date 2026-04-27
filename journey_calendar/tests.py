@@ -88,7 +88,8 @@ agendamentos_formatados = [
         "fim": "2026-04-01T08:00:00.000Z",
         "status": "Presente",
         "cor": "#DA70D6",
-        "tipo": "SESSAO"
+        "tipo": "SESSAO",
+        "em_lote": True
     },
     {
         "id": 165887,
@@ -99,7 +100,8 @@ agendamentos_formatados = [
         "fim": "2026-04-01T09:30:00.000Z",
         "status": "Cancelado",
         "cor": "#FF6B6B",
-        "tipo": "SESSAO"
+        "tipo": "SESSAO",
+        "em_lote": True
     },
     {
         "id": 165888,
@@ -110,7 +112,8 @@ agendamentos_formatados = [
         "fim": "2026-04-01T10:30:00.000Z",
         "status": "Ausência sem Aviso",
         "cor": "#FFA500",
-        "tipo": "AVALIACAO_INICIAL"
+        "tipo": "AVALIACAO_INICIAL",
+        "em_lote": True
     },
     {
         "id": 165889,
@@ -121,7 +124,8 @@ agendamentos_formatados = [
         "fim": "2026-04-01T12:00:00.000Z",
         "status": None,
         "cor": "#4CAF50",
-        "tipo": "SESSAO"
+        "tipo": "SESSAO",
+        "em_lote": True
     },
     {
         "id": 165890,
@@ -132,7 +136,8 @@ agendamentos_formatados = [
         "fim": "2026-04-01T14:00:00.000Z",
         "status": "Presente",
         "cor": "#2196F3",
-        "tipo": "REAVALIACAO"
+        "tipo": "REAVALIACAO",
+        "em_lote": True
     }
 ]
 
