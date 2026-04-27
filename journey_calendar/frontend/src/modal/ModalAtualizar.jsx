@@ -93,6 +93,7 @@ function ModalAtualizar({
         inicio: "",
         fim: "",
         status: "",
+        type: "",
         paciente_apollo: ""
     })
 
@@ -109,6 +110,7 @@ function ModalAtualizar({
             const start = new Date(item[timeKey])
 
             const initialStatus = item.status ?? null
+            const initialType = item.tipo ?? null
 
             setFormData({
                 operacao: "Update",
@@ -120,6 +122,7 @@ function ModalAtualizar({
                 inicio: item[timeKey]?.slice(11, 16),
                 fim: item[endKey]?.slice(11, 16),
                 status: initialStatus,
+                type: initialType,
                 paciente_apollo: item.paciente_apollo || false,
                 em_lote: item.em_lote || false
             })
@@ -135,6 +138,8 @@ function ModalAtualizar({
 
         if (name === "status") {
             parsedValue = value === "null" ? null : value
+        } else if (name === "typo") {
+            parsedValue = value === "null" ? "SESSAO" : value
         } else if (name === "paciente_apollo" || name === "em_lote") {
             parsedValue = value === "true"
         }
@@ -158,6 +163,7 @@ function ModalAtualizar({
             inicio_hora: formData.inicio,
             fim_hora: formData.fim,
             status: formData.status,
+            type: formData.type,
             paciente_apollo: formData.paciente_apollo,
             em_lote: formData.em_lote
         })
@@ -346,6 +352,41 @@ function ModalAtualizar({
                                                     disabled={isStatusDisabled("Ausência sem Aviso")}
                                                 />
                                                 <span>Ausência sem Aviso</span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div className="flex gap-1 flex-col w-fix">
+                                        <span className="text-xl text-gray-600 font-medium">Tipo</span>
+                                        <fieldset className="flex w-fix gap-6 ml-3 w-fix rounded focus:outline-none p-2 bg-slate-100 py-3 px-3 justify-around">
+                                            <div className="flex gap-1">
+                                                <input
+                                                    type="radio"
+                                                    name="type"
+                                                    value="SESSAO"
+                                                    checked={formData.type === "SESSAO" || formData.type === null}
+                                                    onChange={handleChange}
+                                                />
+                                                <span>Sessão comum</span>
+                                            </div>
+                                            <div className="flex gap-1">
+                                                <input
+                                                    type="radio"
+                                                    name="type"
+                                                    value="AVALIACAO_INICIAL"
+                                                    checked={formData.type === "AVALIACAO_INICIAL"}
+                                                    onChange={handleChange}
+                                                />
+                                                <span>Avaliação Inicial</span>
+                                            </div>
+                                            <div className="flex gap-1">
+                                                <input
+                                                    type="radio"
+                                                    name="type"
+                                                    value="REAVALIACAO"
+                                                    checked={formData.type === "REAVALIACAO"}
+                                                    onChange={handleChange}
+                                                />
+                                                <span>Reavaliação</span>
                                             </div>
                                         </fieldset>
                                     </div>
